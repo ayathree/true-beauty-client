@@ -5,6 +5,7 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 
 import Error from "./pages/Error";
+import ProductDetails from "./pages/ProductDetails";
 
 
 
@@ -27,6 +28,10 @@ const router = createBrowserRouter([
             {
                 path:'/register',
                 element:<Register></Register>
+            },
+            {
+                path:'/product/:id',
+                element:<ProductDetails></ProductDetails>,
             },
             
         ]
