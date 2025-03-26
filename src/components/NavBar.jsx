@@ -9,18 +9,26 @@ const NavBar = () => {
       <div className="navbar bg-base-100">
       <div className="flex-1">
         <img src={logo} className='h-[100px] w-[150px]' alt="" />
+        <h1 className='capitalize font-semibold text-2xl'>True beauty</h1>
         
       </div>
       <div className="mr-4">
         <ul className="flex flex-row gap-5 ">
           <Link to={'/'}><li>Home</li></Link>
+          <Link to={'/'}><li>Shope</li></Link>
+          <Link to={'/'}><li>About Us</li></Link>
+          <Link to={'/'}><li>Contact Us</li></Link>
+
          {
           !user &&  <Link to={'/login'}><li>Login</li></Link>
+          
          }
         </ul>
       </div>
      {
-      user &&  <div className="dropdown dropdown-end">
+      user &&  <div className='flex flex-row gap-5'>
+        <Link to={'/'}>Dashboard</Link>
+        <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
           <img referrerPolicy='no-referrer' alt="Tailwind CSS Navbar component" src={user.photoURL} />
@@ -40,6 +48,10 @@ const NavBar = () => {
         <li><a onClick={loggedOut}>Logout</a></li>
       </ul>
     </div>
+    
+      </div>
+    
+    
      }
     </div>
     );
