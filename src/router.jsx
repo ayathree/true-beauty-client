@@ -12,6 +12,7 @@ import UpdateProducts from "./pages/admin/UpdateProducts";
 import PrivateRoute from "./provider/PrivateRoute";
 import MyOrder from "./pages/user/MyOrder";
 import ManageOrder from "./pages/admin/ManageOrder";
+import UpdateOrder from "./pages/user/UpdateOrder";
 
 
 
@@ -60,7 +61,14 @@ const router = createBrowserRouter([
             {
                 path:'/manageOrder',
                 element:<PrivateRoute><ManageOrder></ManageOrder></PrivateRoute>
-            }
+            },
+            {
+            
+                    path:'/updateOrder/:id',
+                    element:<PrivateRoute><UpdateOrder></UpdateOrder></PrivateRoute>,
+                    loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/orderData/${params.id}`)
+                
+            },
             
         ]
     }
