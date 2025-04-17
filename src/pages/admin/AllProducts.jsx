@@ -47,9 +47,16 @@ const AllProducts = () => {
                                     </div>
                                 </th>
 
-                                <th scope="col" className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                     <button className="flex items-center gap-x-2">
                                         <span>Product Name</span>
+
+                                        
+                                    </button>
+                                </th>
+                                <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                                    <button className="flex items-center gap-x-2">
+                                        <span>Brand</span>
 
                                         
                                     </button>
@@ -88,8 +95,9 @@ const AllProducts = () => {
                                     </div>
                                 </td>
                                 <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{product.productName}</td>
+                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{product.brand}</td>
                                 
-                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">${product.price}</td>
+                                <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{product.price} BDT</td>
                                 <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{product.description}</td>
                                 <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{product.category}</td>
                                 <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{product.deadline}</td>

@@ -15,7 +15,7 @@ const NavBar = () => {
       <div className="mr-4">
         <ul className="flex flex-row gap-5 ">
           <Link to={'/'}><li>Home</li></Link>
-          <Link to={'/'}><li>Shope</li></Link>
+          <Link to={'/'}><li>Shop</li></Link>
           <Link to={'/'}><li>About Us</li></Link>
           <Link to={'/'}><li>Contact Us</li></Link>
 
@@ -35,7 +35,7 @@ const NavBar = () => {
         </div>
       </div>
       <ul tabIndex={0} className="mt-3 z-[10] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
-        <Link to={''}><li>
+        <Link to={'/myOrder'}><li>
           <a >
            My Order
            
@@ -44,7 +44,7 @@ const NavBar = () => {
         <Link to={''}><li><a>Wish List</a></li></Link>
        <Link to={''}> <li><a>My Cart</a></li></Link>
        <Link to={'/manageProducts'}> <li><a>Manage Product</a></li></Link>
-       <Link to={''}> <li><a>Manage Orders</a></li></Link>
+       <Link to={'/manageOrder'}> <li><a>Manage Orders</a></li></Link>
        <Link to={''}> <li><a>My Cart</a></li></Link>
        
        

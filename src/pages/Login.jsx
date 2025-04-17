@@ -1,19 +1,27 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from '../assets/truebeauty_16-removebg-preview.png'
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 
 
 const Login = () => {
-  const {signIn, google}= useContext(AuthContext)
   const navigate = useNavigate()
+   const location = useLocation()
+  const {signIn, google, user, loading}= useContext(AuthContext)
+  useEffect(()=>{
+    if(user){
+      navigate('/')
+    }
+  },[navigate, user])
+   const from = location.state || '/' 
 
   const handleGoogleLogin= async()=>{
     try{
       await google()
       toast.success('Sign In successfully')
-      navigate('/')
+      navigate(from, {replace: true})
+
     }
     catch (err){
       console.log(err)
@@ -33,7 +41,7 @@ const Login = () => {
     try{
       const result = await signIn(email,password)
       console.log(result)
-      navigate('/')
+      navigate(from, {replace: true})
       toast.success('Sign In successfully'  )
 
 
@@ -45,6 +53,7 @@ const Login = () => {
     }
 
   }
+  if (user || loading) return
     return (
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl min-h-[calc(100vh-306px)] my-12">
       <div className="hidden bg-cover lg:block lg:w-1/2"

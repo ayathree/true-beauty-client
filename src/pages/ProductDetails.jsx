@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 
-import { useLoaderData } from "react-router-dom";
+import { useLoaderData, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../provider/AuthProvider";
 import DatePicker from "react-datepicker";
@@ -12,11 +12,12 @@ import toast from "react-hot-toast";
 
 const ProductDetails = () => {
     const productData=useLoaderData()
+    const navigate = useNavigate()
     const {user} = useContext(AuthContext)
     const [startDate, setStartDate] = useState(new Date());
 
     const {
-        _id, productName, category, price,description,imageUrl, deadline, adminEmail
+        _id, productName, category, price,description,imageUrl, brand, deadline, adminEmail
 
     }=productData || {}
 
@@ -34,8 +35,10 @@ const ProductDetails = () => {
 
         
         const customerEmail = user?.email;
+        const ownerEmail = adminEmail;
         const orderDate = startDate;
         const orderedProduct = productName;
+        const orderedBrand = brand;
         const orderedPrice = price;
         const productImage = imageUrl;
         const customerImg = user?.photoURL;
@@ -43,7 +46,7 @@ const ProductDetails = () => {
        
         const status = 'Pending';
         const productData = {
-            orderedProductId,customerName,customerAddress,customerNumber, customerEmail, orderDate,orderedProduct, orderedPrice,productImage,customerImg, status
+            orderedProductId,customerName,customerAddress,customerNumber, customerEmail,ownerEmail, orderDate,orderedProduct,orderedBrand, orderedPrice,productImage,customerImg, status
         }
 
         console.table(productData)
@@ -52,6 +55,7 @@ const ProductDetails = () => {
             const {data}= await axios.post(`${import.meta.env.VITE_API_URL}/order`, productData)
             console.log(data)
             toast.success('Complete Order')
+            navigate('/myOrder')
 
         }catch(err){
             console.log(err)
@@ -65,6 +69,7 @@ const ProductDetails = () => {
             <div>
                 <p>{productName}</p>
                 <p>{description}</p>
+                <p>{brand}</p>
                 <img src={imageUrl} alt="" />
                 <p>{category}</p>
                 <p>{price}</p>

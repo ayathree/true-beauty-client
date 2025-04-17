@@ -21,9 +21,10 @@ const ManageProduct = () => {
         const description = form.description.value 
         const category = form.category.value 
         const imageUrl = form.imageUrl.value 
-        const deadline = startDate 
+        const deadline = startDate
+        const brand = form.brand.value 
         const adminEmail = user?.email
-        const productData = {productName,price,description,category,imageUrl,deadline,adminEmail}
+        const productData = {productName,price,description,category,imageUrl,deadline,brand,adminEmail}
         console.table(productData)
 
         try{
@@ -57,6 +58,10 @@ const ManageProduct = () => {
             <div>
                 <label className="text-gray-700 dark:text-gray-200" >Description</label>
                 <input name="description" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring " required/>
+            </div>
+            <div>
+                <label className="text-gray-700 dark:text-gray-200" >Brand</label>
+                <input name="brand" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring " required/>
             </div>
 
             <div>

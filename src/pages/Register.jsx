@@ -1,14 +1,21 @@
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from '../assets/truebeauty_16-removebg-preview.png'
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 
 
 
 const Register = () => {
-    const{ createUser,updateUser, user, setUser}= useContext(AuthContext)
     const navigate = useNavigate()
+     const location = useLocation()
+       const from = location.state || '/' 
+    const{ createUser,updateUser, user, setUser, loading}= useContext(AuthContext)
+    useEffect(()=>{
+        if(user){
+          navigate('/')
+        }
+      },[navigate, user])
     const handleRegister =async e=>{
         e.preventDefault();
         const form = e.target
@@ -27,7 +34,7 @@ const Register = () => {
           
         
         setUser({ ...user, photoURL:photo, displayName:name })
-            navigate('/')
+            navigate(from, {replace: true})
             toast.success('Sign In successfully'  )
     
     
@@ -39,6 +46,7 @@ const Register = () => {
         }
     
       }
+      if (user || loading) return
     return (
         <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl  min-h-[calc(100vh-306px)] my-12">
       <div className="hidden bg-cover lg:block lg:w-1/2"
