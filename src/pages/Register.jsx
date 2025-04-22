@@ -3,6 +3,7 @@ import logo from '../assets/truebeauty_16-removebg-preview.png'
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 
 
@@ -32,8 +33,13 @@ const Register = () => {
           form.reset();
           await updateUser(name, photo)
           
-        
-        setUser({ ...user, photoURL:photo, displayName:name })
+        // optimistic update
+        setUser({ ...result?.user, photoURL:photo, displayName:name })
+        console.log(result.user)
+      const {data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{
+        email :result?.user?.email,
+    }, {withCredentials: true})
+      console.log(data)
             navigate(from, {replace: true})
             toast.success('Sign In successfully'  )
     

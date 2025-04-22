@@ -1,25 +1,30 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../provider/AuthProvider";
-import axios from "axios";
+import { useEffect, useState } from "react";
+// import { AuthContext } from "../../provider/AuthProvider";
+// import axios from "axios";
 import { Link } from "react-router-dom";
 import toast from "react-hot-toast";
+import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const MyOrder = () => {
-    const {user}=useContext(AuthContext)
+    const {user}=useAuth()
+    const axiosSecure=useAxiosSecure()
     const [orders, setOrders]=useState([])
     useEffect(()=>{
         getData()
     },[user])
     const getData = async ()=>{
-        const{data}= await axios(`${import.meta.env.VITE_API_URL}/order/${user?.email}`)
+        const{data}= await axiosSecure(`/order/${user?.email}`,
+           
+        )
         setOrders(data)
     }
 
     const handleDelete = async ( id)=>{
         try {
-            const {data} = await axios.delete(
-                `${import.meta.env.VITE_API_URL}/orderData/${id}`
+            const {data} = await axiosSecure.delete(
+                `/orderData/${id}`
             )
             console.log(data)
             getData()

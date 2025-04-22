@@ -1,27 +1,69 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../provider/AuthProvider";
-import axios from "axios";
+// import {  useEffect, useState } from "react";
+// import { AuthContext } from "../../provider/AuthProvider";
+// import axios from "axios";
 import { TiTick } from "react-icons/ti";
 import { MdOutlineDisabledByDefault } from "react-icons/md";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
+import toast from "react-hot-toast";
 
 
 
 const ManageOrder = () => {
-     const {user}=useContext(AuthContext)
-        const [orders, setOrders]=useState([])
-        useEffect(()=>{
-            getData()
-        },[user])
+     const {user}=useAuth()
+     const axiosSecure=useAxiosSecure()
+    //  tanstack query for get data
+     const {data: orders=[],
+         isLoading,
+         refetch,
+         isError,
+         error}=useQuery({
+        queryFn:()=>getData(),
+        queryKey:['orders', user?.email],
+     })
+     console.log(orders)
+     console.log(isLoading);
+    
+        // const [orders, setOrders]=useState([])
+        // useEffect(()=>{
+        //     getData()
+        // },[user])
+
         const getData = async ()=>{
-            const{data}= await axios(`${import.meta.env.VITE_API_URL}/orderAdmin/${user?.email}`)
-            setOrders(data)
+            const{data}= await axiosSecure(`/orderAdmin/${user?.email}`,
+                
+            )
+            return data
         }
+
+        // tanstack query for update or patch
+        const {mutateAsync}=useMutation({
+            mutationFn: async({id, status})=>{
+                const {data}=await axiosSecure.patch(`/order/${id}`,{status})
+                console.log(data);
+            },
+            onSuccess:()=>{
+                console.log('data updated');
+                toast.success('updated')
+                // refresh ui after update
+                refetch()
+
+            }
+        })
+
         const handleStatus = async (id, prevStatus, status)=>{
             console.log(id, prevStatus, status)
-            const {data}=await axios.patch(`${import.meta.env.VITE_API_URL}/order/${id}`,{status})
-            console.log(data)
-            getData()
+           await mutateAsync({id, status})
 
+
+        }
+
+
+
+        if(isLoading) return <p>Data is still loading....</p>
+        if(isError || error) {
+            console.log(isError,error);
         }
     return (
         <div>

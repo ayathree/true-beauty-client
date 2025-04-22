@@ -3,6 +3,7 @@ import logo from '../assets/truebeauty_16-removebg-preview.png'
 import { useContext, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 
 const Login = () => {
@@ -18,7 +19,12 @@ const Login = () => {
 
   const handleGoogleLogin= async()=>{
     try{
-      await google()
+      const result = await google()
+      console.log(result.user)
+      const {data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{
+        email :result?.user?.email,
+    }, {withCredentials: true})
+      console.log(data)
       toast.success('Sign In successfully')
       navigate(from, {replace: true})
 
@@ -40,7 +46,11 @@ const Login = () => {
     console.log(newUser)
     try{
       const result = await signIn(email,password)
-      console.log(result)
+      console.log(result.user)
+      const {data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{
+        email :result?.user?.email,
+    }, {withCredentials: true})
+      console.log(data)
       navigate(from, {replace: true})
       toast.success('Sign In successfully'  )
 

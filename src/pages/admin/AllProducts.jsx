@@ -1,29 +1,32 @@
-import { useContext, useEffect, useState } from "react";
-import { AuthContext } from "../../provider/AuthProvider";
-import axios from "axios";
+import { useEffect, useState } from "react";
+// import { AuthContext } from "../../provider/AuthProvider";
+// import axios from "axios";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+import useAuth from "../../hooks/useAuth";
 
 
 const AllProducts = () => {
-    const {user}=useContext(AuthContext)
+    const axiosSecure = useAxiosSecure()
+    const {user}=useAuth()
     const[products, setProducts]=useState([])
     useEffect(()=>{
         getData()
     },[user])
     const getData = async()=>{
-        const {data}= await axios(`${import.meta.env.VITE_API_URL}/productsData/${user?.email}`)
+        const {data}= await axiosSecure(`/productsData/${user?.email}`)
         setProducts(data)
     }
     
     const handleDelete = async ( id)=>{
         try {
-            const {data} = await axios.delete(
-                `${import.meta.env.VITE_API_URL}/products/${id}`
+            const {data} = await axiosSecure.delete(
+                `/products/${id}`
             )
             console.log(data)
-            getData()
             toast.success('Delete Successfully')
+            getData()
         } catch(err){
             console.log(err.message)
             toast.error(err.message)

@@ -1,15 +1,16 @@
 import axios from "axios";
-import { useContext, useState } from "react";
+import {  useState } from "react";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
-import { AuthContext } from "../../provider/AuthProvider";
+// import { AuthContext } from "../../provider/AuthProvider";
 import { Link } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 
 const ManageProduct = () => {
-    const {user}= useContext(AuthContext)
+    const {user}= useAuth()
     const [startDate, setStartDate] = useState(new Date());
    
 

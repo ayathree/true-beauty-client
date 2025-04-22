@@ -1,19 +1,22 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 
 import { useLoaderData, useNavigate } from "react-router-dom";
 
-import { AuthContext } from "../provider/AuthProvider";
+// import { AuthContext } from "../provider/AuthProvider";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
-import axios from "axios";
+// import axios from "axios";
 import toast from "react-hot-toast";
+import useAuth from "../hooks/useAuth";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const ProductDetails = () => {
     const productData=useLoaderData()
     const navigate = useNavigate()
-    const {user} = useContext(AuthContext)
+    const {user} = useAuth()
+    const axiosSecure = useAxiosSecure()
     const [startDate, setStartDate] = useState(new Date());
 
     const {
@@ -52,14 +55,16 @@ const ProductDetails = () => {
         console.table(productData)
 
         try{
-            const {data}= await axios.post(`${import.meta.env.VITE_API_URL}/order`, productData)
+            const {data}= await axiosSecure.post(`/order`, productData)
             console.log(data)
             toast.success('Complete Order')
+
             navigate('/myOrder')
 
         }catch(err){
             console.log(err)
-            toast.error('Sorry There is a Problem')
+            toast.error(err.response.data)
+            e.target.reset()
         }
 
     }
