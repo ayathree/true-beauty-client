@@ -15,7 +15,7 @@ const NavBar = () => {
       <div className="mr-4">
         <ul className="flex flex-row gap-5 ">
           <Link to={'/'}><li>Home</li></Link>
-          <Link to={'/'}><li>Shop</li></Link>
+          <Link to={'/shops'}><li>Shop</li></Link>
           <Link to={'/'}><li>About Us</li></Link>
           <Link to={'/'}><li>Contact Us</li></Link>
 
