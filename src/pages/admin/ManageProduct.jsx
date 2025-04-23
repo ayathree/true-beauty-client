@@ -27,7 +27,8 @@ const ManageProduct = () => {
         const deadline = startDate
         const brand = form.brand.value 
         const adminEmail = user?.email
-        const productData = {productName,price,description,category,imageUrl,deadline,brand,adminEmail}
+        const totalOrder = 0
+        const productData = {productName,price,description,category,imageUrl,deadline,brand,adminEmail,totalOrder}
         console.table(productData)
 
         try{

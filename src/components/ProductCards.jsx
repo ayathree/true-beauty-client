@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 
 const ProductCards = ({product}) => {
-    const {_id, productName, brand, price, imageUrl}=product || {}
+    const {_id, productName, brand, price, imageUrl,totalOrder}=product || {}
     console.log(product)
 
     return (
@@ -14,6 +14,7 @@ const ProductCards = ({product}) => {
             </div>
             <h1 className="font-bold text-2xl capitalize">{productName}</h1>
             <p className="font-bold text-xl capitalize">{brand}</p>
+                <p className="font-bold text-2xl">total order:{totalOrder} </p>
             {/* <p><span className="font-bold">Category :{category}</span> </p> */}
            
             <hr className="mt-2 text-black border border-b-rose-600" />
