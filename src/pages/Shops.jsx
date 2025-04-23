@@ -8,24 +8,30 @@ const Shops = () => {
      const[itemsPerPage, setItemsPerPage]=useState(6)
      const[currentPage,setCurrentPage]=useState(1)
      const[filter,setFilter]=useState('')
+     const[sort,setSort]=useState('')
+     const[sortPrice,setSortPrice]=useState('')
+     const[filterBrand,setFilterBrand]=useState('')
+     const[search,setSearch]=useState('')
+     const[searchText,setSearchText]=useState('')
      const[count,setCount]=useState(0)
+    //  for pagination
       useEffect(()=>{
         const getData = async ()=>{
-          const {data}= await axios (`${import.meta.env.VITE_API_URL}/allData?page=${currentPage}&size=${itemsPerPage}&filter=${filter}`)
+          const {data}= await axios (`${import.meta.env.VITE_API_URL}/allData?page=${currentPage}&size=${itemsPerPage}&filter=${filter}&sort=${sort}&sortPrice=${sortPrice}&filterBrand=${filterBrand}&search=${search}`)
           setProducts(data)
           
         }
         getData()
-      },[currentPage,itemsPerPage,filter])
+      },[currentPage,itemsPerPage,filter,sort,sortPrice,filterBrand,search])
       //   for count
       useEffect(()=>{
           const getCount = async ()=>{
-              const {data}= await axios (`${import.meta.env.VITE_API_URL}/dataCount?filter=${filter}`)
+              const {data}= await axios (`${import.meta.env.VITE_API_URL}/dataCount?filter=${filter}&filterBrand=${filterBrand}&search=${search}`)
               
               setCount(data.count)
             }
             getCount()
-        },[filter])
+        },[filter,filterBrand,search])
         console.log(count);
         const numOfPages =Math.ceil(count/itemsPerPage)
       const pages = [...Array(numOfPages).keys()].map(element => element+1)
@@ -35,20 +41,37 @@ const Shops = () => {
         setCurrentPage(value)
 
     }
+    // search
+    const handleSearch=e=>{
+        e.preventDefault()
+        
+        setSearch(searchText)
+    }
+    console.log(search);
+    // reset button
+    const handleReset=()=>{
+        setFilter('')
+        setFilterBrand('')
+        setSort('')
+        setSortPrice('')
+        setSearch('')
+        setSearchText('')
+     
+    }
     return (
        <div className="mt-20 mb-10 flex flex-row gap-5 ">
          <aside className="flex flex-col  px-4 py-8  bg-white border-r-2 dark:bg-gray-900 dark:border-gray-700">
     
     <p className="capitalize font-bold">Search by name</p>
-    <div className="relative mt-6">
-        <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+    <form onSubmit={handleSearch} className="relative mt-6">
+
+        <input onChange={e=>setSearchText(e.target.value)} value={searchText} type="text" name="search" className="w-full py-2 pr-10 pl-4 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Search" />
+       <button> <span className="absolute inset-y-0 right-0 flex items-center pr-3">
             <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
                 <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
             </svg>
-        </span>
-
-        <input type="text" className="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Search" />
-    </div>
+        </span></button>
+    </form>
 
     <div className="flex flex-col justify-between flex-1 mt-6">
         <nav>
@@ -70,7 +93,8 @@ const Shops = () => {
                 </select>
                 <hr className="mt-9 border-gray-200 dark:border-gray-600" />
             <p className="my-6 capitalize font-bold">Search by Brand</p>
-            <select name="category"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
+            <select onChange={e=>{setFilterBrand(e.target.value)
+                 setCurrentPage(1)}} value={filterBrand} name="brand"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
                     <option value=""></option>
                     {[...new Set(products.map(product => product.brand))].map((brand, index) => (
                      <option key={index} value={brand}>{brand}</option>
@@ -80,18 +104,20 @@ const Shops = () => {
                 </select>
             <hr className="mt-9 border-gray-200 dark:border-gray-600" />
             <p className="my-6 capitalize font-bold">Sort by Price</p>
-            <select name="category"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
+            <select onChange={e=>{setSortPrice(e.target.value)
+                 setCurrentPage(1)}} value={sortPrice}  name="price"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
                     <option value=""></option>
-                    <option value="Skin Care">Lower To Higher</option>
-                    <option value="Hair Care">Higher To Lower</option>
+                    <option value="low">Lower To Higher</option>
+                    <option value="high">Higher To Lower</option>
                     
                 </select>
                 <hr className="mt-9 border-gray-200 dark:border-gray-600" />
             <p className="my-6 capitalize font-bold">Sort by offer deadline</p>
-            <select name="category"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
+            <select onChange={e=>{setSort(e.target.value)
+                 setCurrentPage(1)}} value={sort}  name="deadline"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
                     <option value=""></option>
-                    <option value="Skin Care">Descending Order</option>
-                    <option value="Hair Care">Ascending Order </option>
+                    <option value="dsc">Descending Order</option>
+                    <option value="asc">Ascending Order </option>
                     
                 </select>
 
@@ -110,7 +136,7 @@ const Shops = () => {
     <img className="w-screen object-cover h-[50vh]" src="https://jewelleryishi.myshopify.com/cdn/shop/products/18_bb81cf3a-3cae-46f3-a845-b815b3545706_720x.png?v=1675163888" alt="" />
     <div className="bg-red-300 p-4 mt-4 flex flex-row justify-between items-center">
         <p className="font-bold text-xl">Showing {products.length} of {count} products</p>
-        <button className="btn outline-1 capitalize">reset</button>
+        <button onClick={handleReset} className="btn outline-1 capitalize">reset</button>
     </div>
     
     

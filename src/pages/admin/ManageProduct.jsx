@@ -1,4 +1,4 @@
-import axios from "axios";
+// import axios from "axios";
 import {  useState } from "react";
 import DatePicker from "react-datepicker";
 
@@ -7,10 +7,12 @@ import toast from "react-hot-toast";
 // import { AuthContext } from "../../provider/AuthProvider";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const ManageProduct = () => {
     const {user}= useAuth()
+    const axiosSecure = useAxiosSecure()
     const [startDate, setStartDate] = useState(new Date());
    
 
@@ -29,14 +31,16 @@ const ManageProduct = () => {
         console.table(productData)
 
         try{
-            const {data} = await axios.post(
-                `${import.meta.env.VITE_API_URL}/products`, productData
+            const {data} = await axiosSecure.post(
+                `/products`, productData
             )
             console.log(data)
             toast.success('Product data added successfully')
+            e.target.reset()
             
         }catch(err){
             console.log(err)
+            e.target.reset()
         }
     }
     return (
