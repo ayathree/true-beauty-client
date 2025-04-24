@@ -14,6 +14,8 @@ import MyOrder from "./pages/user/MyOrder";
 import ManageOrder from "./pages/admin/ManageOrder";
 import UpdateOrder from "./pages/user/UpdateOrder";
 import Shops from "./pages/Shops";
+import MyCart from "./pages/user/MyCart";
+import CheckOut from "./pages/user/CheckOut";
 
 
 
@@ -58,6 +60,16 @@ const router = createBrowserRouter([
             {
                 path:'/myOrder',
                 element:<PrivateRoute><MyOrder></MyOrder></PrivateRoute>
+            },
+            {
+                path:'/myCart',
+                element:<MyCart></MyCart>
+
+            },
+            {
+                path:'/checkOut/:id',
+                element:<CheckOut></CheckOut>,
+                loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/products/${params.id}`)
             },
             {
                 path:'/manageOrder',

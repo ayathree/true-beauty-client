@@ -1,73 +1,62 @@
-import { useState } from "react";
+// import { useState } from "react";
 
-import { useLoaderData, useNavigate } from "react-router-dom";
+import {  Link, useLoaderData, useNavigate } from "react-router-dom";
 
 // import { AuthContext } from "../provider/AuthProvider";
-import DatePicker from "react-datepicker";
 
-import "react-datepicker/dist/react-datepicker.css";
 // import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
+import { BsCart } from "react-icons/bs";
+// import CheckOut from "./user/CheckOut";
 
 
 const ProductDetails = () => {
     const productData=useLoaderData()
-    const navigate = useNavigate()
-    const {user} = useAuth()
-    const axiosSecure = useAxiosSecure()
-    const [startDate, setStartDate] = useState(new Date());
-
     const {
         _id, productName, category, price,description,imageUrl, brand, deadline, adminEmail
 
     }=productData || {}
 
     console.log(productData)
-    
-
-    const handleFormSubmission = async e =>{
+    const navigate = useNavigate()
+    const {user} = useAuth()
+    const axiosSecure = useAxiosSecure()
+    const handleCart = async e =>{
         e.preventDefault()
-        if (user?.email === adminEmail) return toast.error('Action not permitted!e')
-        const form = e.target
-        const orderedProductId = _id;
-       const customerName = form.name.value;
-       const customerAddress = form.address.value;
-       const customerNumber = form.phone.value;
-
-        
-        const customerEmail = user?.email;
+        if (user?.email === adminEmail) return toast.error('Action not permitted!')
+        // const form = e.target
+        const savedProductId = _id; 
+        const saverEmail = user?.email;
         const ownerEmail = adminEmail;
-        const orderDate = startDate;
-        const orderedProduct = productName;
-        const orderedBrand = brand;
-        const orderedPrice = price;
+        const savedProduct = productName;
+        const savedBrand = brand;
+        const savedPrice = price;
         const productImage = imageUrl;
-        const customerImg = user?.photoURL;
-
-       
-        const status = 'Pending';
-        const productData = {
-            orderedProductId,customerName,customerAddress,customerNumber, customerEmail,ownerEmail, orderDate,orderedProduct,orderedBrand, orderedPrice,productImage,customerImg, status
+        const savedData = {
+            savedProductId,saverEmail,ownerEmail, savedProduct, savedBrand,savedPrice,productImage
         }
 
-        console.table(productData)
+        console.table(savedData)
 
         try{
-            const {data}= await axiosSecure.post(`/order`, productData)
+            const {data}= await axiosSecure.post(`/cart`, savedData)
             console.log(data)
-            toast.success('Complete Order')
+            toast.success('added in cart')
 
-            navigate('/myOrder')
+            navigate('/myCart')
 
         }catch(err){
             console.log(err)
             toast.error(err.response.data)
-            e.target.reset()
+            
         }
 
     }
+    
+
+   
     return (
         <div className="flex flex-col md:flex-row lg:flex-row justify-around items-center gap-4">
             {/* div 1 */}
@@ -84,33 +73,8 @@ const ProductDetails = () => {
             </div>
             {/* div 2 */}
            <div>
-           <form onSubmit={handleFormSubmission}>
-        <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
-            <div>
-                <label className="text-gray-700 dark:text-gray-200" >Name</label>
-                <input name="name" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" required/>
-            </div>
-
-            <div>
-                <label className="text-gray-700 dark:text-gray-200">Address</label>
-                <input name="address" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" required/>
-            </div>
-
-            <div>
-                <label className="text-gray-700 dark:text-gray-200" >Phone Number</label>
-                <input name="phone" type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" required/>
-            </div>
-
-            <div>
-                <label className="text-gray-700 dark:text-gray-200">Order Date</label>
-                <DatePicker className='border p-2 rounded-md' selected={startDate} onChange={(date) => setStartDate(date)} />
-            </div>
-        </div>
-
-        <div className="flex justify-end mt-6">
-            <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Complete Order</button>
-        </div>
-    </form>
+             <Link to={`/checkout/${_id}`} ><button onClick={handleCart} className="rounded-full  border-2 border-rose-600 btn hover:bg-rose-300">< BsCart className="font-bold text-xl text-rose-600"/></button></Link>
+           
            </div>
         </div>
     );
