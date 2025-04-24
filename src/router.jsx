@@ -63,13 +63,13 @@ const router = createBrowserRouter([
             },
             {
                 path:'/myCart',
-                element:<MyCart></MyCart>
+                element:<PrivateRoute><MyCart></MyCart></PrivateRoute>
 
             },
             {
-                path:'/checkOut/:id',
-                element:<CheckOut></CheckOut>,
-                loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/products/${params.id}`)
+                path:'/checkOut/:email',
+                element:<PrivateRoute><CheckOut></CheckOut></PrivateRoute>,
+                // loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/checkOutData/${params.email}`)
             },
             {
                 path:'/manageOrder',

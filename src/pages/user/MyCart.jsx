@@ -1,39 +1,79 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import { Link } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import QuantityButton from "../../components/QuantityButton";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
 
 
 const MyCart = () => {
-    const {user}=useAuth()
-    const axiosSecure=useAxiosSecure()
-    const [carts, setCarts]=useState([])
-    const [quantity, setQuantity] = useState(1);
-     useEffect(()=>{
-            getData()
-        },[user])
-        const getData = async ()=>{
-            const{data}= await axiosSecure(`/cart/${user?.email}`,
-               
-            )
-            setCarts(data)
+    const { user } = useAuth();
+    const axiosSecure = useAxiosSecure();
+    const navigate = useNavigate();
+    const [carts, setCarts] = useState([]);
+    
+    useEffect(() => {
+        getData();
+    }, [user]);
+
+    const getData = async () => {
+        const { data } = await axiosSecure(`/cart/${user?.email}`);
+        setCarts(data.map(item => ({
+            ...item,
+            localQuantity: item.quantity || 1 // Initialize with stored quantity or 1
+        })));
+    };
+
+    const handleDelete = async (id) => {
+        try {
+            const { data } = await axiosSecure.delete(`/cartData/${id}`);
+            console.log(data);
+            getData();
+            toast.success('Deleted successfully');
+        } catch (err) {
+            console.log(err.message);
+            toast.error(err.message);
         }
-        const handleDelete = async ( id)=>{
-                try {
-                    const {data} = await axiosSecure.delete(
-                        `/cartData/${id}`
-                    )
-                    console.log(data)
-                    getData()
-                    toast.success('Delete Successfully')
-                } catch(err){
-                    console.log(err.message)
-                    toast.error(err.message)
-                }
-            }
+    };
+    const updateQuantity = async (id, newQuantity) => {
+        try {
+            // Update local state immediately for responsive UI
+            setCarts(prev => prev.map(item => 
+                item._id === id ? { ...item, localQuantity: newQuantity } : item
+            ));
+            
+            // Update in database
+            await axiosSecure.patch(`/cartData/${id}`, {
+                quantity: newQuantity
+            });
+        } catch (error) {
+            console.error('Failed to update quantity:', error);
+            toast.error('Failed to update quantity');
+            // Revert local state if update fails
+            getData();
+        }
+    };
+    const handleCheckoutAll = async () => {
+        try {
+            // First verify all quantities are saved
+            await Promise.all(
+                carts.map(cart => 
+                    axiosSecure.patch(`/cartData/${cart._id}`, {
+                        quantity: cart.localQuantity
+                    })
+                )
+            );
+            
+            // Then navigate to checkout with user email
+            navigate(`/checkOut/${user?.email}`);
+            
+        } catch (error) {
+            console.error('Checkout preparation failed:', error);
+            toast.error('Failed to prepare checkout');
+        }
+    };
+
     
    
     return (
@@ -104,26 +144,24 @@ const MyCart = () => {
         
                                     <td className="px-4 py-4 text-md  whitespace-nowrap">
                                     <QuantityButton 
-          initialQuantity={1}
-          min={1}
-          max={10}
-          onQuantityChange={setQuantity}
-          className="mt-2"
-        />
+                                                        initialQuantity={cart.localQuantity}
+                                                        min={1}
+                                                        max={10}
+                                                        onQuantityChange={(newQty) => updateQuantity(cart._id, newQty)}
+                                                        className="mt-2"
+                                                    />
                                     </td>
-                                    <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{quantity}</td>
+                                    <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap"> {cart.localQuantity}</td>
                                     
                                     <td className="px-4 py-4 text-sm whitespace-nowrap">
                                         <div className="flex items-center gap-x-6">
-                                            <button onClick={()=> handleDelete(cart._id)}   className="text-gray-500 transition-colors disabled:bg-slate-400 duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
+                                            <button onClick={() => handleDelete(cart._id)}   className="text-gray-500 transition-colors disabled:bg-slate-400 duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5" stroke="currentColor" className="w-5 h-5">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                                 </svg>
                                             </button>
         
-                                            <Link to={`/checkOut/${cart._id}`}><button  className="text-gray-500 transition-colors disabled:bg-slate-400 duration-200 dark:hover:text-yellow-500 dark:text-gray-300 hover:text-yellow-500 focus:outline-none flex gap-2">
-                                            Checkout<FaExternalLinkAlt />
-                                            </button></Link>
+                                            
                                         </div>
                                     </td>
                                 </tr>
@@ -136,6 +174,11 @@ const MyCart = () => {
                     </div>
                 </div>
             </div>
+        </div>
+        <div className="flex justify-center items-center mt-20">
+        <button onClick={handleCheckoutAll}  className="text-gray-500 transition-colors bg-red-300 rounded-lg px-4 py-2 disabled:bg-slate-400 duration-200 dark:hover:text-white dark:text-gray-300 hover:text-white focus:outline-none flex gap-2">
+                                            Checkout<FaExternalLinkAlt />
+                                            </button>
         </div>
         
         {/* <div className="flex items-center justify-between mt-6">
