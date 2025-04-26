@@ -2,11 +2,12 @@
 // import { AuthContext } from "../../provider/AuthProvider";
 // import axios from "axios";
 import { TiTick } from "react-icons/ti";
-import { MdOutlineDisabledByDefault } from "react-icons/md";
+import { MdOutlineLocalShipping  } from "react-icons/md";
 import { useMutation, useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+
 
 
 
@@ -34,6 +35,7 @@ const ManageOrder = () => {
             const{data}= await axiosSecure(`/orderAdmin/${user?.email}`,
                 
             )
+            console.log(data);
             return data
         }
 
@@ -86,18 +88,19 @@ const ManageOrder = () => {
                             
 
                             <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                                <button className="flex items-center gap-x-2">
-                                    <span>Ordered Product</span>
+                                Product(Quantity)
 
                                    
-                                </button>
+                                
                             </th>
 
-                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Product Image</th>
+                            {/* <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Product Image</th> */}
                             <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Brand</th>
 
                             <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Phone Number</th>
                             <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Address</th>
+                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Method</th>
+                            <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Total</th>
                             <th scope="col" className="px-12 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                 <button className="flex items-center gap-x-2">
                                     <span>Status</span>
@@ -124,55 +127,66 @@ const ManageOrder = () => {
                                     
 
                                     <div className="flex items-center gap-x-2">
-                                        <img className="object-cover w-10 h-10 rounded-full" src={order.customerImg} alt=""/>
+                                        <img className="object-cover w-10 h-10 rounded-full" src={order.customerInfo.image} alt=""/>
                                         <div>
-                                            <h2 className="font-medium text-gray-800 dark:text-white ">{order.customerName}</h2>
-                                            <p className="text-sm font-normal text-gray-600 dark:text-gray-400">{order.customerEmail}</p>
+                                            <h2 className="font-medium text-gray-800 dark:text-white ">{order.customerInfo.name}</h2>
+                                            <p className="text-sm font-normal text-gray-600 dark:text-gray-400">{order.customerInfo.email}</p>
                                         </div>
                                     </div>
                                 </div>
                             </td>
                             
-                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.orderedProduct}</td>
-                            <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
+                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.products.map(p=>(<li key={p.id}>{p.name} ({p.quantity})</li>))}</td>
+                            {/* <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                 <div className="inline-flex items-center gap-x-3">
                                     
 
-                                    <div className="flex items-center gap-x-2">
-                                        <img className="object-cover w-10 h-10 rounded-full" src={order.productImage} alt=""/>
+                                    <div className="flex items-center gap-x-2 ">
+                                    {order.products.map(product => (
+                                     <img
+                                       key={product.id}
+                                       className="object-cover w-10 h-10 rounded-full "
+                                       src={product.image || 'default-image.jpg'}
+                                       alt={product.name}
+                                     />
+                                      ))}
                                         
                                     </div>
                                 </div>
-                            </td>
-                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.orderedBrand}</td>
-                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.customerNumber}</td>
-                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.customerAddress}</td>
+                            </td> */}
+                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.products.map(p=>(<li key={p.id}>{p.brand}</li>))}</td>
+                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.customerInfo.phone}</td>
+                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.customerInfo.address}</td>
+                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.payment.method}</td>
+                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.orderDetails.subtotal}</td>
                             <td className="px-12 py-4 text-md  whitespace-nowrap">
                                 <div className="flex items-center   gap-x-2 ">
                                    <p className={`px-3 py-1 font-bold ${
-                                    order.status === 'Pending' && 'text-orange-500 '
+                                    order.orderDetails.status === 'Pending' && 'text-orange-500 '
                                    } ${
-                                    order.status === 'Complete' && 'text-green-600 '
+                                    order.orderDetails.status === 'Shipped' && 'text-blue-600 '}
+                                   ${
+                                    order.orderDetails.status === 'Delivered' && 'text-green-600 '
 
-                                   } ${
-                                    order.status === 'Failure' && 'text-red-600 '                                   }` }>
-                                {order.status}
+                                   } ` }>
+                                {order.orderDetails.status}
                                    </p>
                                 </div>
                             </td>
                             
                             <td className="px-4 py-4 text-sm whitespace-nowrap">
                                 <div className="flex items-center gap-x-6">
-                                    <button onClick={()=> handleStatus(order._id,order.status, 'Complete')}
-                                    disabled={order.status ==='Complete'}
+                                <button onClick={()=> handleStatus(order._id,order.orderDetails.status, 'Shipped')}
+                                    disabled={order.orderDetails.status ==='Shipped'}
+                                     className="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
+                                    <MdOutlineLocalShipping  className="text-2xl"  />
+                                    </button>
+                                    <button onClick={()=> handleStatus(order._id,order.orderDetails.status, 'Delivered')}
+                                    disabled={order.orderDetails.status ==='Delivered'}
                                      className="text-gray-500 transition-colors duration-200 dark:hover:text-green-500 dark:text-gray-300 hover:text-green-500 focus:outline-none">
                                     <TiTick className="text-2xl" />
                                     </button>
-                                    <button onClick={()=> handleStatus(order._id,order.status, 'Failure')}
-                                    disabled={order.status ==='Failure'}
-                                     className="text-gray-500 transition-colors duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
-                                    <MdOutlineDisabledByDefault className="text-2xl"  />
-                                    </button>
+                                    
                                     
 
                                 </div>

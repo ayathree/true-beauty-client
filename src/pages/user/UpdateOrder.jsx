@@ -1,25 +1,32 @@
-import axios from "axios";
+// import axios from "axios";
 import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router-dom";
+import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAuth from "../../hooks/useAuth";
 
 
 const UpdateOrder = () => {
      const editData= useLoaderData()
+     console.log(editData);
+    //  const {user}=useAuth()
      const navigate = useNavigate()
-     const {_id,customerName,customerAddress,customerNumber} = editData || {}
+     const axiosSecure =useAxiosSecure()
+     
      const handleFormSubmission=async e=>{
         e.preventDefault()
         const form = e.target
-        const customerName= form.customerName.value
-        const customerNumber = form.customerNumber.value
-        const customerAddress = form.customerAddress.value 
+        const name= form.customerName.value
+        const phone = form.customerNumber.value
+        const address = form.customerAddress.value
+        const city = form.city.value
+        const zipCode = form.zip.value
         
-        const orderData = {customerName,customerNumber,customerAddress}
+        const orderData = {name,phone,address,city,zipCode}
         console.table(orderData)
 
         try{
-            const {data} = await axios.patch(
-                `${import.meta.env.VITE_API_URL}/orderData/${_id}`, orderData
+            const {data} = await axiosSecure.patch(
+                `${import.meta.env.VITE_API_URL}/orderData/${editData._id}`, orderData
             )
             console.log(data)
             toast.success('Data updated successfully')
@@ -38,17 +45,30 @@ const UpdateOrder = () => {
         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">
             <div>
                 <label className="text-gray-700 dark:text-gray-200" >Your Name</label>
-                <input name="customerName" defaultValue={customerName} type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring " required/>
+                <input name="customerName" defaultValue={editData.customerInfo.name} type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring " required/>
             </div>
 
             <div>
                 <label className="text-gray-700 dark:text-gray-200">Phone Number</label>
-                <input name="customerNumber" defaultValue={customerNumber} type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring " required/>
+                <input name="customerNumber" defaultValue={editData.customerInfo.phone} type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring " required/>
             </div>
 
             <div>
                 <label className="text-gray-700 dark:text-gray-200" >Address</label>
-                <input name="customerAddress" defaultValue={customerAddress} type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring " required/>
+                <input name="customerAddress" defaultValue={editData.customerInfo.address} type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring " required/>
+            </div>
+            <div>
+                <label className="text-gray-700 dark:text-gray-200" >Your City</label>
+                <select name="city" type="text" defaultValue={editData.customerInfo.city} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" required>
+                    <option value=""></option>
+                    <option value="Dhaka">Dhaka</option>
+                    <option value="Chattogram">Chattogram</option>
+                    <option value="Sylet">Sylet</option>
+                </select>
+            </div>
+            <div>
+                <label className="text-gray-700 dark:text-gray-200" >Zip Code</label>
+                <input name="zip" type="number" defaultValue={editData.customerInfo.zipCode} className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" required/>
             </div>
            
         </div>
