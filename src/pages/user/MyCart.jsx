@@ -35,7 +35,7 @@ const MyCart = () => {
             console.log(err.message);
             toast.error(err.message);
         }
-    };
+    }
     const updateQuantity = async (id, newQuantity) => {
         try {
             // Update local state immediately for responsive UI

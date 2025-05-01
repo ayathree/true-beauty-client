@@ -1,9 +1,16 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import toast from "react-hot-toast";
+import { FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
+import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const Shops = () => {
+    const {user} = useAuth()
+        const axiosSecure = useAxiosSecure()
+        const [wishes, setWishes] =useState([])
      const [products, setProducts]= useState([]);
      const[itemsPerPage, setItemsPerPage]=useState(6)
      const[currentPage,setCurrentPage]=useState(1)
@@ -58,6 +65,76 @@ const Shops = () => {
         setSearchText('')
      
     }
+    // handle wish
+    // const handleWish = async e =>{
+    //     e.preventDefault()
+    //     if (user?.email === adminEmail) return toast.error('Action not permitted!')
+    //     // const form = e.target
+    //     const listedProductId = _id; 
+    //     const listerEmail = user?.email;
+    //     const owner = adminEmail;
+    //     const listedProduct = productName;
+    //     const listedBrand = brand;
+    //     const listedPrice = price;
+    //     const productImage = imageUrl;
+    //     const listedData = {
+    //         listedProductId,listerEmail,owner, listedProduct, listedBrand,listedPrice,productImage
+    //     }
+
+    //     console.table(listedData)
+
+    //     try{
+    //         const {data}= await axiosSecure.post(`/wish`, listedData)
+    //         console.log(data)
+    //         toast.success('added in wishList')
+
+    //         // navigate('/wishList')
+
+    //     }catch(err){
+    //         console.log(err)
+    //         toast.error(err.response.data)
+            
+    //     }
+
+    // }
+
+    useEffect(()=>{
+        const getData = async ()=>{
+          const {data}= await axios (`${import.meta.env.VITE_API_URL}/products`)
+          setWishes(data)
+        }
+        getData()
+      },[])
+      console.log(wishes);
+
+    const handleWish = async (productId) => {
+        // 1. Get the product directly (no validation)
+        const product = wishes.find(item => item._id === productId);
+        if (user?.email === product.adminEmail) return toast.error('Action not permitted!')
+      
+        // 2. Prepare cart data
+        const listedData = {
+            listedProductId: product._id,
+            listerEmail: user?.email,
+          owner: product.adminEmail,
+          listedProduct: product.productName,
+          listedBrand: product.brand,
+          listedPrice: product.price,
+          productImage: product.imageUrl,
+          
+        };
+      
+        // 3. Send to backend
+        try {
+            const { data } = await axiosSecure.post('/wish', listedData);
+            console.log(data);
+            toast.success('Add in wish list successfully!');
+           
+          } catch (err) {
+            console.error('failed:', err);
+            toast.error(err.response?.data?.message || 'Failed');
+          }
+      };
     return (
        <div className="mt-20 mb-10 flex flex-row gap-5 ">
          <aside className="flex flex-col  px-4 py-8  bg-white border-r-2 dark:bg-gray-900 dark:border-gray-700">
@@ -151,6 +228,9 @@ const Shops = () => {
                  <Link to={`/product/${product._id}`}> <p className="hover:underline hover:font-bold">{product.productName}</p></Link>
                   <p>{product.brand}</p>
                   <p>{product.price} BDT</p>
+                  <div>
+                    <button onClick={() => handleWish(product._id)} className="btn hover:bg-red-400"><FaRegHeart /></button>
+                  </div>
 
                 </div>
             ))

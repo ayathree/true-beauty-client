@@ -41,11 +41,11 @@ const NavBar = () => {
            
           </a>
         </li></Link>
-        <Link to={''}><li><a>Wish List</a></li></Link>
+        <Link to={'/wishList'}><li><a>Wish List</a></li></Link>
        <Link to={'/myCart'}> <li><a>My Cart</a></li></Link>
        <Link to={'/manageProducts'}> <li><a>Manage Product</a></li></Link>
        <Link to={'/manageOrder'}> <li><a>Manage Orders</a></li></Link>
-       <Link to={''}> <li><a>My Cart</a></li></Link>
+      
        
        
         <li><a onClick={loggedOut}>Logout</a></li>

@@ -1,6 +1,6 @@
 // import { useState } from "react";
 
-import {  Link, useLoaderData, useNavigate } from "react-router-dom";
+import {   useLoaderData, useNavigate } from "react-router-dom";
 
 // import { AuthContext } from "../provider/AuthProvider";
 
@@ -29,13 +29,13 @@ const ProductDetails = () => {
         // const form = e.target
         const savedProductId = _id; 
         const saverEmail = user?.email;
-        const ownerEmail = adminEmail;
+        const owner = adminEmail;
         const savedProduct = productName;
         const savedBrand = brand;
         const savedPrice = price;
         const productImage = imageUrl;
         const savedData = {
-            savedProductId,saverEmail,ownerEmail, savedProduct, savedBrand,savedPrice,productImage
+            savedProductId,saverEmail,owner, savedProduct, savedBrand,savedPrice,productImage
         }
 
         console.table(savedData)
@@ -73,7 +73,7 @@ const ProductDetails = () => {
             </div>
             {/* div 2 */}
            <div>
-             <Link to={`/checkout/${_id}`} ><button onClick={handleCart} className="rounded-full  border-2 border-rose-600 btn hover:bg-rose-300">< BsCart className="font-bold text-xl text-rose-600"/></button></Link>
+             <button onClick={handleCart} className="rounded-full  border-2 border-rose-600 btn hover:bg-rose-300">< BsCart className="font-bold text-xl text-rose-600"/></button>
            
            </div>
         </div>

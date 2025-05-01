@@ -16,6 +16,7 @@ import UpdateOrder from "./pages/user/UpdateOrder";
 import Shops from "./pages/Shops";
 import MyCart from "./pages/user/MyCart";
 import CheckOut from "./pages/user/CheckOut";
+import WishList from "./pages/user/WishList";
 
 
 
@@ -85,6 +86,10 @@ const router = createBrowserRouter([
             {
                 path:'/shops',
                 element:<Shops></Shops>
+            },
+            {
+                path:'/wishList',
+                element:<WishList></WishList>
             }
             
         ]

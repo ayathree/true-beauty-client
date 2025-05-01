@@ -93,7 +93,7 @@ const handleFormSubmission = async (e) => {
       price: item.savedPrice,
       quantity: item.quantity,
       image: item.productImage,
-      owner: item.ownerEmail
+      owner: item.owner
     }))
   };
 
