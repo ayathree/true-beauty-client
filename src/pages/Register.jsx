@@ -17,41 +17,58 @@ const Register = () => {
           navigate('/')
         }
       },[navigate, user])
-    const handleRegister =async e=>{
+      const handleRegister = async (e) => {
         e.preventDefault();
-        const form = e.target
-        const name = form.name.value
-        const photo = form.photo.value
-        const email=form.email.value
-        const password = form.password.value
-        const newRegister =(name, photo,email, password)
-        console.log(newRegister)
-        try{
-          const result = await createUser(email,password)
-          console.log(result)
-         
-          form.reset();
-          await updateUser(name, photo)
-          
-        // optimistic update
-        setUser({ ...result?.user, photoURL:photo, displayName:name })
-        console.log(result.user)
-      const {data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{
-        email :result?.user?.email,
-    }, {withCredentials: true})
-      console.log(data)
-            navigate(from, {replace: true})
-            toast.success('Sign In successfully'  )
+        const form = e.target;
+        const name = form.name.value;
+        const photo = form.photo.value;
+        const email = form.email.value;
+        const password = form.password.value;
     
+        try {
+            // 1. Create user in Firebase Auth
+            const result = await createUser(email, password);
+            console.log('Firebase user created:', result);
     
+            // 2. Update user profile in Firebase
+            await updateUser(name, photo);
+    
+            // 3. Save additional user info to your MongoDB
+            const userInfo = {
+                name,
+                photo,
+                email,
+                role: 'user' // Adding default role
+            };
+            
+            const { data } = await axios.post(
+                `${import.meta.env.VITE_API_URL}/users`, 
+                userInfo
+            );
+            console.log('User saved to DB:', data);
+    
+            // 4. Update local state and create JWT
+            setUser({ 
+                ...result.user, 
+                photoURL: photo, 
+                displayName: name 
+            });
+    
+            await axios.post(
+                `${import.meta.env.VITE_API_URL}/jwt`,
+                { email: result.user.email },
+                { withCredentials: true }
+            );
+    
+            // 5. Reset form and navigate
+            form.reset();
+            navigate(from, { replace: true });
+            toast.success('Registration successful!');
+        } catch (err) {
+            console.error('Registration error:', err);
+            toast.error(err.response?.data?.message || err.message || 'Registration failed');
         }
-        catch(err){
-          console.log(err)
-          toast.error(err?.message)
-    
-        }
-    
-      }
+    };
       if (user || loading) return
     return (
         <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl  min-h-[calc(100vh-306px)] my-12">

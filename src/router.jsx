@@ -17,6 +17,7 @@ import Shops from "./pages/Shops";
 import MyCart from "./pages/user/MyCart";
 import CheckOut from "./pages/user/CheckOut";
 import WishList from "./pages/user/WishList";
+import ManageUsers from "./pages/admin/ManageUsers";
 
 
 
@@ -82,6 +83,10 @@ const router = createBrowserRouter([
                     element:<PrivateRoute><UpdateOrder></UpdateOrder></PrivateRoute>,
                     loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/orderData/${params.id}`)
                 
+            },
+            {
+                path:'/manageUsers',
+                element:<PrivateRoute><ManageUsers></ManageUsers></PrivateRoute>
             },
             {
                 path:'/shops',
