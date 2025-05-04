@@ -3,6 +3,7 @@ import logo from '../assets/truebeauty_16-removebg-preview.png'
 import { AuthContext } from '../provider/AuthProvider';
 import { Link } from 'react-router-dom';
 import useAdmin from '../hooks/useAdmin';
+import { IoNotifications } from 'react-icons/io5';
 
 const NavBar = () => {
   const [isAdmin]=useAdmin()
@@ -59,6 +60,15 @@ const NavBar = () => {
      }
      {
       user && isAdmin &&
+      
+        <div className='flex items-center gap-3'>
+        <div className="relative inline-block group">
+    <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
+  <IoNotifications className="text-xl" />
+  <div className="invisible group-hover:visible fixed top-4 right-4 bg-gray-800 text-white text-sm px-3 py-2 rounded z-50 w-48 shadow-lg">
+    You have 3 new notifications
+  </div>
+</div>
       <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
@@ -76,6 +86,7 @@ const NavBar = () => {
         <li><a onClick={loggedOut}>Logout</a></li>
       </ul>
     </div>
+        </div>
      }
     </div>
     );

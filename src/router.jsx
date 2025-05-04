@@ -18,6 +18,7 @@ import MyCart from "./pages/user/MyCart";
 import CheckOut from "./pages/user/CheckOut";
 import WishList from "./pages/user/WishList";
 import ManageUsers from "./pages/admin/ManageUsers";
+import AdminRoute from "./provider/AdminRoute";
 
 
 
@@ -48,15 +49,15 @@ const router = createBrowserRouter([
             },
             {
                 path:'/manageProducts',
-                element:<PrivateRoute><ManageProduct></ManageProduct></PrivateRoute>
+                element:<AdminRoute><ManageProduct></ManageProduct></AdminRoute>
             },
             {
                 path:'/allProducts',
-                element:<PrivateRoute><AllProducts></AllProducts></PrivateRoute>
+                element:<AdminRoute><AllProducts></AllProducts></AdminRoute>
             },
             {
                 path:'/updateProduct/:id',
-                element:<PrivateRoute><UpdateProducts></UpdateProducts></PrivateRoute>,
+                element:<AdminRoute><UpdateProducts></UpdateProducts></AdminRoute>,
                 loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/products/${params.id}`)
             },
             {
@@ -75,7 +76,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/manageOrder',
-                element:<PrivateRoute><ManageOrder></ManageOrder></PrivateRoute>
+                element:<AdminRoute><ManageOrder></ManageOrder></AdminRoute>
             },
             {
             
@@ -86,7 +87,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/manageUsers',
-                element:<PrivateRoute><ManageUsers></ManageUsers></PrivateRoute>
+                element:<AdminRoute><ManageUsers></ManageUsers></AdminRoute>
             },
             {
                 path:'/shops',
@@ -94,7 +95,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/wishList',
-                element:<WishList></WishList>
+                element:<PrivateRoute><WishList></WishList></PrivateRoute>
             }
             
         ]

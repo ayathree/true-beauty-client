@@ -4,21 +4,35 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
+import useAdmin from "../hooks/useAdmin";
 
 
 const Login = () => {
   const navigate = useNavigate()
    const location = useLocation()
   const {signIn, google, user, loading}= useContext(AuthContext)
+  const [isAdmin] = useAdmin();
+  const from = location.state?.from || '/' 
   useEffect(()=>{
     if(user){
-      navigate('/')
+     // Check if trying to access admin route without admin privileges
+     if (from.startsWith('/admin') && !isAdmin) {
+      navigate('/', { replace: true });
     }
-  },[navigate, user])
-   const from = location.state || '/' 
+    // Check if trying to access user route as admin
+    else if (!from.startsWith('/admin') && isAdmin) {
+      navigate('/', { replace: true });
+    }
+     // Otherwise go to requested page
+     else {
+      navigate(from, { replace: true });
+    }
+    }
+  },[user, isAdmin, navigate, from])
 
   const handleGoogleLogin= async()=>{
     try{
+    
       const result = await google()
       console.log(result.user)
       const {data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{
@@ -63,7 +77,8 @@ const Login = () => {
     }
 
   }
-  if (user || loading) return
+  if ( user || loading) return
+  
     return (
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl min-h-[calc(100vh-306px)] my-12">
       <div className="hidden bg-cover lg:block lg:w-1/2"

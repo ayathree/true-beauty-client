@@ -4,19 +4,33 @@ import { useContext, useEffect } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
+import useAdmin from "../hooks/useAdmin";
 
 
 
 const Register = () => {
     const navigate = useNavigate()
      const location = useLocation()
-       const from = location.state || '/' 
+       const from = location.state?.from || '/' 
     const{ createUser,updateUser, user, setUser, loading}= useContext(AuthContext)
+    const [isAdmin] = useAdmin();
     useEffect(()=>{
         if(user){
-          navigate('/')
+         // Check if trying to access admin route without admin privileges
+         if (from.startsWith('/admin') && !isAdmin) {
+          navigate('/', { replace: true });
         }
-      },[navigate, user])
+        // Check if trying to access user route as admin
+        else if (!from.startsWith('/admin') && isAdmin) {
+          navigate('/', { replace: true });
+        }
+         // Otherwise go to requested page
+         else {
+          navigate(from, { replace: true });
+        }
+        }
+      },[user, isAdmin, navigate, from])
+    
       const handleRegister = async (e) => {
         e.preventDefault();
         const form = e.target;
