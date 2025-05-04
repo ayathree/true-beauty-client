@@ -1,13 +1,35 @@
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import logo from '../assets/truebeauty_16-removebg-preview.png'
 import { AuthContext } from '../provider/AuthProvider';
 import { Link } from 'react-router-dom';
 import useAdmin from '../hooks/useAdmin';
 import { IoNotifications } from 'react-icons/io5';
+import useAxiosSecure from '../hooks/useAxiosSecure';
+import { FaShoppingCart } from 'react-icons/fa';
+
 
 const NavBar = () => {
   const [isAdmin]=useAdmin()
   const{user, loggedOut}=useContext(AuthContext)
+  const axiosSecure=useAxiosSecure()
+  const [order,setOrder]=useState([])
+  const [cart, setCart] =useState([])
+ useEffect(()=>{
+     const getData = async ()=>{
+       const {data}= await axiosSecure (`/orderAdmin/${user?.email}`)
+       setOrder(data)
+     }
+     getData()
+   },[])
+
+   useEffect(()=>{
+    const getData = async ()=>{
+      const {data}= await axiosSecure (`/cart/${user?.email}`)
+      setCart(data)
+    }
+    getData()
+  },[])  
+
     return (
       <div className="navbar bg-base-100">
       <div className="flex-1">
@@ -31,7 +53,20 @@ const NavBar = () => {
      {
       user && !isAdmin && 
         
-        <div className="dropdown dropdown-end">
+       <div className='flex items-center gap-3'>
+        <div className="relative inline-block group">
+        {cart.length !== 0 && (
+  <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full">
+    <p>{cart.length}</p>
+  </div>
+)}
+  <FaShoppingCart  className="text-xl" />
+  {/* <div className="invisible group-hover:visible fixed top-4 right-4 bg-gray-800 text-white text-sm px-3 py-2 rounded z-50 w-48 shadow-lg">
+    {cart.length} 
+  </div> */}
+</div>
+
+         <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
           <img referrerPolicy='no-referrer' alt="Tailwind CSS Navbar component" src={user.photoURL} />
@@ -54,6 +89,7 @@ const NavBar = () => {
       </ul>
     </div>
     
+       </div>
      
     
     
@@ -63,10 +99,12 @@ const NavBar = () => {
       
         <div className='flex items-center gap-3'>
         <div className="relative inline-block group">
-    <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
+        {order.length !== 0 && (
+  <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
+)}
   <IoNotifications className="text-xl" />
   <div className="invisible group-hover:visible fixed top-4 right-4 bg-gray-800 text-white text-sm px-3 py-2 rounded z-50 w-48 shadow-lg">
-    You have 3 new notifications
+    {order.length} order notifications
   </div>
 </div>
       <div className="dropdown dropdown-end">
