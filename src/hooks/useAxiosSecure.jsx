@@ -10,6 +10,7 @@ const useAxiosSecure = () => {
     const {loggedOut}=useAuth()
     const navigate = useNavigate()
     // interceptor
+    
     // response interceptor
     axiosSecure.interceptors.response.use(
         

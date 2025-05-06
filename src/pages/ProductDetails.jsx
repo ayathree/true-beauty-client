@@ -9,6 +9,7 @@ import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { BsCart } from "react-icons/bs";
+// import useCartData from "../hooks/useCartData";
 // import CheckOut from "./user/CheckOut";
 
 
@@ -23,6 +24,7 @@ const ProductDetails = () => {
     const navigate = useNavigate()
     const {user} = useAuth()
     const axiosSecure = useAxiosSecure()
+    // const { fetchCart } = useCartData();
     const handleCart = async e =>{
         e.preventDefault()
         if (user?.email === adminEmail) return toast.error('Action not permitted!')
@@ -44,7 +46,7 @@ const ProductDetails = () => {
             const {data}= await axiosSecure.post(`/cart`, savedData)
             console.log(data)
             toast.success('added in cart')
-
+            // await fetchCart();
             navigate('/myCart')
 
         }catch(err){

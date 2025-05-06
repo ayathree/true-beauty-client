@@ -6,29 +6,53 @@ import useAdmin from '../hooks/useAdmin';
 import { IoNotifications } from 'react-icons/io5';
 import useAxiosSecure from '../hooks/useAxiosSecure';
 import { FaShoppingCart } from 'react-icons/fa';
+import useAuth from '../hooks/useAuth';
 
 
 const NavBar = () => {
+  const{user}=useAuth()
   const [isAdmin]=useAdmin()
-  const{user, loggedOut}=useContext(AuthContext)
+  const{ loggedOut}=useContext(AuthContext)
   const axiosSecure=useAxiosSecure()
   const [order,setOrder]=useState([])
   const [cart, setCart] =useState([])
- useEffect(()=>{
-     const getData = async ()=>{
-       const {data}= await axiosSecure (`/orderAdmin/${user?.email}`)
-       setOrder(data)
-     }
-     getData()
-   },[])
 
-   useEffect(()=>{
-    const getData = async ()=>{
-      const {data}= await axiosSecure (`/cart/${user?.email}`)
-      setCart(data)
-    }
-    getData()
-  },[])  
+  
+  useEffect(() => {
+    const controller = new AbortController(); // Create abort controller
+  
+    const getData = async () => {
+      if (!user?.email || isAdmin === undefined) return;
+      try {
+        if (isAdmin) {
+          const { data } = await axiosSecure(`/orderAdmin/${user.email}`, {
+            signal: controller.signal // Attach abort signal
+          });
+          setOrder(data);
+        } else {
+          const { data } = await axiosSecure(`/cart/${user.email}`, {
+            signal: controller.signal // Attach abort signal
+          });
+          setCart(data);
+          getData()
+        }
+      } catch (err) {
+        // Check if error was from abort
+        if (err.name === 'CanceledError' || err.message === 'canceled') return;
+        
+        if (err.response?.status === 401) {
+          console.log('Session expired - please login again');
+        }
+      }
+    };
+  
+    getData();
+  
+    // Cleanup function
+    return () => {
+      controller.abort(); // Cancel pending request on unmount/logout
+    };
+  }, [user, isAdmin]);
 
     return (
       <div className="navbar bg-base-100">
