@@ -80,7 +80,7 @@ const NavBar = () => {
        <div className='flex items-center gap-3'>
         <div className="relative inline-block group">
         {cart.length !== 0 && (
-  <div className="absolute -top-1 -right-1 w-5 h-5 bg-red-500 rounded-full">
+  <div className="absolute -top-2 left-3 badge badge-sm badge-secondary">
     <p>{cart.length}</p>
   </div>
 )}
