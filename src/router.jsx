@@ -44,7 +44,7 @@ const router = createBrowserRouter([
             },
             {
                 path:'/product/:id',
-                element:<PrivateRoute><ProductDetails></ProductDetails></PrivateRoute>,
+                element:<ProductDetails></ProductDetails>,
                 loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/products/${params.id}`)
             },
             {

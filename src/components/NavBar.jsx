@@ -124,7 +124,7 @@ const NavBar = () => {
         <div className='flex items-center gap-3'>
         <div className="relative inline-block group">
         {order.length !== 0 && (
-  <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
+  <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
 )}
   <IoNotifications className="text-xl" />
   <div className="invisible group-hover:visible fixed top-4 right-4 bg-gray-800 text-white text-sm px-3 py-2 rounded z-50 w-48 shadow-lg">
