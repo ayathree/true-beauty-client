@@ -1,6 +1,7 @@
 // import { useState } from "react";
 
 import {   useLoaderData, useNavigate } from "react-router-dom";
+import ReactStars from "react-rating-stars-component";
 
 // import { AuthContext } from "../provider/AuthProvider";
 
@@ -11,9 +12,6 @@ import useAxiosSecure from "../hooks/useAxiosSecure";
 import { BsCart } from "react-icons/bs";
 import { FaRegHeart } from "react-icons/fa";
 import { useEffect, useState } from "react";
-// import ProductCards from "../components/ProductCards";
-
-// import CheckOut from "./user/CheckOut";
 
 
 const ProductDetails = () => {
@@ -28,6 +26,8 @@ const ProductDetails = () => {
     const {user} = useAuth()
     const axiosSecure = useAxiosSecure()
     const[products,setProducts]=useState([])
+    const [showText, setShowText] = useState(false);
+    
    
    
     const handleCart = async e =>{
@@ -83,6 +83,19 @@ const ProductDetails = () => {
           console.error("Failed to fetch similar products:", err);
         }
       };
+
+      // review
+      
+
+  const handleClick = () => {
+    setShowText(!showText); // Toggles the state between true/false
+  };
+  
+  // rating
+  const ratingChanged = (newRating) => {
+  console.log(newRating);
+};
+
 
       
 
@@ -144,10 +157,57 @@ const ProductDetails = () => {
         {/* review of customer */}
         <div>
         <p className="text-4xl font-bold m-10 text-center">Review of customers</p>
-        <button className="btn bg-slate-500 text-white">Write A Review</button>
-        <button></button>
+        <button 
+        onClick={handleClick}
+        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+      >
+        {showText ? 'Hide Text' : 'Show Text'}
+      </button>
+       {showText && (
+        <section className="max-w-4xl p-6 mx-auto bg-white rounded-md  dark:bg-gray-800">
+    
+
+    <form>
+        <div className="grid grid-cols-1 justify-center items-center">
+
+          <div>
+            <label className="text-gray-700 dark:text-gray-200">Rating</label>
+            <ReactStars
+    count={5}
+    onChange={ratingChanged}
+    size={24}
+    activeColor="#ffd700"
+  />
+  
+          </div>
+
+            <div>
+                <label className="text-gray-700 dark:text-gray-200">Review Title</label>
+                <input  type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
+            </div>
+            <div>
+                <label className="text-gray-700 dark:text-gray-200" >Review</label>
+                <textarea  type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
+            </div>
+            <div>
+                <label className="text-gray-700 dark:text-gray-200">Email Address</label>
+                <input  type="email" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
+            </div>
+
+
+
+           
+        </div>
+
+        <div className="flex justify-end mt-6">
+            <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Submit Review</button>
+        </div>
+    </form>
+</section>
+      )}
         </div>
        </div>
+       
     );
 };
 
