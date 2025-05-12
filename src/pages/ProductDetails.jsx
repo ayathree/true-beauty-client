@@ -28,6 +28,7 @@ const ProductDetails = () => {
     const[products,setProducts]=useState([])
     const [showText, setShowText] = useState(false);
     const [rating, setRating] = useState(0);
+    const[reviews,setReviews]=useState([])
     
    
    
@@ -126,11 +127,19 @@ const ProductDetails = () => {
             
         }catch(err){
             console.log(err)
-            toast.error(err.message)
+            toast.error(err.response?.data)
             e.target.reset()
         }
     }
 
+    // show the review
+    useEffect(()=>{
+        fetchData()
+    },[user])
+    const fetchData = async()=>{
+        const {data}= await axiosSecure(`/products/${_id}/reviews`)
+        setReviews(data)
+    }
 
       
 
@@ -249,6 +258,43 @@ const ProductDetails = () => {
         {/* show the review */}
         <div>
            <p className="text-4xl font-bold m-10 text-center">Customers Review</p>
+          {
+            reviews.map(review=>(
+               <div key={review._id}>
+            <section className="bg-white dark:bg-gray-900">
+    <div className="container px-6 py-10 mx-auto">
+        
+
+        <section className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 lg:grid-cols-2 xl:grid-cols-3">
+            
+         
+                
+
+                <div className="flex items-center mt-8 -mx-2">
+                    <img className="object-cover mx-2 rounded-full w-14 shrink-0 h-14 ring-4 ring-gray-300 dark:ring-gray-700" src={review.reviewerImg} alt=""/>
+
+                    <div className="mx-2">
+                        <h1 className="font-semibold text-gray-800 dark:text-white">{review.title} </h1>
+                         <span className="text-sm text-gray-500 dark:text-gray-400">{review.reviewerEmail}</span>
+                       <ReactStars
+  count={5}
+  value={review.ratings}  // Use 'value' instead of 'onChange' for display
+  edit={false}           // Disable editing if just displaying
+  size={24}
+  activeColor="#ffd700"
+/>
+                    </div>
+                    
+                </div>
+           
+        </section>
+                <p className="mt-4">{review.review}</p>
+    </div>
+</section>
+<hr />
+           </div>
+            ))
+          }
 
         </div>
        </div>
