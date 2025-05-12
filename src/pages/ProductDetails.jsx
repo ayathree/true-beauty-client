@@ -27,6 +27,7 @@ const ProductDetails = () => {
     const axiosSecure = useAxiosSecure()
     const[products,setProducts]=useState([])
     const [showText, setShowText] = useState(false);
+    const [rating, setRating] = useState(0);
     
    
    
@@ -92,9 +93,43 @@ const ProductDetails = () => {
   };
   
   // rating
-  const ratingChanged = (newRating) => {
-  console.log(newRating);
-};
+ const ratingChanged = (newRating) => {
+    setRating(newRating);
+    console.log("Selected Rating:", newRating);
+    // You can also send this to your backend here if needed
+  };
+
+// post review
+ const handleReview=async e=>{
+        e.preventDefault()
+         if (user?.email === adminEmail) return toast.error('Action not permitted!')
+        const form = e.target
+        const title = form.title.value
+        const ratings = Number(form.rating.value)
+        const review = form.review.value
+        const  reviewerEmail = user?.email
+        const reviewerImg = user?.photoURL
+        const productAdmin = adminEmail
+        const  reviewedProductId = _id
+
+
+        const productData = {title,ratings,review,reviewerEmail,reviewerImg,reviewedProductId,productAdmin}
+        console.table(productData)
+
+        try{
+            const {data} = await axiosSecure.post(
+                `/review`, productData
+            )
+            console.log(data)
+            toast.success('Review Submitted successfully')
+            e.target.reset()
+            
+        }catch(err){
+            console.log(err)
+            toast.error(err.message)
+            e.target.reset()
+        }
+    }
 
 
       
@@ -156,7 +191,7 @@ const ProductDetails = () => {
         </div>
         {/* review of customer */}
         <div>
-        <p className="text-4xl font-bold m-10 text-center">Review of customers</p>
+        <p className="text-4xl font-bold m-10 text-center">Write a Review</p>
         <button 
         onClick={handleClick}
         className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
@@ -167,32 +202,37 @@ const ProductDetails = () => {
         <section className="max-w-4xl p-6 mx-auto bg-white rounded-md  dark:bg-gray-800">
     
 
-    <form>
+    <form onSubmit={handleReview}>
         <div className="grid grid-cols-1 justify-center items-center">
 
           <div>
             <label className="text-gray-700 dark:text-gray-200">Rating</label>
+             <input 
+        type="hidden" 
+        name="rating" 
+        value={rating} 
+      />
             <ReactStars
     count={5}
+    value={rating}
     onChange={ratingChanged}
     size={24}
     activeColor="#ffd700"
   />
+      <p>Your rating: {rating} {rating === 1 ? 'star' : 'stars'}</p>
+     
   
           </div>
 
             <div>
                 <label className="text-gray-700 dark:text-gray-200">Review Title</label>
-                <input  type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
+                <input name="title" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
             </div>
             <div>
                 <label className="text-gray-700 dark:text-gray-200" >Review</label>
-                <textarea  type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
+                <textarea name="review"  type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
             </div>
-            <div>
-                <label className="text-gray-700 dark:text-gray-200">Email Address</label>
-                <input  type="email" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
-            </div>
+           
 
 
 
@@ -205,6 +245,11 @@ const ProductDetails = () => {
     </form>
 </section>
       )}
+        </div>
+        {/* show the review */}
+        <div>
+           <p className="text-4xl font-bold m-10 text-center">Customers Review</p>
+
         </div>
        </div>
        
