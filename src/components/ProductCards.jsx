@@ -16,6 +16,7 @@ const ProductCards = ({product}) => {
         const handleWish = async e =>{
             e.preventDefault()
             if (user?.email === adminEmail) return toast.error('Action not permitted!')
+             if (!user) return toast.error('Please Sign In')   
             // const form = e.target
             const listedProductId = _id; 
             const listerEmail = user?.email;

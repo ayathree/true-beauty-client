@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
@@ -6,7 +6,11 @@ import toast from "react-hot-toast";
 import DatePicker from "react-datepicker";
 
 import "react-datepicker/dist/react-datepicker.css";
+import { loadStripe } from "@stripe/stripe-js";
+import { Elements } from "@stripe/react-stripe-js";
+import PayCheckOutForm from "./PayCheckOutForm";
 
+const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 
 const CheckOut = () => {
     
@@ -18,6 +22,12 @@ const [items, setItems] = useState([]);
 const [subtotal, setSubtotal] = useState(0);
 const [shippingFee] = useState(150); // Made constant if not changing
 const [total, setTotal] = useState(0);
+const [showText, setShowText] = useState(false);
+const [useStripePayment, setUseStripePayment] = useState(false);
+const [paymentMethod, setPaymentMethod] = useState({
+  status: 'pending',
+  method: 'Cash on Delivery'
+});
 
 // Fetch cart data
 useEffect(() => {
@@ -63,6 +73,10 @@ const handleFormSubmission = async (e) => {
   }
 
   const form = e.target;
+  // Determine payment method
+  const paymentMethod = useStripePayment 
+    ? { status: 'paid', method: 'Stripe' }
+    : { status: form.delivery?.value || 'pending', method: 'Cash on Delivery' };
   
   // Prepare order data
   const orderData = {
@@ -75,10 +89,7 @@ const handleFormSubmission = async (e) => {
       email: user.email,
       image: user.photoURL
     },
-    payment: {
-      status: form.delivery.value,
-      method: 'Cash on Delivery' // Add your payment method
-    },
+    payment:  paymentMethod,
     orderDetails: {
       date: startDate,
       status: 'Pending',
@@ -118,7 +129,21 @@ const handleFormSubmission = async (e) => {
                 console.log(err.message);
                 toast.error(err.message);
             }
-        };  
+        }; 
+        
+        const handleClick = () => {
+    setShowText(!showText);
+     setUseStripePayment(!useStripePayment); // Toggles the state between true/false
+  };
+// change the cash on delivery method after payment
+  const handlePaymentMethodChange = (isStripe) => {
+  setPaymentMethod({
+    status: isStripe ? 'paid' : 'pending',
+    method: isStripe ? 'Stripe' : 'Cash on Delivery'
+  });
+  setUseStripePayment(isStripe);
+  setShowText(isStripe);
+};
     return (
         <div>
             <section className="container px-4 mx-auto">
@@ -262,12 +287,26 @@ const handleFormSubmission = async (e) => {
                 <DatePicker className='border p-2 rounded-md' selected={startDate} onChange={(date) => setStartDate(date)} />
             </div>
             <div>
-            <label className="text-gray-700 dark:text-gray-200">Payment Method</label>
+            <label className="text-gray-700 dark:text-gray-200">Payment Method <span className="text-green-700">(Before pay please fill up the form)</span></label>
            <br />
            <div className="mt-2 flex items-center gap-3">
-           <button className="btn bg-slate-700 text-white hover:bg-slate-500">Strip Payment</button>
-           <input type="checkbox" name="delivery" value="delivery" required></input>
-           <label >Cash On Delivery</label>
+           <button onClick={(e) => {
+        e.preventDefault();
+        handlePaymentMethodChange(true);
+        handleClick();
+      }} className="btn bg-slate-700 text-white hover:bg-slate-500" disabled={!items.length}>Strip Payment</button>
+          {!useStripePayment && (
+      <>
+        <input 
+          type="checkbox" 
+          name="delivery" 
+          value="delivery" 
+          onChange={() => handlePaymentMethodChange(false)}
+          required={!useStripePayment} 
+        />
+        <label>Cash On Delivery</label>
+      </>
+    )}
 
            </div>
 
@@ -278,6 +317,17 @@ const handleFormSubmission = async (e) => {
             <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Complete Order</button>
         </div>
     </form>
+    {
+        showText && (
+            <div className="m-20 border-2 border-slate-300 rounded-lg p-4">
+           <Elements stripe={stripePromise}>
+            <PayCheckOutForm  total={total} ids={items.map(item=>(item._id))} owners={items.map(item=>(item.owner))}></PayCheckOutForm>
+
+           </Elements>
+        </div>
+
+        )
+    }
 
             
         </div>

@@ -105,6 +105,7 @@ const NavBar = () => {
         </li></Link>
         <Link to={'/wishList'}><li><a>Wish List</a></li></Link>
        <Link to={'/myCart'}> <li><a>My Cart</a></li></Link>
+       <Link to={'/myTransaction'}><li><a>My Transaction</a></li></Link>
       
       
        
@@ -142,6 +143,7 @@ const NavBar = () => {
        <Link to={'/manageProducts'}> <li><a>Manage Product</a></li></Link>
        <Link to={'/manageOrder'}> <li><a>Manage Orders</a></li></Link>
        <Link to={'/manageUsers'}><li><a>Manage Users</a></li></Link>
+       <Link to={'/dashboard'}><li><a>DashBoard</a></li></Link>
       
        
        

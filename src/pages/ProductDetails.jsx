@@ -21,7 +21,7 @@ const ProductDetails = () => {
 
     }=productData || {}
 
-    console.log(productData)
+    // console.log(productData)
     const navigate = useNavigate()
     const {user} = useAuth()
     const axiosSecure = useAxiosSecure()
@@ -35,6 +35,7 @@ const ProductDetails = () => {
     const handleCart = async e =>{
         e.preventDefault()
         if (user?.email === adminEmail) return toast.error('Action not permitted!')
+           if (!user) return toast.error('Please Sign In')
         // const form = e.target
         const savedProductId = _id; 
         const saverEmail = user?.email;
@@ -104,6 +105,7 @@ const ProductDetails = () => {
  const handleReview=async e=>{
         e.preventDefault()
          if (user?.email === adminEmail) return toast.error('Action not permitted!')
+          if (!user) return toast.error('Please Sign In')
         const form = e.target
         const title = form.title.value
         const ratings = Number(form.rating.value)
@@ -139,6 +141,7 @@ const ProductDetails = () => {
     const fetchData = async()=>{
         const {data}= await axiosSecure(`/products/${_id}/reviews`)
         setReviews(data)
+        fetchData()
     }
 
       
@@ -257,7 +260,7 @@ const ProductDetails = () => {
         </div>
         {/* show the review */}
         <div>
-           <p className="text-4xl font-bold m-10 text-center">Customers Review</p>
+           <p className="text-4xl font-bold  text-center">Customers Review</p>
           {
             reviews.map(review=>(
                <div key={review._id}>
@@ -265,24 +268,27 @@ const ProductDetails = () => {
     <div className="container px-6 py-10 mx-auto">
         
 
-        <section className="grid grid-cols-1 gap-8 mt-8 xl:mt-12 lg:grid-cols-2 xl:grid-cols-3">
+        <section className="grid grid-cols-1 gap-5 mt-8 xl:mt-5 lg:grid-cols-2 xl:grid-cols-3">
             
          
                 
 
-                <div className="flex items-center mt-8 -mx-2">
+                <div className="flex items-center mt-3 -mx-2">
                     <img className="object-cover mx-2 rounded-full w-14 shrink-0 h-14 ring-4 ring-gray-300 dark:ring-gray-700" src={review.reviewerImg} alt=""/>
 
                     <div className="mx-2">
-                        <h1 className="font-semibold text-gray-800 dark:text-white">{review.title} </h1>
+                       <div className="flex justify-center items-center gap-5">
+                         <h1 className="font-semibold text-gray-800 dark:text-white">{review.title} </h1>
+                         <ReactStars
+                          count={5}
+                          value={review.ratings}  // Use 'value' instead of 'onChange' for display
+                          edit={false}           // Disable editing if just displaying
+                          size={24}
+                          activeColor="#ffd700"
+                        />
+                       </div>
                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.reviewerEmail}</span>
-                       <ReactStars
-  count={5}
-  value={review.ratings}  // Use 'value' instead of 'onChange' for display
-  edit={false}           // Disable editing if just displaying
-  size={24}
-  activeColor="#ffd700"
-/>
+                      
                     </div>
                     
                 </div>

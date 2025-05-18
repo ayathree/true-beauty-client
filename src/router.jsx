@@ -20,6 +20,9 @@ import WishList from "./pages/user/WishList";
 import ManageUsers from "./pages/admin/ManageUsers";
 import AdminRoute from "./provider/AdminRoute";
 
+import DashBoard from "./pages/admin/DashBoard";
+import MyTransaction from "./pages/user/MyTransaction";
+
 
 
 const router = createBrowserRouter([
@@ -96,6 +99,14 @@ const router = createBrowserRouter([
             {
                 path:'/wishList',
                 element:<PrivateRoute><WishList></WishList></PrivateRoute>
+            },
+            {
+                path:'/dashboard',
+                element:<AdminRoute><DashBoard></DashBoard></AdminRoute>
+            },
+            {
+                path:'/myTransaction',
+                element:<PrivateRoute><MyTransaction></MyTransaction></PrivateRoute>
             }
             
         ]

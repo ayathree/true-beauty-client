@@ -12,7 +12,7 @@ const Shops = () => {
         const axiosSecure = useAxiosSecure()
         const [wishes, setWishes] =useState([])
      const [products, setProducts]= useState([]);
-     const[itemsPerPage, setItemsPerPage]=useState(6)
+     const[itemsPerPage]=useState(6)
      const[currentPage,setCurrentPage]=useState(1)
      const[filter,setFilter]=useState('')
      const[sort,setSort]=useState('')
@@ -111,6 +111,7 @@ const Shops = () => {
         // 1. Get the product directly (no validation)
         const product = wishes.find(item => item._id === productId);
         if (user?.email === product.adminEmail) return toast.error('Action not permitted!')
+             if (!user) return toast.error('Please Sign In')
       
         // 2. Prepare cart data
         const listedData = {
