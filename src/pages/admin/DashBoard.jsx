@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
-import toast from "react-hot-toast";
+
+import Swal from "sweetalert2";
 
 
 const DashBoard = () => {
@@ -16,19 +17,37 @@ const DashBoard = () => {
             setPayments(data)
         }
         console.log(payments);
-        const handleDelete = async ( id)=>{
-        try {
-            const {data} = await axiosSecure.delete(
-                `/payData/${id}`
-            )
-            console.log(data)
-            toast.success('Delete Successfully')
-            getData()
-        } catch(err){
-            console.log(err.message)
-            toast.error(err.message)
-        }
-    }
+     const handleDelete = (id) => {
+       Swal.fire({
+         title: "Are you sure?",
+         text: "You won't be able to revert this!",
+         icon: "warning",
+         showCancelButton: true,
+         confirmButtonColor: "#3085d6",
+         cancelButtonColor: "#d33",
+         confirmButtonText: "Yes, delete it!"
+       }).then(async (result) => {
+         if (result.isConfirmed) {
+           try {
+             await axiosSecure.delete(`/payData/${id}`);
+             
+             await Swal.fire({
+               title: "Deleted!",
+               text: "Your product has been deleted.",
+               icon: "success"
+             });
+             
+             getData();
+           } catch (err) {
+             await Swal.fire({
+               title: "Error!",
+               text: err.response?.data?.message || "Failed to delete product",
+               icon: "error"
+             });
+           }
+         }
+       });
+     };
     return (
         <div>
              <section className="container px-4 mx-auto">

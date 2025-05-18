@@ -1,4 +1,4 @@
-import { Link, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import PayCheckOutForm from "./PayCheckOutForm";
+import Swal from "sweetalert2";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 
@@ -119,18 +120,37 @@ const handleFormSubmission = async (e) => {
   }
 };
         // handle Delete
-          const handleDelete = async (id) => {
-            try {
-                const { data } = await axiosSecure.delete(`/cartData/${id}`);
-                console.log(data);
-                getData();
-                toast.success('Deleted successfully');
-            } catch (err) {
-                console.log(err.message);
-                toast.error(err.message);
-            }
-        }; 
-        
+       const handleDelete = (id) => {
+            Swal.fire({
+              title: "Are you sure?",
+              text: "You won't be able to revert this!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, delete it!"
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+                try {
+                  await axiosSecure.delete(`/cartData/${id}`);
+                  
+                  await Swal.fire({
+                    title: "Deleted!",
+                    text: "Your product has been deleted.",
+                    icon: "success"
+                  });
+                  
+                  getData();
+                } catch (err) {
+                  await Swal.fire({
+                    title: "Error!",
+                    text: err.response?.data?.message || "Failed to delete product",
+                    icon: "error"
+                  });
+                }
+              }
+            });
+          };
         const handleClick = () => {
     setShowText(!showText);
      setUseStripePayment(!useStripePayment); // Toggles the state between true/false

@@ -2,9 +2,10 @@ import { useEffect, useState } from "react";
 // import { AuthContext } from "../../provider/AuthProvider";
 // import axios from "axios";
 import { Link } from "react-router-dom";
-import toast from "react-hot-toast";
+
 import useAuth from "../../hooks/useAuth";
 import useAxiosSecure from "../../hooks/useAxiosSecure";
+import Swal from "sweetalert2";
 
 
 const MyOrder = () => {
@@ -21,19 +22,37 @@ const MyOrder = () => {
         setOrders(data)
     }
 
-    const handleDelete = async ( id)=>{
-        try {
-            const {data} = await axiosSecure.delete(
-                `/orderData/${id}`
-            )
-            console.log(data)
-            getData()
-            toast.success('Delete Successfully')
-        } catch(err){
-            console.log(err.message)
-            toast.error(err.message)
-        }
-    }
+    const handleDelete = (id) => {
+     Swal.fire({
+       title: "Are you sure?",
+       text: "You won't be able to revert this!",
+       icon: "warning",
+       showCancelButton: true,
+       confirmButtonColor: "#3085d6",
+       cancelButtonColor: "#d33",
+       confirmButtonText: "Yes, delete it!"
+     }).then(async (result) => {
+       if (result.isConfirmed) {
+         try {
+           await axiosSecure.delete(`/orderData/${id}`);
+           
+           await Swal.fire({
+             title: "Deleted!",
+             text: "Your product has been deleted.",
+             icon: "success"
+           });
+           
+           getData();
+         } catch (err) {
+           await Swal.fire({
+             title: "Error!",
+             text: err.response?.data?.message || "Failed to delete product",
+             icon: "error"
+           });
+         }
+       }
+     });
+   };
     return (
         <div>
         <section className="container px-4 mx-auto">

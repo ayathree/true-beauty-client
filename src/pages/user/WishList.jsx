@@ -4,6 +4,7 @@ import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
 import { BsCart } from "react-icons/bs";
 import toast from "react-hot-toast";
+import Swal from "sweetalert2";
 
 
 const WishList = () => {
@@ -21,17 +22,37 @@ const WishList = () => {
             setListed(data);
         };
 
-        const handleDelete = async (id) => {
-            try {
-                const { data } = await axiosSecure.delete(`/wishData/${id}`);
-                console.log(data);
-                getData();
-                toast.success('Deleted successfully');
-            } catch (err) {
-                console.log(err.message);
-                toast.error(err.message);
-            }
-        };
+       const handleDelete = (id) => {
+            Swal.fire({
+              title: "Are you sure?",
+              text: "You won't be able to revert this!",
+              icon: "warning",
+              showCancelButton: true,
+              confirmButtonColor: "#3085d6",
+              cancelButtonColor: "#d33",
+              confirmButtonText: "Yes, delete it!"
+            }).then(async (result) => {
+              if (result.isConfirmed) {
+                try {
+                  await axiosSecure.delete(`/wishData/${id}`);
+                  
+                  await Swal.fire({
+                    title: "Deleted!",
+                    text: "Your product has been deleted.",
+                    icon: "success"
+                  });
+                  
+                  getData();
+                } catch (err) {
+                  await Swal.fire({
+                    title: "Error!",
+                    text: err.response?.data?.message || "Failed to delete product",
+                    icon: "error"
+                  });
+                }
+              }
+            });
+          };
 
         const handleAddToCart = async (productId) => {
             // 1. Get the product directly (no validation)
