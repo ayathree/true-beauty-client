@@ -28,8 +28,8 @@ const Brand = () => {
                 <img className="h-[500px] w-[500px]" src="https://templates.g5plus.net/glowing-bootstrap-5/assets/images/banner/banner-18.jpg" alt="" />
                 {
                     products.filter(p=>p.brand === 'x beauty').map(product=>(
-                        <Link to={`/brand/${product.brand}`} key={product._id}><div className="flex justify-center items-center">
-                    <button className="absolute bottom-10 capitalize text-xl font-semibold bg-white rounded-md px-4 text-black hover:bg-rose-400 ">x beauty</button>
+                        <Link to={`/brand/${product.brand}`} key={product._id}><div className="flex  justify-center items-center">
+                    <button className="absolute  bottom-10 capitalize text-xl font-semibold bg-white rounded-md px-4 text-black hover:bg-rose-400 ">x beauty</button>
                 </div></Link>
                     ))
                 }

@@ -9,7 +9,7 @@ import ReactStars from "react-rating-stars-component";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
-import { BsCart } from "react-icons/bs";
+
 
 import { useEffect, useState } from "react";
 
@@ -17,7 +17,7 @@ import { useEffect, useState } from "react";
 const ProductDetails = () => {
     const productData=useLoaderData()
     const {
-        _id, productName, category, price,description,imageUrl, brand, deadline, adminEmail
+        _id, productName, category, price,description,imageUrl, brand,  adminEmail
 
     }=productData || {}
 
@@ -154,58 +154,79 @@ const ProductDetails = () => {
     return (
        <div>
         {/* product detail */}
-         <div className="flex flex-col md:flex-row lg:flex-row justify-around items-center gap-4">
-            {/* div 1 */}
-            <div>
-                <p>{productName}</p>
-                <p>{description}</p>
-                <p>{brand}</p>
-                <img src={imageUrl} alt="" />
-                <p>{category}</p>
-                <p>{price}</p>
-                <p>{new Date (deadline).toLocaleDateString()}</p>
-                <p>{adminEmail}</p>
-           <p>{_id}</p> 
-            </div>
-            {/* div 2 */}
-           <div>
-             <button onClick={handleCart} className="rounded-full  border-2 border-rose-600 btn hover:bg-rose-300">< BsCart className="font-bold text-xl text-rose-600"/></button>
+         
+           
+            <div className="flex flex-row justify-around items-center ">
+              {/* div 1 */}
+               <div >
+                 <img className="h-[70vh] w-[400px]" src={imageUrl} alt="" />
+               </div>
+                {/* div 2 */}
+                <div  >
+                <div className="space-y-3">
+                  <p className="bg-rose-500 text-white px-2 w-16">${price}</p>
+                  <p className="text-3xl capitalize font-bold ">{productName}</p>
+                <p className="text-lg capitalize font-bold text-rose-600">{description}</p>
+                
+                
+                
+                <div>
+             <button onClick={handleCart} className=" capitalize bg-rose-500 text-white px-4 w-full py-2 text-xl font-semibold hover:bg-rose-300">Add to cart</button>
            
            </div>
-        </div>
+                </div>
+           <hr  className="border-rose-500 border-b-1 w-full mt-6 "/>
+          <div className="mt-6">
+             <p className=" capitalize"><span className="font-bold text-xl">Brand:</span> {brand}</p>
+                <p className=" capitalize  "><span className="font-bold text-xl" >Category:</span> {category}</p>
+          </div>
+          
+                </div>
+            </div>
+            <hr className="border-rose-500 border-b-1 w-full mt-6 "/>
+          
+           
+        
         {/* similar product */}
         <div>
-            <p className="text-4xl font-bold m-10 text-center">Similar Products</p>
-          {
-            products.map(item=> <Link to={`/product/${item._id}`} key={item._id}>
-            <div className="border-2 bg-rose-50 shadow-lg  mx-auto max-w-sm p-6 hover:border-red-400">
-                <div className="flex justify-center items-center py-6">
-                <img className="h-[300px]   border-2 border-rose-600" src={item.imageUrl} alt="" />
-                </div>
-                <h1 className="font-bold text-2xl capitalize">{item.productName}</h1>
-                <p className="font-bold text-xl capitalize">{item.brand}</p>
-                    <p className="font-bold text-2xl">total order:{item.totalOrder} </p>
-                {/* <p><span className="font-bold">Category :{category}</span> </p> */}
-               
-                <hr className="mt-2 text-black border border-b-rose-600" />
-                <div className="flex  justify-between items-center mt-5 " >
-                    <p className="font-bold text-2xl">{item.price} BDT</p>
+            <p className={products.length === 0 ? 'hidden' : 'text-4xl font-bold m-10 text-center mt-20 underline underline-2 text-rose-600'}>You may also like</p>
+         <div className="grid grid-cols-4 gap-7 justify-center items-center py-6">
+           {
+            products.slice(0,4).map(item=> <Link to={`/product/${item._id}`} key={item._id}>
+            <div  >
+                    <div className="">
+                   <div className="relative">
+                     <img className="h-[300px]    border-2 shadow-md" src={item.imageUrl} alt="" />
+                       <div className="flex justify-between items-center">
+                         <p className="font-bold absolute top-2 left-4 bg-rose-500 px-2 text-white ">{item.price} BDT</p>
+                            
+                       </div>
+                        <p className="font-bold capitalize absolute bottom-2 left-4 bg-rose-500 px-2 text-white">total order: {item.totalOrder} </p>
+                   </div>
+                    </div>
+                     <Link to={`/product/${item._id}`}><h1 title={item.productName} className="mt-3 font-bold text-center capitalize hover:underline text-xl">{item.productName.length > 20 ? `${item.productName.substring(0, 20)}...` : item.productName}</h1></Link>
+                    <p className="font-bold text-center capitalize">{item.brand}</p>
+                    {/* <p><span className="font-bold">Category :{category}</span> </p> */}
+                   
+                   
                     
-    
-                </div>
-            </div></Link>)
+                </div></Link>)
           }
+         </div>
       
         </div>
+        
         {/* review of customer */}
         <div>
-        <p className="text-4xl font-bold m-10 text-center">Write a Review</p>
-        <button 
+        <p className="text-4xl font-bold m-20 text-center underline underline-2 text-rose-600 ">Write a Review</p>
+        <div className="flex justify-center items-center">
+          <button 
         onClick={handleClick}
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+        className="px-4 py-2 bg-rose-500 text-white "
       >
-        {showText ? 'Hide Text' : 'Show Text'}
+        {showText ? 'Done' : 'Write'}
       </button>
+        </div>
        {showText && (
         <section className="max-w-4xl p-6 mx-auto bg-white rounded-md  dark:bg-gray-800">
     
@@ -214,8 +235,9 @@ const ProductDetails = () => {
         <div className="grid grid-cols-1 justify-center items-center">
 
           <div>
-            <label className="text-gray-700 dark:text-gray-200">Rating</label>
-             <input 
+            <label className="text-rose-600 text-lg font-semibold dark:text-gray-200">Rating</label>
+             <div className="flex justify-start items-center gap-5">
+              <input 
         type="hidden" 
         name="rating" 
         value={rating} 
@@ -225,20 +247,21 @@ const ProductDetails = () => {
     value={rating}
     onChange={ratingChanged}
     size={24}
-    activeColor="#ffd700"
+    activeColor="#ec1a44"
   />
-      <p>Your rating: {rating} {rating === 1 ? 'star' : 'stars'}</p>
+      <p className="font-semibold">Your rating: <span className="text-rose-600">{rating}</span> <span className="text-rose-600">{rating === 1 ? 'star' : 'stars'}</span></p>
+             </div>
      
   
           </div>
 
             <div>
-                <label className="text-gray-700 dark:text-gray-200">Review Title</label>
-                <input name="title" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
+                <label className="text-rose-600 text-lg font-semibold dark:text-gray-200">Review Title</label>
+                <input name="title" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-400 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
             </div>
             <div>
-                <label className="text-gray-700 dark:text-gray-200" >Review</label>
-                <textarea name="review"  type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
+                <label className="text-rose-600 text-lg font-semibold dark:text-gray-200" >Review</label>
+                <textarea name="review"  type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-400 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
             </div>
            
 
@@ -248,15 +271,16 @@ const ProductDetails = () => {
         </div>
 
         <div className="flex justify-end mt-6">
-            <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Submit Review</button>
+            <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-rose-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Submit Review</button>
         </div>
     </form>
 </section>
       )}
         </div>
+       
         {/* show the review */}
         <div>
-           <p className="text-4xl font-bold  text-center">Customers Review</p>
+           <p className={reviews.length === 0 ? 'hidden' : 'text-4xl font-bold m-10 text-center mt-20 underline underline-2 text-rose-600'}>Customers Review</p>
           {
             reviews.map(review=>(
                <div key={review._id}>
@@ -280,7 +304,7 @@ const ProductDetails = () => {
                           value={review.ratings}  // Use 'value' instead of 'onChange' for display
                           edit={false}           // Disable editing if just displaying
                           size={24}
-                          activeColor="#ffd700"
+                          activeColor="#ec1a44"
                         />
                        </div>
                          <span className="text-sm text-gray-500 dark:text-gray-400">{review.reviewerEmail}</span>
@@ -293,7 +317,7 @@ const ProductDetails = () => {
                 <p className="mt-4">{review.review}</p>
     </div>
 </section>
-<hr />
+<hr className="border-rose-600"/>
            </div>
             ))
           }
