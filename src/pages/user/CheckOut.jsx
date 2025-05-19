@@ -275,21 +275,21 @@ const handleFormSubmission = async (e) => {
             <form onSubmit={handleFormSubmission} >
         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 lg:mx-56 border-gray-200 border-2 p-5 rounded-lg">
             <div>
-                <label className="text-gray-700 dark:text-gray-200" >Your Name</label>
+                <label className="text-rose-600 font-bold text-lg dark:text-gray-200" >Your Name</label>
                 <input name="name" type="text"  className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" required/>
             </div>
 
             <div>
-                <label className="text-gray-700 dark:text-gray-200">Your Address</label>
+                <label className="text-rose-600 font-bold text-lg dark:text-gray-200">Your Address</label>
                 <input name="address" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" required/>
             </div>
 
             <div>
-                <label className="text-gray-700 dark:text-gray-200" >Your Phone Number</label>
+                <label className="text-rose-600 font-bold text-lg dark:text-gray-200" >Your Phone Number</label>
                 <input name="phone" type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" required/>
             </div>
             <div>
-                <label className="text-gray-700 dark:text-gray-200" >Your City</label>
+                <label className="text-rose-600 font-bold text-lg dark:text-gray-200" >Your City</label>
                 <select name="city" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" required>
                     <option value=""></option>
                     <option value="Dhaka">Dhaka</option>
@@ -298,13 +298,13 @@ const handleFormSubmission = async (e) => {
                 </select>
             </div>
             <div>
-                <label className="text-gray-700 dark:text-gray-200" >Zip Code</label>
+                <label className="text-rose-600 font-bold text-lg dark:text-gray-200" >Zip Code</label>
                 <input name="zip" type="number" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring" required/>
             </div>
 
             <div>
-                <label className="text-gray-700 dark:text-gray-200">Order Date</label>
-                <DatePicker className='border p-2 rounded-md' selected={startDate} onChange={(date) => setStartDate(date)} />
+                <label className="text-rose-600 font-bold text-lg dark:text-gray-200">Order Date</label>
+                <DatePicker className='border p-2 rounded-md' selected={startDate}  />
             </div>
             <div>
             <label className="text-gray-700 dark:text-gray-200">Payment Method <span className="text-green-700">(Before pay please fill up the form)</span></label>
@@ -314,7 +314,7 @@ const handleFormSubmission = async (e) => {
         e.preventDefault();
         handlePaymentMethodChange(true);
         handleClick();
-      }} className="btn bg-slate-700 text-white hover:bg-slate-500" disabled={!items.length}>Strip Payment</button>
+      }} className="btn bg-rose-500 text-white hover:bg-slate-500" disabled={!items.length}>Strip Payment</button>
           {!useStripePayment && (
       <>
         <input 
@@ -334,7 +334,7 @@ const handleFormSubmission = async (e) => {
         </div>
 
         <div className="flex justify-end mt-6">
-            <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-gray-700 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Complete Order</button>
+            <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-rose-500 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Complete Order</button>
         </div>
     </form>
     {

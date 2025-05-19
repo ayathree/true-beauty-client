@@ -19,7 +19,10 @@ const MyTransaction = () => {
              
     return (
         <div>
-            <p className="text-green-700 font-bold text-xl text-center">Histories will automatically delete after 30 days</p>
+          {
+            payments.length===0?(<p className="text-rose-600 text-center text-2xl capitalize font-bold mt-20">You have no transaction histories yet</p>):(
+                 <div>
+             <p className="text-green-700 font-bold text-xl text-center">Histories will automatically delete after 30 days</p>
             <section className="container px-4 mx-auto">
             
             <div className="flex flex-col mt-6">
@@ -80,6 +83,9 @@ const MyTransaction = () => {
             
            
             </section>
+           </div>
+            )
+          }
         </div>
     );
 };

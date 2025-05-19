@@ -83,7 +83,9 @@ const WishList = () => {
           };
     return (
         <div>
-          <section className="container px-4 mx-auto">
+          {
+            listed.length===0?(<p className="text-rose-600 text-center text-2xl capitalize font-bold mt-20">You have not added any item in wishlist yet</p>):(
+                <section className="container px-4 mx-auto">
         
         <div className="flex flex-col mt-6">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -182,6 +184,8 @@ const WishList = () => {
         
        
         </section>
+            )
+          }
                 
         </div>
     );
