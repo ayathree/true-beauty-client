@@ -1,6 +1,6 @@
 // import { useState } from "react";
 
-import {   useLoaderData, useNavigate } from "react-router-dom";
+import {   Link, useLoaderData, useNavigate } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 
 // import { AuthContext } from "../provider/AuthProvider";
@@ -10,7 +10,7 @@ import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
 import useAxiosSecure from "../hooks/useAxiosSecure";
 import { BsCart } from "react-icons/bs";
-import { FaRegHeart } from "react-icons/fa";
+
 import { useEffect, useState } from "react";
 
 
@@ -177,7 +177,8 @@ const ProductDetails = () => {
         <div>
             <p className="text-4xl font-bold m-10 text-center">Similar Products</p>
           {
-            products.map(item=> <div key={item._id} className="border-2 bg-rose-50 shadow-lg  mx-auto max-w-sm p-6 hover:border-red-400">
+            products.map(item=> <Link to={`/product/${item._id}`} key={item._id}>
+            <div className="border-2 bg-rose-50 shadow-lg  mx-auto max-w-sm p-6 hover:border-red-400">
                 <div className="flex justify-center items-center py-6">
                 <img className="h-[300px]   border-2 border-rose-600" src={item.imageUrl} alt="" />
                 </div>
@@ -189,15 +190,10 @@ const ProductDetails = () => {
                 <hr className="mt-2 text-black border border-b-rose-600" />
                 <div className="flex  justify-between items-center mt-5 " >
                     <p className="font-bold text-2xl">{item.price} BDT</p>
-                    <div className="flex justify-end items-end gap-3">
-                    {/* <button className="hover:text-white text-rose-600 bg-rose-200 border-2 border-rose-600 btn hover:bg-rose-300 flex justify-center items-center gap-2">Details<FaArrowRight className="font-bold text-xl text-rose-600"/></button> */}
-                    <div>
-                        <button  className="btn hover:bg-red-400"><FaRegHeart /></button>
-                      </div>
-                    </div>
+                    
     
                 </div>
-            </div>)
+            </div></Link>)
           }
       
         </div>

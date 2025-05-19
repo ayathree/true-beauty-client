@@ -2,14 +2,16 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import ProductCards from './ProductCards';
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+
+import useAxiosSecure from '../hooks/useAxiosSecure';
 
 
 const TabCat = () => {
+  const axiosSecure=useAxiosSecure()
   const [products, setProducts]= useState([]);
   useEffect(()=>{
     const getData = async ()=>{
-      const {data}= await axios (`${import.meta.env.VITE_API_URL}/products`)
+      const {data}= await axiosSecure (`${import.meta.env.VITE_API_URL}/products`)
       setProducts(data)
     }
     getData()
@@ -18,7 +20,10 @@ const TabCat = () => {
     return (
       <Tabs>
       <div className='container px-6 py-10 mx-auto'>
-        <h1 className='text-2xl font-semibold text-center capitalize font-lato mb-6'>Search Products by category</h1>
+       <div className='flex justify-center items-center'>
+         <img src="https://templates.g5plus.net/glowing-bootstrap-5/assets/images/shop/image-box-01.png" alt="" />
+       </div>
+        <h1 className='text-2xl font-semibold text-center capitalize font-lato mb-6'>Shop by category</h1>
         <p className=' text-center capitalize font-lato mb-6'>Here you can find, search your preferable makeup, beauty products with better filter and <br /> additional information about products and offers</p>
       <div className='flex justify-center item-center capitalize'>
       <TabList  >

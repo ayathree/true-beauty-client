@@ -22,6 +22,7 @@ import AdminRoute from "./provider/AdminRoute";
 
 import DashBoard from "./pages/admin/DashBoard";
 import MyTransaction from "./pages/user/MyTransaction";
+import BrandProducts from "./pages/BrandProducts";
 
 
 
@@ -107,6 +108,11 @@ const router = createBrowserRouter([
             {
                 path:'/myTransaction',
                 element:<PrivateRoute><MyTransaction></MyTransaction></PrivateRoute>
+            },
+            {
+                path:'/brand/:brand',
+                element:<BrandProducts></BrandProducts>,
+                loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/productBrand/${params.brand}`)
             }
             
         ]

@@ -1,21 +1,24 @@
+import { Link } from "react-router-dom";
 
 
 const Slider = ({image, text}) => {
     return (
         <div>
             <div
-  className="hero min-h-screen"
+  className="hero min-h-screen  relative"
   style={{
     backgroundImage: `url(${image})`,
+    text: 'True Beauty'
    
   }}>
   <div className="hero"></div>
-  <div className="hero-content   text-center">
-    <div className="">
+    <p className="text-4xl font-bold absolute top-6 text-white">True Beauty</p>
+  <div className="hero-content   text-center ">
+    <Link to={'/shops'}><div className="flex justify-center items-center">
      
       
-      <div to={''} className=" bg-rose-500 text-white text-3xl font-semibold py-2 px-4 rounded-md outline outline-2 capitalize">{text}</div>
-    </div>
+      <button className="  absolute bottom-10   text-black text-3xl font-semibold px-4 py-2  rounded-md bg-white hover:bg-rose-400 capitalize">{text}</button>
+    </div></Link>
   </div>
 </div>
         </div>
