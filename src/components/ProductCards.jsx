@@ -48,27 +48,24 @@ const ProductCards = ({product}) => {
 
 
     return (
-        <Link to={`/product/${_id}`}><div className="border-2 bg-rose-50 shadow-lg  mx-auto max-w-sm p-6 hover:border-red-400">
+       <div className="   mx-auto max-w-sm p-6 ">
             <div className="flex justify-center items-center py-6">
-            <img className="h-[300px]   border-2 border-rose-600" src={imageUrl} alt="" />
+           <div className="relative">
+             <img className="h-[300px]    border-2 shadow-md" src={imageUrl} alt="" />
+               <div className="flex justify-between items-center">
+                 <p className="font-bold absolute top-2 left-4 bg-rose-500 px-2 text-white ">{price} BDT</p>
+                    <button onClick={handleWish} className=" absolute top-2 right-4 text-rose-600 text-xl hover:text-2xl"><FaRegHeart /></button>
+               </div>
+                <p className="font-bold capitalize absolute bottom-2 left-4 bg-rose-500 px-2 text-white">total order: {totalOrder} </p>
+           </div>
             </div>
-            <h1 className="font-bold text-2xl capitalize">{productName}</h1>
-            <p className="font-bold text-xl capitalize">{brand}</p>
-                <p className="font-bold text-2xl">total order:{totalOrder} </p>
+             <Link to={`/product/${_id}`}><h1 title={productName} className="font-bold text-center capitalize hover:underline text-xl">{productName.length > 20 ? `${productName.substring(0, 20)}...` : productName}</h1></Link>
+            <p className="font-bold text-center capitalize">{brand}</p>
             {/* <p><span className="font-bold">Category :{category}</span> </p> */}
            
-            <hr className="mt-2 text-black border border-b-rose-600" />
-            <div className="flex  justify-between items-center mt-5 " >
-                <p className="font-bold text-2xl">{price} BDT</p>
-                <div className="flex justify-end items-end gap-3">
-                {/* <button className="hover:text-white text-rose-600 bg-rose-200 border-2 border-rose-600 btn hover:bg-rose-300 flex justify-center items-center gap-2">Details<FaArrowRight className="font-bold text-xl text-rose-600"/></button> */}
-                <div>
-                    <button onClick={handleWish} className="btn hover:bg-red-400"><FaRegHeart /></button>
-                  </div>
-                </div>
-
-            </div>
-        </div></Link>
+           
+            
+        </div>
     );
 };
 

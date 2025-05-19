@@ -37,7 +37,7 @@ const TabCat = () => {
       <TabPanel>
        <div className='grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
        {
-          products.filter(p=>p.category === 'Skin Care').map(product=>(
+          products.filter(p=>p.category === 'Skin Care').slice(0, 4).map(product=>(
             <ProductCards key={product._id} product={product}></ProductCards>
 
           ))
@@ -47,7 +47,7 @@ const TabCat = () => {
       <TabPanel>
       <div className='grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
        {
-          products.filter(p=>p.category === 'Hair Care').map(product=>(
+          products.filter(p=>p.category === 'Hair Care').slice(0, 4).map(product=>(
             <ProductCards key={product._id} product={product}></ProductCards>
 
           ))
@@ -57,7 +57,7 @@ const TabCat = () => {
       <TabPanel>
       <div className='grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
        {
-          products.filter(p=>p.category === 'Body Care').map(product=>(
+          products.filter(p=>p.category === 'Body Care').slice(0, 4).map(product=>(
             <ProductCards key={product._id} product={product}></ProductCards>
 
           ))
@@ -67,7 +67,7 @@ const TabCat = () => {
       <TabPanel>
       <div className='grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
        {
-          products.filter(p=>p.category === 'Makeup Items').map(product=>(
+          products.filter(p=>p.category === 'Makeup Items').slice(0, 4).map(product=>(
             <ProductCards key={product._id} product={product}></ProductCards>
 
           ))
