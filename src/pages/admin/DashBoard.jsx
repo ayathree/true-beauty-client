@@ -50,7 +50,9 @@ const DashBoard = () => {
      };
     return (
         <div>
-             <section className="container px-4 mx-auto">
+             {
+                payments.length===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">There are no transaction histories</p>):(
+                    <section className="container px-4 mx-auto">
             
             <div className="flex flex-col mt-6">
                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -138,6 +140,8 @@ const DashBoard = () => {
             
            
             </section>
+                )
+             }
             
         </div>
     );

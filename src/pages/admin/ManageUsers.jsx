@@ -40,7 +40,9 @@ const ManageUsers = () => {
      
     return (
         <div>
-         <section className="container px-4 mx-auto">
+        {
+            users.length===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">There is no users</p>):(
+                 <section className="container px-4 mx-auto">
         
         <div className="flex flex-col mt-6">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -114,7 +116,7 @@ const ManageUsers = () => {
                       className={`px-3 py-1 rounded ${
                         isLoading 
                           ? 'bg-gray-300 cursor-not-allowed' 
-                          : 'bg-blue-500 hover:bg-blue-600 text-white'
+                          : 'bg-rose-500 hover:bg-slate-600 text-white'
                       }`}
                     >
                      Make an admin
@@ -137,6 +139,8 @@ const ManageUsers = () => {
         
        
         </section>
+            )
+        }
             
         </div>
     );
