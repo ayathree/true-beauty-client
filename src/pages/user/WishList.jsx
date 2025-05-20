@@ -85,7 +85,9 @@ const WishList = () => {
         <div>
           {
             listed.length===0?(<p className="text-rose-600 text-center text-2xl capitalize font-bold mt-20">You have not added any item in wishlist yet</p>):(
+                
                 <section className="container px-4 mx-auto">
+                    <p className="text-rose-600 text-center capitalize text-2xl font-bold my-10 underline">Wish lists</p>
         
         <div className="flex flex-col mt-6">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -145,7 +147,7 @@ const WishList = () => {
                                     
                                     <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{list.listedBrand}</td>
                                   
-                                    <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{list.listedPrice} BDT</td>
+                                    <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">${list.listedPrice}</td>
                                     
         
                                     

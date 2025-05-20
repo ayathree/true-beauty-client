@@ -19,7 +19,7 @@ const Brand = () => {
          <div className="flex justify-center items-center mt-20">
             <img className="h-[20vh]" src="https://cdn11.bigcommerce.com/s-hii7479o/images/stencil/original/products/9372/25404/flower__61971.1523314766.png?c=2" alt="" />   
          </div>
-        <h1 className='text-2xl font-semibold text-center capitalize font-lato my-6'>Shop by brand</h1>
+        <h1 className='text-2xl font-semibold text-center capitalize font-lato my-6 text-rose-600'>Shop by brand</h1>
         <p className=' text-center capitalize font-lato mb-6'>Our products are designed for everyone.</p>
         <div className="flex flex-row justify-center items-center gap-5 ">
             {/* div 1 */}

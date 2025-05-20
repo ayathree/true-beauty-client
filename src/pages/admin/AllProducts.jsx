@@ -55,6 +55,8 @@ const AllProducts = () => {
         <div>
            {
             products.length ===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">You have not added any item yet</p>):(
+                  <div>
+                    <p className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">All products</p>
                  <section className="container px-4 mx-auto">
     
     <div className="flex flex-col mt-6">
@@ -155,6 +157,7 @@ const AllProducts = () => {
 
     
 </section>
+                  </div>
             )
            }
             

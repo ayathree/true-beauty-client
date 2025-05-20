@@ -53,7 +53,7 @@ const ProductCards = ({product}) => {
            <div className="relative">
              <img className="h-[300px]    border-2 shadow-md" src={imageUrl} alt="" />
                <div className="flex justify-between items-center">
-                 <p className="font-bold absolute top-2 left-4 bg-rose-500 px-2 text-white ">{price} BDT</p>
+                 <p className="font-bold absolute top-2 left-4 bg-rose-500 px-2 text-white ">${price}</p>
                     <button onClick={handleWish} className=" absolute top-2 right-4 text-rose-600 text-xl hover:text-2xl"><FaRegHeart /></button>
                </div>
                 <p className="font-bold capitalize absolute bottom-2 left-4 bg-rose-500 px-2 text-white">total order: {totalOrder} </p>

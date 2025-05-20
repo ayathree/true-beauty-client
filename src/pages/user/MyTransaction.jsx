@@ -22,7 +22,8 @@ const MyTransaction = () => {
           {
             payments.length===0?(<p className="text-rose-600 text-center text-2xl capitalize font-bold mt-20">You have no transaction histories yet</p>):(
                  <div>
-             <p className="text-green-700 font-bold text-xl text-center">Histories will automatically delete after 30 days</p>
+                     <p className="text-rose-600 text-center capitalize text-2xl font-bold my-10 underline">Transaction Histories</p>
+             <p className="text-green-700 font-bold text-xl text-center">(Histories will automatically delete after 30 days)</p>
             <section className="container px-4 mx-auto">
             
             <div className="flex flex-col mt-6">
@@ -64,7 +65,7 @@ const MyTransaction = () => {
                                        
                                         
                                         <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{payment.transactionId}</td>
-                                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{payment.price}</td>
+                                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">${payment.price}</td>
                                         <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{payment.date}</td>
                                         
                                         

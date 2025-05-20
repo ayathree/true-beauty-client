@@ -102,7 +102,7 @@ const MyCart = () => {
                 {
                     carts.length ===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">You have not added any item in cart yet</p>):(
                         <section className="container px-4 mx-auto">
-        
+        <p className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">Cart Items</p>
         <div className="flex flex-col mt-6">
             <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                 <div className="inline-block min-w-full py-2 align-middle md:px-6 lg:px-8">
@@ -162,7 +162,7 @@ const MyCart = () => {
                                     
                                     <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{cart.savedBrand}</td>
                                   
-                                    <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{cart.savedPrice} BDT</td>
+                                    <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">${cart.savedPrice}</td>
                                     
         
                                     <td className="px-4 py-4 text-md  whitespace-nowrap">

@@ -204,7 +204,7 @@ const Shops = () => {
     
 </aside>
 <div>
-    <img className="w-screen object-cover h-[50vh]" src="https://jewelleryishi.myshopify.com/cdn/shop/products/18_bb81cf3a-3cae-46f3-a845-b815b3545706_720x.png?v=1675163888" alt="" />
+    <img className="w-screen object-cover h-[50vh]" src="https://uploads.dovetale.com/brand-profile-media/b50674e5ad1b4e40f49a9fcd72c594a6.jpg" alt="" />
     <div className="bg-rose-500 p-4 mt-4 flex flex-row justify-between items-center">
         <p className="font-bold text-xl text-white">Showing <span className="text-3xl">{products.length}</span> of <span className="text-3xl">{count}</span> products</p>
         <button onClick={handleReset} className="btn outline-1 capitalize text-rose-700">reset</button>

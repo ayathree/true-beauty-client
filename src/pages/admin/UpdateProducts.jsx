@@ -45,8 +45,8 @@ const UpdateProducts = () => {
     }
     return (
         <div className="m-10">
+    <h2 className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">Update Products</h2>
             <section className="max-w-4xl p-6 mx-auto bg-white rounded-md shadow-md dark:bg-gray-800">
-    <h2 className="text-lg font-semibold text-rose-600 capitalize dark:text-white">Update Products</h2>
 
     <form onSubmit={handleFormSubmission}>
         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2">

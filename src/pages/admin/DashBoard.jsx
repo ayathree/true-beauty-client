@@ -52,7 +52,9 @@ const DashBoard = () => {
         <div>
              {
                 payments.length===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">There are no transaction histories</p>):(
-                    <section className="container px-4 mx-auto">
+                   <div>
+                     <h2 className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">Transaction dashboard</h2>
+                   <section className="container px-4 mx-auto">
             
             <div className="flex flex-col mt-6">
                 <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
@@ -140,6 +142,7 @@ const DashBoard = () => {
             
            
             </section>
+                   </div>
                 )
              }
             

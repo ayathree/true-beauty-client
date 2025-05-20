@@ -62,11 +62,11 @@ const NavBar = () => {
         
       </div>
       <div className="mr-4">
-        <ul className="flex flex-row gap-5 text-rose-600 font-bold ">
-          <NavLink className={({isActive})=>isActive?'underline underline-2':''} to={'/'}><li>Home</li></NavLink>
-          <NavLink className={({isActive})=>isActive?'underline underline-2':''} to={'/shops'}><li>Shop</li></NavLink>
-          <NavLink className={({isActive})=>isActive?'underline underline-2':''} to={''}><li>About Us</li></NavLink>
-          <NavLink className={({isActive})=>isActive?'underline underline-2':''} to={''}><li>Contact Us</li></NavLink>
+        <ul className="flex flex-row gap-5 text-black font-semibold ">
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/'}><li>Home</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/shops'}><li>Shop</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/about'}><li>About Us</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/contact'}><li>Contact Us</li></NavLink>
 
          {
           !user &&  <Link to={'/login'}><li>Login</li></Link>

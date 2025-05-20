@@ -198,7 +198,7 @@ const ProductDetails = () => {
                    <div className="relative">
                      <img className="h-[300px]    border-2 shadow-md" src={item.imageUrl} alt="" />
                        <div className="flex justify-between items-center">
-                         <p className="font-bold absolute top-2 left-4 bg-rose-500 px-2 text-white ">{item.price} BDT</p>
+                         <p className="font-bold absolute top-2 left-4 bg-rose-500 px-2 text-white ">${item.price}</p>
                             
                        </div>
                         <p className="font-bold capitalize absolute bottom-2 left-4 bg-rose-500 px-2 text-white">total order: {item.totalOrder} </p>

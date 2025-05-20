@@ -23,6 +23,8 @@ import AdminRoute from "./provider/AdminRoute";
 import DashBoard from "./pages/admin/DashBoard";
 import MyTransaction from "./pages/user/MyTransaction";
 import BrandProducts from "./pages/BrandProducts";
+import About from "./pages/About";
+import ContactUs from "./pages/ContactUs";
 
 
 
@@ -113,6 +115,16 @@ const router = createBrowserRouter([
                 path:'/brand/:brand',
                 element:<BrandProducts></BrandProducts>,
                 loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/productBrand/${params.brand}`)
+            },
+            {
+                path:'/about',
+                element:<About></About>
+
+            },
+            {
+                path:'/contact',
+                element:<ContactUs></ContactUs>
+
             }
             
         ]

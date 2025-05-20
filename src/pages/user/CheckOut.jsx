@@ -21,7 +21,7 @@ const axiosSecure = useAxiosSecure();
 const [startDate] = useState(new Date()); // Removed setStartDate if not needed
 const [items, setItems] = useState([]);
 const [subtotal, setSubtotal] = useState(0);
-const [shippingFee] = useState(150); // Made constant if not changing
+const [shippingFee] = useState(1.23); // Made constant if not changing
 const [total, setTotal] = useState(0);
 const [showText, setShowText] = useState(false);
 const [useStripePayment, setUseStripePayment] = useState(false);
@@ -166,6 +166,7 @@ const handleFormSubmission = async (e) => {
 };
     return (
         <div>
+          <p className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">Selected Items</p>
             <section className="container px-4 mx-auto">
             
             <div className="flex flex-col mt-6">
@@ -224,7 +225,7 @@ const handleFormSubmission = async (e) => {
                                         
                                         <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{item.savedBrand}</td>
                                       
-                                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{item.savedPrice} BDT</td>
+                                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">${item.savedPrice}</td>
                                         <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{item.quantity}</td>
                                         
             
@@ -241,7 +242,7 @@ const handleFormSubmission = async (e) => {
                                                 
                                             </div>
                                         </td>
-                                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{(item.savedPrice * item.quantity).toLocaleString('en-BD')} BDT</td>
+                                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">${(item.savedPrice * item.quantity).toLocaleString('en-US')}</td>
                                     </tr>
                                         ))
                                     }
@@ -264,14 +265,15 @@ const handleFormSubmission = async (e) => {
                     <p className="text-red-600">Total</p>
                 </div>
                 <div>
-                    <p className="text-blue-600">{subtotal.toLocaleString('en-BD')} BDT</p>
-                    <p className="text-green-600">{shippingFee.toLocaleString('en-BD')} BDT</p>
-                    <p className="text-red-600">{total.toLocaleString('en-BD')} BDT</p>
+                    <p className="text-blue-600">${subtotal.toLocaleString('en-US')}</p>
+                    <p className="text-green-600">${shippingFee.toLocaleString('en-US')}</p>
+                    <p className="text-red-600">${total.toLocaleString('en-US')}</p>
                 </div>
                 
 
             </div>
             {/* customer info */}
+            <p className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">Customer Information</p>
             <form onSubmit={handleFormSubmission} >
         <div className="grid grid-cols-1 gap-6 mt-4 sm:grid-cols-2 lg:mx-56 border-gray-200 border-2 p-5 rounded-lg">
             <div>
@@ -339,6 +341,8 @@ const handleFormSubmission = async (e) => {
     </form>
     {
         showText && (
+         <div>
+           <p className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">Payment Card</p>
             <div className="m-20 border-2 border-slate-300 rounded-lg p-4">
            <Elements stripe={stripePromise}>
             <PayCheckOutForm  total={total} ids={items.map(item=>(item._id))} owners={items.map(item=>(item.owner))}></PayCheckOutForm>
@@ -346,6 +350,7 @@ const handleFormSubmission = async (e) => {
            </Elements>
         </div>
 
+         </div>
         )
     }
 

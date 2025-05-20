@@ -17,7 +17,7 @@ const Slider = ({image, text}) => {
     <Link to={'/shops'}><div className="flex justify-center items-center">
      
       
-      <button className="  absolute bottom-10   text-black text-3xl font-semibold px-4 py-2  rounded-md bg-white hover:bg-rose-400 capitalize">{text}</button>
+      <button className="  absolute bottom-10   text-rose-600 text-3xl font-semibold px-4 py-2  rounded-md bg-white hover:bg-black capitalize">{text}</button>
     </div></Link>
   </div>
 </div>

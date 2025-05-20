@@ -71,6 +71,8 @@ const ManageOrder = () => {
         <div>
        {
         orders.length===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">There is no order request</p>):(
+              <div>
+                <h2 className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">Manage Orders</h2>
              <section className="container px-4 mx-auto">
 
 <div className="flex flex-col mt-6">
@@ -192,6 +194,7 @@ const ManageOrder = () => {
 
 
 </section>
+              </div>
         )
        }
         
