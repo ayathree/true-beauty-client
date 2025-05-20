@@ -138,9 +138,9 @@ const Shops = () => {
       };
     return (
        <div className="mt-20 mb-10 flex flex-row gap-5 ">
-         <aside className="flex flex-col  px-4 py-8  bg-white border-r-2 dark:bg-gray-900 dark:border-gray-700">
+         <aside className="flex flex-col  px-4 py-8  bg-white border-r-2 border-rose-600 dark:bg-gray-900 dark:border-gray-700">
     
-    <p className="capitalize font-bold">Search by name</p>
+    <p className="capitalize font-bold text-rose-600">Search by name</p>
     <form onSubmit={handleSearch} className="relative mt-6">
 
         <input onChange={e=>setSearchText(e.target.value)} value={searchText} type="text" name="search" className="w-full py-2 pr-10 pl-4 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Search" />
@@ -155,8 +155,8 @@ const Shops = () => {
         <nav>
            
 
-            <hr className="my-3 border-gray-200 dark:border-gray-600" />
-            <p className="my-6 capitalize font-bold">Search by category</p>
+           
+            <p className="my-6 capitalize font-bold text-rose-600">Search by category</p>
             <select onChange={e=>{setFilter(e.target.value)
                  setCurrentPage(1)}} value={filter} name="category"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
                     <option value=""></option>
@@ -169,8 +169,8 @@ const Shops = () => {
                     <option value="Makeup Items">Makeup Items</option>
                     
                 </select>
-                <hr className="mt-9 border-gray-200 dark:border-gray-600" />
-            <p className="my-6 capitalize font-bold">Search by Brand</p>
+               
+            <p className="my-6 capitalize font-bold text-rose-600">Search by Brand</p>
             <select onChange={e=>{setFilterBrand(e.target.value)
                  setCurrentPage(1)}} value={filterBrand} name="brand"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
                     <option value=""></option>
@@ -180,8 +180,8 @@ const Shops = () => {
                     
                     
                 </select>
-            <hr className="mt-9 border-gray-200 dark:border-gray-600" />
-            <p className="my-6 capitalize font-bold">Sort by Price</p>
+           
+            <p className="my-6 capitalize font-bold text-rose-600">Sort by Price</p>
             <select onChange={e=>{setSortPrice(e.target.value)
                  setCurrentPage(1)}} value={sortPrice}  name="price"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
                     <option value=""></option>
@@ -189,15 +189,8 @@ const Shops = () => {
                     <option value="high">Higher To Lower</option>
                     
                 </select>
-                <hr className="mt-9 border-gray-200 dark:border-gray-600" />
-            <p className="my-6 capitalize font-bold">Sort by offer deadline</p>
-            <select onChange={e=>{setSort(e.target.value)
-                 setCurrentPage(1)}} value={sort}  name="deadline"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
-                    <option value=""></option>
-                    <option value="dsc">Descending Order</option>
-                    <option value="asc">Ascending Order </option>
-                    
-                </select>
+                
+            
 
               
 
@@ -212,28 +205,38 @@ const Shops = () => {
 </aside>
 <div>
     <img className="w-screen object-cover h-[50vh]" src="https://jewelleryishi.myshopify.com/cdn/shop/products/18_bb81cf3a-3cae-46f3-a845-b815b3545706_720x.png?v=1675163888" alt="" />
-    <div className="bg-red-300 p-4 mt-4 flex flex-row justify-between items-center">
-        <p className="font-bold text-xl">Showing {products.length} of {count} products</p>
-        <button onClick={handleReset} className="btn outline-1 capitalize">reset</button>
+    <div className="bg-rose-500 p-4 mt-4 flex flex-row justify-between items-center">
+        <p className="font-bold text-xl text-white">Showing <span className="text-3xl">{products.length}</span> of <span className="text-3xl">{count}</span> products</p>
+        <button onClick={handleReset} className="btn outline-1 capitalize text-rose-700">reset</button>
     </div>
     
     
-    {/* card  */}
+    <div>
+        {
+            products.length===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">There are no Items and products in shop store</p>):(
+                <div>
+                {/* card  */}
     <div className="grid grid-cols-3  justify-center items-center gap-3 mt-10 ">
         {
             products.map(product=>(
-                <div key={product.key} className="border-black border-2">
-                  <div className="flex justify-center items-center">
-                  <img src={product.imageUrl} alt="" className="h-[30vh] " />
-                  </div>
-                 <Link to={`/product/${product._id}`}> <p className="hover:underline hover:font-bold">{product.productName}</p></Link>
-                  <p>{product.brand}</p>
-                  <p>{product.price} BDT</p>
-                  <div>
-                    <button onClick={() => handleWish(product._id)} className="btn hover:bg-red-400"><FaRegHeart /></button>
-                  </div>
-
-                </div>
+               <div key={product._id} className="   mx-auto max-w-sm p-6 ">
+            <div className="flex justify-center items-center py-6">
+           <div className="relative">
+             <img className="h-[300px]    border-2 shadow-md" src={product.imageUrl} alt="" />
+               <div className="flex justify-between items-center">
+                 <p className="font-bold absolute top-2 left-4 bg-rose-500 px-2 text-white ">${product.price}</p>
+                    <button onClick={() => handleWish(product._id)} className=" absolute top-2 right-4 text-rose-600 text-xl hover:text-2xl"><FaRegHeart /></button>
+               </div>
+                <p className="font-bold capitalize absolute bottom-2 left-4 bg-rose-500 px-2 text-white">total order: {product.totalOrder} </p>
+           </div>
+            </div>
+             <Link to={`/product/${product._id}`}><h1 title={product.productName} className="font-bold text-center capitalize hover:underline text-xl">{product.productName.length > 20 ? `${product.productName.substring(0, 20)}...` : product.productName}</h1></Link>
+            <p className="font-bold text-center capitalize">{product.brand}</p>
+            {/* <p><span className="font-bold">Category :{category}</span> </p> */}
+           
+           
+            
+        </div>
             ))
         }
 
@@ -241,7 +244,7 @@ const Shops = () => {
     {/* pagination */}
 <div className="flex justify-center items-center mt-10">
     {/* previous */}
-    <button onClick={()=>handlePagination(currentPage -1)} className="px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-red-300 dark:hover:bg-red-300 hover:text-white dark:hover:text-gray-200 disabled:bg-slate-300 disabled:text-slate-50" disabled={currentPage===1}>
+    <button onClick={()=>handlePagination(currentPage -1)} className="px-4 py-2 mx-1 text-white transition-colors duration-300 transform bg-rose-600 rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-red-300 dark:hover:bg-red-300 hover:text-white dark:hover:text-gray-200 disabled:bg-slate-300 disabled:text-slate-50" disabled={currentPage===1}>
         <div className="flex items-center -mx-1">
             <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6 mx-1 rtl:-scale-x-100" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M7 16l-4-4m0 0l4-4m-4 4h18" />
@@ -264,7 +267,7 @@ const Shops = () => {
     ))
    }
 {/* next */}
-    <button onClick={()=>handlePagination(currentPage +1)} className="px-4 py-2 mx-1 text-gray-700 transition-colors duration-300 transform bg-white rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-red-300 dark:hover:bg-red-300 hover:text-white dark:hover:text-gray-200 disabled:bg-slate-300 disabled:text-slate-50" disabled={currentPage === numOfPages}>
+    <button onClick={()=>handlePagination(currentPage +1)} className="px-4 py-2 mx-1 text-white transition-colors duration-300 transform bg-rose-500 rounded-md dark:bg-gray-800 dark:text-gray-200 hover:bg-red-300 dark:hover:bg-red-300 hover:text-white dark:hover:text-gray-200 disabled:bg-slate-300 disabled:text-slate-50" disabled={currentPage === numOfPages}>
         <div className="flex items-center -mx-1">
             <span className="mx-1">
                 Next
@@ -276,6 +279,10 @@ const Shops = () => {
         </div>
     </button>
 </div>
+                </div>
+            )
+        }
+    </div>
 </div>
 
 

@@ -145,7 +145,7 @@ const ManageOrder = () => {
                             <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.customerInfo.phone}</td>
                             <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.customerInfo.address}</td>
                             <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.payment.method}</td>
-                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{order.orderDetails.subtotal}</td>
+                            <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">${order.orderDetails.subtotal}</td>
                             <td className="px-12 py-4 text-md  whitespace-nowrap">
                                 <div className="flex items-center   gap-x-2 ">
                                    <p className={`px-3 py-1 font-bold ${

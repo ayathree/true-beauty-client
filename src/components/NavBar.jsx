@@ -1,7 +1,7 @@
 import { useContext, useEffect, useState } from 'react';
 import logo from '../assets/truebeauty_16-removebg-preview.png'
 import { AuthContext } from '../provider/AuthProvider';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import useAdmin from '../hooks/useAdmin';
 import { IoNotifications } from 'react-icons/io5';
 import useAxiosSecure from '../hooks/useAxiosSecure';
@@ -58,15 +58,15 @@ const NavBar = () => {
       <div className="navbar bg-base-100">
       <div className="flex-1">
         <img src={logo} className='h-[100px] w-[150px]' alt="" />
-        <h1 className='capitalize font-semibold text-2xl'>True beauty</h1>
+        <h1 className='capitalize font-semibold text-2xl text-rose-600'>True beauty</h1>
         
       </div>
       <div className="mr-4">
-        <ul className="flex flex-row gap-5 ">
-          <Link to={'/'}><li>Home</li></Link>
-          <Link to={'/shops'}><li>Shop</li></Link>
-          <Link to={'/'}><li>About Us</li></Link>
-          <Link to={'/'}><li>Contact Us</li></Link>
+        <ul className="flex flex-row gap-5 text-rose-600 font-bold ">
+          <NavLink className={({isActive})=>isActive?'underline underline-2':''} to={'/'}><li>Home</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'underline underline-2':''} to={'/shops'}><li>Shop</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'underline underline-2':''} to={''}><li>About Us</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'underline underline-2':''} to={''}><li>Contact Us</li></NavLink>
 
          {
           !user &&  <Link to={'/login'}><li>Login</li></Link>
@@ -80,11 +80,11 @@ const NavBar = () => {
        <div className='flex items-center gap-3'>
         <div className="relative inline-block group">
         {cart.length !== 0 && (
-  <div className="absolute -top-2 left-3 badge badge-sm badge-secondary">
-    <p>{cart.length}</p>
+  <div className="absolute -top-2 left-3 badge badge-sm badge-neutral">
+    <p className='text-white'>{cart.length}</p>
   </div>
 )}
-  <FaShoppingCart  className="text-xl" />
+  <FaShoppingCart  className="text-xl text-rose-600" />
   {/* <div className="invisible group-hover:visible fixed top-4 right-4 bg-gray-800 text-white text-sm px-3 py-2 rounded z-50 w-48 shadow-lg">
     {cart.length} 
   </div> */}
@@ -127,7 +127,7 @@ const NavBar = () => {
         {order.length !== 0 && (
   <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
 )}
-  <IoNotifications className="text-xl" />
+  <IoNotifications className="text-xl text-rose-500" />
   <div className="invisible group-hover:visible fixed top-4 right-4 bg-gray-800 text-white text-sm px-3 py-2 rounded z-50 w-48 shadow-lg">
     {order.length} order notifications
   </div>
