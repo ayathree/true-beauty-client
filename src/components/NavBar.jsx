@@ -69,7 +69,7 @@ const NavBar = () => {
           <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/contact'}><li>Contact Us</li></NavLink>
 
          {
-          !user &&  <Link to={'/login'}><li>Login</li></Link>
+          !user &&  <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/login'}><li>Login</li></NavLink>
           
          }
         </ul>
