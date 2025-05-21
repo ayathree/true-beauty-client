@@ -21,7 +21,7 @@ const Brand = () => {
          </div>
         <h1 className='text-2xl font-semibold text-center capitalize font-lato my-6 text-rose-600'>Shop by brand</h1>
         <p className=' text-center capitalize font-lato mb-6'>Our products are designed for everyone.</p>
-        <div className="flex flex-row justify-center items-center gap-5 ">
+        <div className="flex md:flex-row flex-col justify-center items-center gap-5 ">
             {/* div 1 */}
             <div>
                 <div className="relative">

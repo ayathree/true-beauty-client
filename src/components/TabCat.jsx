@@ -20,7 +20,7 @@ const TabCat = () => {
     return (
       <Tabs >
       <div className='container px-6 py-10 mx-auto'>
-       <div className='flex justify-center items-center'>
+       <div className='flex  justify-center items-center'>
          <img src="https://templates.g5plus.net/glowing-bootstrap-5/assets/images/shop/image-box-01.png" alt="" />
        </div>
         <h1 className='text-2xl font-semibold text-center capitalize font-lato mb-6 text-rose-600 '>Shop by category</h1>

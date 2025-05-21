@@ -238,7 +238,7 @@ user && !isAdmin &&
   <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
 )}
   <IoNotifications className="text-xs text-rose-500" />
-  <div className="invisible group-hover:visible fixed top-4 right-4 text-xs bg-gray-800 text-white text-sm px-3 py-2 rounded z-50 w-48 shadow-lg">
+  <div className="invisible group-hover:visible fixed top-4 right-4 text-xs bg-gray-800 text-white  px-3 py-2 rounded z-50 w-48 shadow-lg">
     {order.length} order notifications
   </div>
 </div>
