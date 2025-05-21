@@ -8,7 +8,8 @@ const BrandProducts = () => {
     return (
         <div>
            <h2 className="text-rose-600 text-center capitalize text-3xl font-bold my-10 underline">Brand Items</h2>
-           <div className=" grid grid-cols-4 gap-7 justify-center items-center py-6 ">
+           <div className="flex justify-center items-center">
+            <div className=" grid md:grid-cols-4 grid-cols-1 gap-7 justify-center items-center py-6 ">
             {
                 products.map(product=>(
                     <div key={product._id} >
@@ -32,6 +33,7 @@ const BrandProducts = () => {
                 ))
             }
          </div>
+           </div>
         </div>
     );
 };
