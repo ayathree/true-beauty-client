@@ -144,6 +144,7 @@ const NavBar = () => {
        <Link to={'/manageOrder'}> <li><a>Manage Orders</a></li></Link>
        <Link to={'/manageUsers'}><li><a>Manage Users</a></li></Link>
        <Link to={'/dashboard'}><li><a>DashBoard</a></li></Link>
+        <Link to={'/messages'}><li><a>All Messages</a></li></Link>
       
        
        

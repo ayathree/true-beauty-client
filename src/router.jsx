@@ -25,6 +25,7 @@ import MyTransaction from "./pages/user/MyTransaction";
 import BrandProducts from "./pages/BrandProducts";
 import About from "./pages/About";
 import ContactUs from "./pages/ContactUs";
+import Messages from "./pages/admin/Messages";
 
 
 
@@ -125,6 +126,10 @@ const router = createBrowserRouter([
                 path:'/contact',
                 element:<ContactUs></ContactUs>
 
+            },
+            {
+                path:'/messages',
+                element:<AdminRoute><Messages></Messages></AdminRoute>
             }
             
         ]
