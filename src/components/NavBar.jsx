@@ -17,6 +17,7 @@ const NavBar = () => {
   const [order,setOrder]=useState([])
   const [cart, setCart] =useState([])
 
+
   
   useEffect(() => {
     const controller = new AbortController(); // Create abort controller
@@ -54,15 +55,58 @@ const NavBar = () => {
     };
   }, [user, isAdmin]);
 
+ 
+
+  
+
     return (
-      <div className="navbar bg-base-100">
+      <div>
+        {/* 1ct nav */}
+        <div className="navbar bg-base-100">
       <div className="flex-1">
-        <img src={logo} className='h-[100px] w-[150px]' alt="" />
-        <h1 className='capitalize font-semibold text-2xl text-rose-600'>True beauty</h1>
+        <img src={logo} className='h-16 w-24 md:h-[100px] md:w-[150px]' alt="" />
+        <h1 className='text-xl md:text-2xl font-semibold text-rose-600 capitalize'>True beauty</h1>
         
       </div>
-      <div className="mr-4">
-        <ul className="flex flex-row gap-5 text-black font-semibold ">
+
+      {/* Mobile Menu Button (Hamburger) */}
+  <div className="md:hidden">
+    <details className="dropdown dropdown-bottom  dropdown-left">
+  <summary tabIndex={0} role="button" className="btn btn-ghost btn-circle" >
+     <svg 
+        xmlns="http://www.w3.org/2000/svg" 
+        className="h-5 w-5" 
+        fill="none" 
+        viewBox="0 0 24 24" 
+        stroke="currentColor"
+      >
+        <path 
+          strokeLinecap="round" 
+          strokeLinejoin="round" 
+          strokeWidth="2" 
+          d="M4 6h16M4 12h16M4 18h16" 
+        />
+      </svg>
+  </summary>
+  <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[10] w-52 p-2 shadow-sm">
+    <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/'}><li>Home</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/shops'}><li>Shop</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/about'}><li>About Us</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/contact'}><li>Contact Us</li></NavLink>
+
+         {
+          !user &&  <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/login'}><li>Login</li></NavLink>
+          
+         }
+  </ul>
+</details>
+    
+  </div>
+
+ 
+  
+      <div className="mr-4 hidden md:block">
+        <ul className="flex md:flex-row gap-5 text-black font-semibold ">
           <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/'}><li>Home</li></NavLink>
           <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/shops'}><li>Shop</li></NavLink>
           <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/about'}><li>About Us</li></NavLink>
@@ -77,7 +121,7 @@ const NavBar = () => {
      {
       user && !isAdmin && 
         
-       <div className='flex items-center gap-3'>
+       <div className='md:flex items-center gap-3 hidden '>
         <div className="relative inline-block group">
         {cart.length !== 0 && (
   <div className="absolute -top-2 left-3 badge badge-sm badge-neutral">
@@ -122,7 +166,7 @@ const NavBar = () => {
      {
       user && isAdmin &&
       
-        <div className='flex items-center gap-3'>
+        <div className='md:flex items-center gap-3 hidden'>
         <div className="relative inline-block group">
         {order.length !== 0 && (
   <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
@@ -140,10 +184,10 @@ const NavBar = () => {
       </div>
       <ul tabIndex={0} className="mt-3 z-[10] p-2 shadow menu menu-sm dropdown-content bg-base-100 rounded-box w-52">
         
-       <Link to={'/manageProducts'}> <li><a>Manage Product</a></li></Link>
-       <Link to={'/manageOrder'}> <li><a>Manage Orders</a></li></Link>
-       <Link to={'/manageUsers'}><li><a>Manage Users</a></li></Link>
-       <Link to={'/dashboard'}><li><a>DashBoard</a></li></Link>
+       <Link  to={'/manageProducts'}> <li><a>Manage Product</a></li></Link>
+       <Link  to={'/manageOrder'}> <li><a>Manage Orders</a></li></Link>
+       <Link  to={'/manageUsers'}><li><a>Manage Users</a></li></Link>
+       <Link  to={'/dashboard'}><li><a>DashBoard</a></li></Link>
         <Link to={'/messages'}><li><a>All Messages</a></li></Link>
       
        
@@ -153,7 +197,55 @@ const NavBar = () => {
     </div>
         </div>
      }
+
+      
     </div>
+    {/* 2nd nav */}
+    {/* mobile user/admin profile */}
+  <div className='md:hidden'>
+    {/* user */}
+    {
+user && !isAdmin &&
+<div className='flex flex-row text-xs justify-center items-center gap-4'>
+ <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/myOrder'}>Order</NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/wishList'}>WishList</NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/myCart'}>Cart</NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/myTransaction'}>Transactions</NavLink>
+      <a onClick={loggedOut}>Logout</a>
+       <div className="relative inline-block group">
+        {cart.length !== 0 && (
+  <div className="absolute -top-2 left-3 badge badge-sm badge-neutral">
+    <p className='text-white text-xs'>{cart.length}</p>
+  </div>
+)}
+  <FaShoppingCart  className="text-xs text-rose-600" />
+</div>
+</div>
+    }
+
+    {/* admin */}
+    {
+ user && isAdmin &&
+<div className='flex flex-row text-xs justify-center items-center gap-2'>
+ <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/manageProducts'}>Products</NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/manageOrder'}>Orders</NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/manageUsers'}>Users</NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/dashboard'}>Dashboard</NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/messages'}>Messages</NavLink>
+      <a onClick={loggedOut}>Logout</a>
+       <div className="relative inline-block group">
+        {order.length !== 0 && (
+  <div className="absolute -top-1 -right-1 w-2 h-2 bg-red-500 rounded-full"></div>
+)}
+  <IoNotifications className="text-xs text-rose-500" />
+  <div className="invisible group-hover:visible fixed top-4 right-4 text-xs bg-gray-800 text-white text-sm px-3 py-2 rounded z-50 w-48 shadow-lg">
+    {order.length} order notifications
+  </div>
+</div>
+</div>
+    }
+  </div>
+      </div>
     );
 };
 

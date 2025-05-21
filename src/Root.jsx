@@ -6,7 +6,7 @@ import Footer from "./components/Footer";
 
 const Root = () => {
     return (
-        <div className="font-Literata mx-auto px-9">
+        <div className="font-Literata md:mx-auto md:px-9 px-2">
             <NavBar></NavBar>
 
            <div className="min-h-[calc(100vh-306px)]"> <Outlet></Outlet></div>
