@@ -138,10 +138,10 @@ const Shops = () => {
           }
       };
     return (
-       <div className="mt-20 mb-10 flex md:flex-row flex-col gap-5 ">
-         <aside className="flex flex-col px-4 py-8 bg-white md:border-r-2 border-rose-600 dark:bg-gray-900 dark:border-gray-700">
+       <div className="lg:mt-20 mt-10 mb-10 flex lg:flex-row flex-col gap-5 ">
+         <aside className="flex flex-col px-4 py-8 bg-white lg:border-r-2 border-rose-600 dark:bg-gray-900 dark:border-gray-700">
   {/* Mobile Toggle Button (Hidden on Desktop) */}
-  <div className="md:hidden flex justify-center mb-4">
+  <div className="lg:hidden flex justify-center mb-4">
     <button 
       onClick={() => setIsSidebarOpen(!isSidebarOpen)}
       className="text-rose-600 hover:text-rose-800"
@@ -159,7 +159,7 @@ const Shops = () => {
   </div>
 
   {/* Sidebar Content - Hidden on mobile when closed */}
-  <div className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>
+  <div className={`${isSidebarOpen ? 'block' : 'hidden'} lg:block`}>
     {/* Search by Name */}
     <div className="mb-8">
       <p className="capitalize font-bold text-rose-600 text-sm md:text-base">Search by name</p>

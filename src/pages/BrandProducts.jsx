@@ -9,7 +9,7 @@ const BrandProducts = () => {
         <div>
            <h2 className="text-rose-600 text-center capitalize text-3xl font-bold my-10 underline">Brand Items</h2>
            <div className="flex justify-center items-center">
-            <div className=" grid md:grid-cols-4 grid-cols-1 gap-7 justify-center items-center py-6 ">
+            <div className=" grid lg:grid-cols-4 md:grid-cols-2 grid-cols-1 gap-7 justify-center items-center py-6 ">
             {
                 products.map(product=>(
                     <div key={product._id} >

@@ -5,14 +5,18 @@ const About = () => {
         <div>
         <div className="mt-10 relative">
           <img className="object-cover w-full min-h-screen h-[10vh]" src="https://dominique.com/cdn/shop/files/Untitled_design_11.png?v=1737604265&width=1190" alt="" />
-          <div className="absolute top-36 left-36">
+          <div className="absolute top-36 left-36 hidden lg:block">
           <p className="font-bold text-2xl capitalize">Introducing about </p>
           <p className="font-bold text-5xl capitalize mt-2">true beauty</p>
           </div>
         </div>
         <div className="mt-10 space-y-20">
+          <div className=" lg:hidden block">
+          <p className="font-bold text-2xl capitalize">Introducing about </p>
+          <p className="font-bold text-5xl capitalize mt-2">true beauty</p>
+          </div>
           {/* 1 */}
-          <div className="flex justify-center items-center gap-10">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-10">
             <div className="flex-1">
               <img src="https://dominique.com/cdn/shop/files/2_187f7b06-7a0f-4c94-a11f-4cb0a316b228.png?height=461&v=1687374445&width=700" alt="" />
             </div>
@@ -22,7 +26,7 @@ const About = () => {
             </div>
           </div>
           {/* 2 */}
-         <div className="flex justify-center flex-row-reverse items-center gap-10">
+         <div className="flex flex-col  justify-center md:flex-row-reverse items-center gap-10">
             <div className="flex-1">
               <img src="https://templates.g5plus.net/glowing-bootstrap-5/assets/images/banner/banner-11.jpg" alt="" />
             </div>
@@ -32,7 +36,7 @@ const About = () => {
             </div>
           </div>
           {/* 3 */}
-          <div className="flex justify-center items-center gap-10">
+          <div className="flex flex-col md:flex-row justify-center items-center gap-10">
             <div className="flex-1">
               <img src="https://templates.g5plus.net/glowing-bootstrap-5/assets/images/banner/banner-12.jpg" alt="" />
             </div>
@@ -42,7 +46,7 @@ const About = () => {
             </div>
           </div>
           {/* 4 */}
-          <div className="flex justify-center flex-row-reverse items-center gap-10">
+          <div className="flex flex-col  justify-center md:flex-row-reverse items-center gap-10">
             <div className="flex-1">
               <img src="https://dominique.com/cdn/shop/files/about_us_images_2.jpg?height=815&v=1687376176&width=924" alt="" />
             </div>

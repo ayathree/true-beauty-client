@@ -94,8 +94,8 @@ const ManageProduct = () => {
         </div>
 
         <div className="flex justify-end mt-6 gap-2">
-            <button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-rose-600 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Save</button>
-            <Link to={'/allProducts'}><button className="px-8 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-rose-600 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">All Products</button></Link>
+            <button className="md:px-8 px-2 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-rose-600 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">Save</button>
+            <Link to={'/allProducts'}><button className="md:px-8 px-2 py-2.5 leading-5 text-white transition-colors duration-300 transform bg-rose-600 rounded-md hover:bg-gray-600 focus:outline-none focus:bg-gray-600">All Products</button></Link>
         </div>
     </form>
 </section>
