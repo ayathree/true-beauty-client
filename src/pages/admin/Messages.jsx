@@ -8,6 +8,8 @@ const Messages = () => {
     const { user } = useAuth();
     const axiosSecure = useAxiosSecure();
     const [contacts, setContacts] = useState([]);
+     const [isExpanded, setIsExpanded] = useState(false);
+  const maxChars = 200;
 
     useEffect(() => {
         getData();
@@ -93,8 +95,27 @@ const Messages = () => {
                         </p>
                         <p className="capitalize">
                             <span className="font-bold text-xl text-rose-700">MESSAGE: </span>
-                            {contact.message}
+                           {isExpanded ? (contact.message) : `${(contact.message).substring(0, maxChars)}${(contact.message).length > maxChars ? '.......' : ''}`}
+                            {(contact.message).length > maxChars && (
+        <p
+          onClick={() => setIsExpanded(!isExpanded)}
+          className="font-bold  text-rose-700 rounded  transition-colors cursor-pointer"
+        >
+          {isExpanded ? (
+            <>
+              <span className="md:hidden">Less</span>
+              <span className="hidden md:inline">Show Less Content</span>
+            </>
+          ) : (
+            <>
+              <span className="md:hidden">More</span>
+              <span className="hidden md:inline">Show More Content</span>
+            </>
+          )}
+        </p>
+      )}
                         </p>
+                       
                         <button 
                             onClick={() => handleAnswer(contact.email, contact.name)}
                             className="px-8 py-2.5 h-[10vh] leading-5 mt-5 text-white font-bold transition-colors duration-300 transform text-xl bg-rose-700 outline outline-1 hover:bg-gray-600 focus:outline-none focus:bg-gray-600"
