@@ -156,7 +156,7 @@ const ProductDetails = () => {
         {/* product detail */}
          
            
-            <div className="flex flex-row justify-around items-center ">
+            <div className="flex md:flex-row flex-col justify-around items-center ">
               {/* div 1 */}
                <div >
                  <img className="h-[70vh] w-[400px]" src={imageUrl} alt="" />
@@ -196,12 +196,12 @@ const ProductDetails = () => {
             <div  >
                     <div className="">
                    <div className="relative">
-                     <img className="h-[300px]    border-2 shadow-md" src={item.imageUrl} alt="" />
-                       <div className="flex justify-between items-center">
-                         <p className="font-bold absolute top-2 left-4 bg-rose-500 px-2 text-white ">${item.price}</p>
+                     <img className="md:h-[300px] h-[20vh]    border-2 shadow-md" src={item.imageUrl} alt="" />
+                       <div className="md:flex justify-between items-center hidden ">
+                         <p className="md:font-bold  absolute top-2 left-4 bg-rose-500 md:px-2 text-white ">${item.price}</p>
                             
                        </div>
-                        <p className="font-bold capitalize absolute bottom-2 left-4 bg-rose-500 px-2 text-white">total order: {item.totalOrder} </p>
+                        <p className="md:font-bold  capitalize absolute bottom-2 hidden md:block left-4 bg-rose-500 md:px-2 text-white">total order: {item.totalOrder} </p>
                    </div>
                     </div>
                      <Link to={`/product/${item._id}`}><h1 title={item.productName} className="mt-3 font-bold text-center capitalize hover:underline text-xl">{item.productName.length > 20 ? `${item.productName.substring(0, 20)}...` : item.productName}</h1></Link>
