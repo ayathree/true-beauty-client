@@ -152,11 +152,11 @@ const ProductDetails = () => {
 
    
     return (
-       <div>
+       <div className="mt-5">
         {/* product detail */}
          
            
-            <div className="flex md:flex-row flex-col justify-around items-center ">
+            <div className="flex md:flex-row flex-col justify-around items-center gap-4">
               {/* div 1 */}
                <div >
                  <img className="h-[70vh] w-[400px]" src={imageUrl} alt="" />

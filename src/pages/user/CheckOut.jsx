@@ -343,7 +343,7 @@ const handleFormSubmission = async (e) => {
         showText && (
          <div>
            <p className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">Payment Card</p>
-            <div className="m-20 border-2 border-slate-300 rounded-lg p-4">
+            <div className=" mt-10  flex justify-center items-center">
            <Elements stripe={stripePromise}>
             <PayCheckOutForm  total={total} ids={items.map(item=>(item._id))} owners={items.map(item=>(item.owner))}></PayCheckOutForm>
 

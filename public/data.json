@@ -1,0 +1,202 @@
+[
+  {
+    "productName": "Matte Lipstick",
+    "price": 45,
+    "description": "Long-lasting matte finish lipstick",
+    "category": "Makeup Items",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "z beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Hydrating Face Serum",
+    "price": 65,
+    "description": "Vitamin C enriched serum for glowing skin",
+    "category": "Skin Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "x beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Argan Oil Shampoo",
+    "price": 32,
+    "description": "Nourishing shampoo for all hair types",
+    "category": "Hair Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "y beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Body Butter",
+    "price": 28,
+    "description": "Rich moisturizer with shea butter",
+    "category": "Body Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "w beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Eyeshadow Palette",
+    "price": 55,
+    "description": "12 highly pigmented neutral shades",
+    "category": "Makeup Items",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "z beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Acne Treatment Cream",
+    "price": 39,
+    "description": "Salicylic acid formula for clear skin",
+    "category": "Skin Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "x beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Hair Mask",
+    "price": 42,
+    "description": "Deep conditioning treatment for damaged hair",
+    "category": "Hair Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "y beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Exfoliating Scrub",
+    "price": 24,
+    "description": "Gentle body scrub with natural exfoliants",
+    "category": "Body Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "w beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Mascara",
+    "price": 29,
+    "description": "Volumizing and lengthening formula",
+    "category": "Makeup Items",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "z beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Sunscreen SPF 50",
+    "price": 35,
+    "description": "Broad spectrum protection for face",
+    "category": "Skin Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "x beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Leave-in Conditioner",
+    "price": 27,
+    "description": "Detangles and softens hair instantly",
+    "category": "Hair Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "y beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Hand Cream",
+    "price": 18,
+    "description": "Intensive moisturizer for dry hands",
+    "category": "Body Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "w beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Foundation",
+    "price": 49,
+    "description": "Medium coverage with natural finish",
+    "category": "Makeup Items",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "z beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Night Cream",
+    "price": 58,
+    "description": "Anti-aging formula for overnight repair",
+    "category": "Skin Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "x beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Dry Shampoo",
+    "price": 22,
+    "description": "Refreshes hair between washes",
+    "category": "Hair Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "y beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Body Oil",
+    "price": 31,
+    "description": "Nourishing blend of natural oils",
+    "category": "Body Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "w beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Blush Palette",
+    "price": 37,
+    "description": "4 blendable powder blush shades",
+    "category": "Makeup Items",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "z beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Face Cleanser",
+    "price": 26,
+    "description": "Gentle foaming cleanser for all skin types",
+    "category": "Skin Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "x beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Hair Serum",
+    "price": 34,
+    "description": "Controls frizz and adds shine",
+    "category": "Hair Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "y beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  },
+  {
+    "productName": "Body Wash",
+    "price": 21,
+    "description": "Moisturizing shower gel with natural extracts",
+    "category": "Body Care",
+    "imageUrl": "data:image/jpeg;base64,/9j/...",
+    "brand": "w beauty",
+    "adminEmail": "admin@gmail.com",
+    "totalOrder": 0
+  }
+]

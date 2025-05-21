@@ -94,33 +94,62 @@ const PayCheckOutForm = ({total, ids, owners}) => {
 
     }
     return (
-        <form onSubmit={handleSubmit}>
-            <CardElement
-        options={{
-          style: {
-            base: {
-              fontSize: '16px',
-              color: '#424770',
-              '::placeholder': {
-                color: '#aab7c4',
-              },
+        
+          <form onSubmit={handleSubmit} className="md:w-full md:max-w-md md:mx-auto max-w-lg w-[250px] ">
+  {/* Card Element Container */}
+  <div className="md:p-4 border border-gray-200 rounded-lg shadow-sm dark:border-gray-600 mb-4">
+    <CardElement
+      options={{
+        style: {
+          base: {
+            fontSize: '16px',
+            color: '#424770',
+            '::placeholder': {
+              color: '#aab7c4',
             },
-            invalid: {
-              color: '#9e2146',
+            ':hover': {
+              color: '#424770',
             },
           },
-        }}
-      />
-      <button className="btn bg-rose-400 text-white mt-3" type="submit" disabled={!stripe || !clientSecret || transactionId}>
-        Pay
-      </button>
-      <p className="text-red-600">{error}</p>
-      {
-        transactionId && <p className="text-green-600">Your Transaction Id: {transactionId}</p>
+          invalid: {
+            color: '#9e2146',
+          },
+        },
+      }}
+      className="md:w-full p-2 "
+    />
+  </div>
 
-      }
+  {/* Payment Button */}
+  <button 
+    className={`w-full py-3 px-6 rounded-lg font-medium transition-colors duration-200
+      ${(!stripe || !clientSecret || transactionId) 
+        ? 'bg-gray-300 cursor-not-allowed text-gray-500' 
+        : 'bg-rose-500 hover:bg-rose-600 text-white'}
+      focus:outline-none focus:ring-2 focus:ring-rose-400 focus:ring-opacity-50`}
+    type="submit" 
+    disabled={!stripe || !clientSecret || transactionId}
+  >
+    {transactionId ? 'Payment Successful' : 'Pay Now'}
+  </button>
 
-        </form>
+  {/* Status Messages */}
+  <div className="mt-4 space-y-2">
+    {error && (
+      <p className="text-red-500 text-sm md:text-base px-2 py-1 bg-red-50 rounded">
+        {error}
+      </p>
+    )}
+    {transactionId && (
+      <div className="text-green-600 text-sm md:text-base px-2 py-1 bg-green-50 rounded">
+        <p>Your Transaction ID:</p>
+        <p className="font-mono break-all">{transactionId}</p>
+        <p className="mt-1 text-green-700">Payment processed successfully!</p>
+      </div>
+    )}
+  </div>
+</form>
+       
     );
 };
 
