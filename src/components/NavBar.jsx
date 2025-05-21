@@ -72,7 +72,7 @@ const NavBar = () => {
       {/* Mobile Menu Button (Hamburger) */}
   <div className="md:hidden">
     <details className="dropdown dropdown-bottom  dropdown-left">
-  <summary tabIndex={0} role="button" className="btn btn-ghost btn-circle" >
+  <summary tabIndex={0} role="button" className="btn btn-ghost btn-circle text-rose-600" >
      <svg 
         xmlns="http://www.w3.org/2000/svg" 
         className="h-5 w-5" 

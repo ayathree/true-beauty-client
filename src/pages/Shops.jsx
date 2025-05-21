@@ -21,6 +21,7 @@ const Shops = () => {
      const[search,setSearch]=useState('')
      const[searchText,setSearchText]=useState('')
      const[count,setCount]=useState(0)
+     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
     //  for pagination
       useEffect(()=>{
         const getData = async ()=>{
@@ -137,75 +138,112 @@ const Shops = () => {
           }
       };
     return (
-       <div className="mt-20 mb-10 flex flex-row gap-5 ">
-         <aside className="flex flex-col  px-4 py-8  bg-white border-r-2 border-rose-600 dark:bg-gray-900 dark:border-gray-700">
-    
-    <p className="capitalize font-bold text-rose-600">Search by name</p>
-    <form onSubmit={handleSearch} className="relative mt-6">
+       <div className="mt-20 mb-10 flex md:flex-row flex-col gap-5 ">
+         <aside className="flex flex-col px-4 py-8 bg-white md:border-r-2 border-rose-600 dark:bg-gray-900 dark:border-gray-700">
+  {/* Mobile Toggle Button (Hidden on Desktop) */}
+  <div className="md:hidden flex justify-center mb-4">
+    <button 
+      onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+      className="text-rose-600 hover:text-rose-800"
+    >
+      {isSidebarOpen ? (
+        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      ) : (
+        <div className="btn bg-rose-500 text-white capitalize font-bold hover:bg-slate-500">
+            filter options
+        </div>
+      )}
+    </button>
+  </div>
 
-        <input onChange={e=>setSearchText(e.target.value)} value={searchText} type="text" name="search" className="w-full py-2 pr-10 pl-4 text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Search" />
-       <button> <span className="absolute inset-y-0 right-0 flex items-center pr-3">
-            <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
-                <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
-            </svg>
-        </span></button>
-    </form>
-
-    <div className="flex flex-col justify-between flex-1 mt-6">
-        <nav>
-           
-
-           
-            <p className="my-6 capitalize font-bold text-rose-600">Search by category</p>
-            <select onChange={e=>{setFilter(e.target.value)
-                 setCurrentPage(1)}} value={filter} name="category"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
-                    <option value=""></option>
-                    {/* {[...new Set(products.map(product => product.category))].map((category, index) => (
-                     <option key={index} value={category}>{category}</option>
-                    ))} */}
-                    <option value="Skin Care">Skin Care</option>
-                    <option value="Hair Care">Hair Care</option>
-                    <option value="Body Care">Body Care</option>
-                    <option value="Makeup Items">Makeup Items</option>
-                    
-                </select>
-               
-            <p className="my-6 capitalize font-bold text-rose-600">Search by Brand</p>
-            <select onChange={e=>{setFilterBrand(e.target.value)
-                 setCurrentPage(1)}} value={filterBrand} name="brand"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
-                    <option value=""></option>
-                    {[...new Set(products.map(product => product.brand))].map((brand, index) => (
-                     <option key={index} value={brand}>{brand}</option>
-                    ))}
-                    
-                    
-                </select>
-           
-            <p className="my-6 capitalize font-bold text-rose-600">Sort by Price</p>
-            <select onChange={e=>{setSortPrice(e.target.value)
-                 setCurrentPage(1)}} value={sortPrice}  name="price"  className="block w-full px-4 py-2 mt-2  bg-white border border-gray-200 rounded-md dark:bg-gray-800  dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring ">
-                    <option value=""></option>
-                    <option value="low">Lower To Higher</option>
-                    <option value="high">Higher To Lower</option>
-                    
-                </select>
-                
-            
-
-              
-
-
-           
-        </nav>
-        
-
-       
+  {/* Sidebar Content - Hidden on mobile when closed */}
+  <div className={`${isSidebarOpen ? 'block' : 'hidden'} md:block`}>
+    {/* Search by Name */}
+    <div className="mb-8">
+      <p className="capitalize font-bold text-rose-600 text-sm md:text-base">Search by name</p>
+      <form onSubmit={handleSearch} className="relative mt-2 md:mt-4">
+        <input 
+          onChange={e => setSearchText(e.target.value)} 
+          value={searchText} 
+          type="text" 
+          name="search" 
+          className="w-full py-2 pr-10 pl-4 text-sm md:text-base text-gray-700 bg-white border rounded-md dark:bg-gray-900 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" 
+          placeholder="Search" 
+        />
+        <button type="submit" className="absolute inset-y-0 right-0 flex items-center pr-3">
+          <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
+            <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"></path>
+          </svg>
+        </button>
+      </form>
     </div>
-    
+
+    {/* Filters */}
+    <div className="space-y-6 md:space-y-8">
+      {/* Category Filter */}
+      <div>
+        <p className="capitalize font-bold text-rose-600 text-sm md:text-base mb-2 md:mb-4">Search by category</p>
+        <select 
+          onChange={e => {
+            setFilter(e.target.value);
+            setCurrentPage(1);
+          }} 
+          value={filter} 
+          name="category"  
+          className="block w-full px-3 py-2 text-sm md:text-base bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+        >
+          <option value="">All Categories</option>
+          <option value="Skin Care">Skin Care</option>
+          <option value="Hair Care">Hair Care</option>
+          <option value="Body Care">Body Care</option>
+          <option value="Makeup Items">Makeup Items</option>
+        </select>
+      </div>
+
+      {/* Brand Filter */}
+      <div>
+        <p className="capitalize font-bold text-rose-600 text-sm md:text-base mb-2 md:mb-4">Search by Brand</p>
+        <select 
+          onChange={e => {
+            setFilterBrand(e.target.value);
+            setCurrentPage(1);
+          }} 
+          value={filterBrand} 
+          name="brand"  
+          className="block w-full px-3 py-2 text-sm md:text-base bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+        >
+          <option value="">All Brands</option>
+          {[...new Set(products.map(product => product.brand))].map((brand, index) => (
+            <option key={index} value={brand}>{brand}</option>
+          ))}
+        </select>
+      </div>
+
+      {/* Price Sort */}
+      <div>
+        <p className="capitalize font-bold text-rose-600 text-sm md:text-base mb-2 md:mb-4">Sort by Price</p>
+        <select 
+          onChange={e => {
+            setSortPrice(e.target.value);
+            setCurrentPage(1);
+          }} 
+          value={sortPrice}  
+          name="price"  
+          className="block w-full px-3 py-2 text-sm md:text-base bg-white border border-gray-200 rounded-md dark:bg-gray-800 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"
+        >
+          <option value="">Default</option>
+          <option value="low">Lower To Higher</option>
+          <option value="high">Higher To Lower</option>
+        </select>
+      </div>
+    </div>
+  </div>
 </aside>
 <div>
     <img className="w-screen object-cover h-[50vh]" src="https://uploads.dovetale.com/brand-profile-media/b50674e5ad1b4e40f49a9fcd72c594a6.jpg" alt="" />
-    <div className="bg-rose-500 p-4 mt-4 flex flex-row justify-between items-center">
+    <div className="bg-rose-500 p-4 mt-4 flex md:flex-row flex-col justify-between items-center gap-2">
         <p className="font-bold text-xl text-white">Showing <span className="text-3xl">{products.length}</span> of <span className="text-3xl">{count}</span> products</p>
         <button onClick={handleReset} className="btn outline-1 capitalize text-rose-700">reset</button>
     </div>
@@ -216,7 +254,7 @@ const Shops = () => {
             products.length===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">There are no Items and products in shop store</p>):(
                 <div>
                 {/* card  */}
-    <div className="grid grid-cols-3  justify-center items-center gap-3 mt-10 ">
+    <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1  justify-center items-center gap-3 mt-10 ">
         {
             products.map(product=>(
                <div key={product._id} className="   mx-auto max-w-sm p-6 ">
