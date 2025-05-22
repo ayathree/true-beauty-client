@@ -73,7 +73,10 @@ const Messages = () => {
 
     return (
         <div className="mt-10">
-            <h2 className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">
+            {
+              contacts.length===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">There is no message</p>):(
+                <div>
+              <h2 className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">
                 All messages
             </h2>
             <div className="m-10 border-2 border-slate-200 px-5 py-2 rounded-xl shadow-xl shadow-rose-200">
@@ -126,6 +129,9 @@ const Messages = () => {
                     </div>
                 ))}
             </div>
+            </div>
+              )
+            }
         </div>
     );
 };

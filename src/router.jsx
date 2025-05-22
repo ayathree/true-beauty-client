@@ -113,9 +113,9 @@ const router = createBrowserRouter([
                 element:<PrivateRoute><MyTransaction></MyTransaction></PrivateRoute>
             },
             {
-                path:'/brand/:brand',
+                path:'/brand/:category',
                 element:<BrandProducts></BrandProducts>,
-                loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/productBrand/${params.brand}`)
+                loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/productBrand/${params.category}`)
             },
             {
                 path:'/about',
