@@ -1,28 +1,23 @@
-import { useContext } from "react";
-import { AuthContext } from "./AuthProvider";
 import { Navigate, useLocation } from "react-router-dom";
 import useAdmin from "../hooks/useAdmin";
+import useAuth from "../hooks/useAuth";
+
 
 
 const AdminRoute = ({ children }) => {
-    const { user, loading } = useContext(AuthContext);
-    const [isAdmin, isAdminLoading] = useAdmin();
+    const [isAdmin, isAdminLoading]=useAdmin()
+
+    const{user, loading}=useAuth();
     const location = useLocation();
-  
-    if (loading || isAdminLoading) return <div>Loading...</div>;
-  
-    // Not logged in - redirect to login but remember admin path
-    if (!user) {
-      return <Navigate to="/login" state={{ from: location }} replace />;
+    if (loading || isAdminLoading) {
+         return <p className="text-rose-700">Loading....</p>
+        
     }
-  
-    // Logged in but not admin - redirect to home
-    if (!isAdmin) {
-      return <Navigate to="/" replace />;
+    if (user && isAdmin) {
+        return children
+        
     }
-  
-    // Logged in admin - allow access
-    return children;
+    return <Navigate to='/' state={{from:location}} replace ></Navigate>
   };
 
 export default AdminRoute;

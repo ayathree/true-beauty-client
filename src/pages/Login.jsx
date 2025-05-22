@@ -5,6 +5,7 @@ import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
 import useAdmin from "../hooks/useAdmin";
+// import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const Login = () => {
@@ -12,23 +13,40 @@ const Login = () => {
    const location = useLocation()
   const {signIn, google, user, loading}= useContext(AuthContext)
   const [isAdmin] = useAdmin();
+  //  const axiosSecure = useAxiosSecure()
   const from = location.state?.from || '/' 
-  useEffect(()=>{
-    if(user){
-     // Check if trying to access admin route without admin privileges
-     if (from.startsWith('/admin') && !isAdmin) {
+  useEffect(() => {
+  if (user) {
+    // Define your actual admin route patterns
+    const adminRoutes = [
+      '/manageProducts',
+      '/allProducts',
+      '/updateProduct/:id',
+      '/manageOrder',
+      '/manageUsers',
+      '/dashboard',
+      '/messages'
+     
+    ];
+
+    const isRequestingAdminRoute = adminRoutes.some(route => 
+      from.startsWith(route)
+    );
+
+    // Check if trying to access admin route without admin privileges
+    if (isRequestingAdminRoute && !isAdmin) {
       navigate('/', { replace: true });
     }
-    // Check if trying to access user route as admin
-    else if (!from.startsWith('/admin') && isAdmin) {
-      navigate('/', { replace: true });
+    // Check if admin is trying to access non-admin routes
+    else if (!isRequestingAdminRoute && isAdmin && from !== '/') {
+      navigate('/', { replace: true }); 
     }
-     // Otherwise go to requested page
-     else {
+    // Otherwise go to requested page
+    else {
       navigate(from, { replace: true });
     }
-    }
-  },[user, isAdmin, navigate, from])
+  }
+}, [user, isAdmin, navigate, from]);
 
   const handleGoogleLogin= async()=>{
     try{

@@ -1,88 +1,67 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link,  useNavigate } from "react-router-dom";
 import logo from '../assets/truebeauty_16-removebg-preview.png'
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
-import useAdmin from "../hooks/useAdmin";
+// import useAdmin from "../hooks/useAdmin";
 
 
 
 const Register = () => {
     const navigate = useNavigate()
-     const location = useLocation()
-       const from = location.state?.from || '/' 
-    const{ createUser,updateUser, user, setUser, loading}= useContext(AuthContext)
-    const [isAdmin] = useAdmin();
-    useEffect(()=>{
-        if(user){
-         // Check if trying to access admin route without admin privileges
-         if (from.startsWith('/admin') && !isAdmin) {
-          navigate('/', { replace: true });
-        }
-        // Check if trying to access user route as admin
-        else if (!from.startsWith('/admin') && isAdmin) {
-          navigate('/', { replace: true });
-        }
-         // Otherwise go to requested page
-         else {
-          navigate(from, { replace: true });
-        }
-        }
-      },[user, isAdmin, navigate, from])
-    
-      const handleRegister = async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const name = form.name.value;
-        const photo = form.photo.value;
-        const email = form.email.value;
-        const password = form.password.value;
-    
-        try {
-            // 1. Create user in Firebase Auth
-            const result = await createUser(email, password);
-            console.log('Firebase user created:', result);
-    
-            // 2. Update user profile in Firebase
+ 
+    const{ createUser,updateUser, user, setUser, loading,}= useContext(AuthContext)
+   
+     const handleRegister = async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const name = form.name.value;
+    const photo = form.photo.value;
+    const email = form.email.value;
+    const password = form.password.value;
+
+    try {
+        // 1. Create user in Firebase
+        const userCredential = await createUser(email, password);
+        const user = userCredential.user;
+        console.log('Firebase user created:', user);
+
+         // 2. Update user profile in Firebase
             await updateUser(name, photo);
-    
-            // 3. Save additional user info to your MongoDB
-            const userInfo = {
-                name,
-                photo,
-                email,
-                role: 'user' // Adding default role
-            };
-            
-            const { data } = await axios.post(
-                `${import.meta.env.VITE_API_URL}/users`, 
-                userInfo
-            );
-            console.log('User saved to DB:', data);
-    
-            // 4. Update local state and create JWT
-            setUser({ 
-                ...result.user, 
-                photoURL: photo, 
-                displayName: name 
-            });
-    
-            await axios.post(
-                `${import.meta.env.VITE_API_URL}/jwt`,
-                { email: result.user.email },
-                { withCredentials: true }
-            );
-    
-            // 5. Reset form and navigate
-            form.reset();
-            navigate(from, { replace: true });
-            toast.success('Registration successful!');
-        } catch (err) {
-            console.error('Registration error:', err);
-            toast.error(err.response?.data?.message || err.message || 'Registration failed');
-        }
-    };
+
+        // 3. Save to MongoDB
+        const userInfo = { name, photo, email, role: 'user' };
+        const { data } = await axios.post(
+            `${import.meta.env.VITE_API_URL}/users`, 
+            userInfo
+        );
+        console.log('User saved to DB:', data);
+
+        // 4. Create JWT (only if MongoDB save succeeds)
+        await axios.post(
+            `${import.meta.env.VITE_API_URL}/jwt`,
+            { email: user.email },
+            { withCredentials: true }
+        );
+
+        // 5. Update local state
+        setUser({ 
+            ...user, 
+            photoURL: photo, 
+            displayName: name 
+        });
+
+        // 6. Reset form and redirect
+       navigate('/')
+      
+        
+        toast.success('Registration Successful! Reload and Login');
+    } catch (err) {
+        console.error('Registration error:', err);
+        toast.error(err.response?.data?.message || err.message || 'Registration failed');
+    }
+};
       if (user || loading) return
     return (
         <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl  min-h-[calc(100vh-306px)] my-12">
@@ -128,7 +107,7 @@ const Register = () => {
           </div>
           <div className="mt-4">
               <div className="flex justify-between">
-                  <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">Image Url</label>
+                  <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">Image Url<span className="text-green-700">(Please use short image URL)</span></label>
                   
               </div>
   

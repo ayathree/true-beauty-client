@@ -5,6 +5,7 @@ import Footer from "./components/Footer";
 
 
 const Root = () => {
+    
     return (
         <div className="font-Literata md:mx-auto md:px-9 px-2">
             <NavBar></NavBar>
