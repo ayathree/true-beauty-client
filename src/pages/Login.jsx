@@ -57,7 +57,7 @@ const Login = () => {
         email :result?.user?.email,
     }, {withCredentials: true})
       console.log(data)
-      toast.success('Sign In successfully')
+      toast.success('Sign In successfully! Reload ans SignIn Again')
       navigate(from, {replace: true})
 
     }
@@ -84,7 +84,7 @@ const Login = () => {
     }, {withCredentials: true})
       console.log(data)
       navigate(from, {replace: true})
-      toast.success('Sign In successfully'  )
+      toast.success('Sign In successfully! Reload ans SignIn Again'  )
 
 
     }
