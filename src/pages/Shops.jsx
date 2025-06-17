@@ -4,12 +4,12 @@ import toast from "react-hot-toast";
 import { FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+// import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const Shops = () => {
     const {user} = useAuth()
-        const axiosSecure = useAxiosSecure()
+        // const axiosSecure = useAxiosSecure()
         const [wishes, setWishes] =useState([])
      const [products, setProducts]= useState([]);
      const[itemsPerPage]=useState(6)
@@ -128,7 +128,7 @@ const Shops = () => {
       
         // 3. Send to backend
         try {
-            const { data } = await axiosSecure.post('/wish', listedData);
+            const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/wish`, listedData);
             console.log(data);
             toast.success('Add in wish list successfully!');
            

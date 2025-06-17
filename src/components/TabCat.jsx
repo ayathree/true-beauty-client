@@ -2,16 +2,17 @@ import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import 'react-tabs/style/react-tabs.css'
 import ProductCards from './ProductCards';
 import { useEffect, useState } from 'react';
+import axios from 'axios';
 
-import useAxiosSecure from '../hooks/useAxiosSecure';
+// import useAxiosSecure from '../hooks/useAxiosSecure';
 
 
 const TabCat = () => {
-  const axiosSecure=useAxiosSecure()
+  // const axiosSecure=useAxiosSecure()
   const [products, setProducts]= useState([]);
   useEffect(()=>{
     const getData = async ()=>{
-      const {data}= await axiosSecure (`${import.meta.env.VITE_API_URL}/products`)
+      const {data}= await axios(`${import.meta.env.VITE_API_URL}/products`)
       setProducts(data)
     }
     getData()

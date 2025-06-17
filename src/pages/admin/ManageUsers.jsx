@@ -1,29 +1,30 @@
 // import { useEffect, useState } from "react";
 // import { BsCart } from "react-icons/bs";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 // import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
+import axios from "axios";
 // import axios from "axios";
 
 
 const ManageUsers = () => {
     // const { user } = useAuth();
-    const axiosSecure = useAxiosSecure();
+    // const axiosSecure = useAxiosSecure();
     // const [customers, setCustomers] = useState([]);
     // const [isLoading, setIsLoading] = useState(false);
     
     const {data : users=[], refetch, isError, error,isLoading,}= useQuery({
         queryKey: ['users'],
         queryFn: async()=>{
-            const res = await axiosSecure.get('/users')
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/users`)
             return res.data
 
         }
     })
 
     const handleMakeAdmin=user=>{
-        axiosSecure.patch(`/users/admin/${user._id}`)
+        axios.patch(`${import.meta.env.VITE_API_URL}/users/admin/${user._id}`)
         .then(res=>{
             console.log(res.data)
             if (res.data.modifiedCount > 0) {

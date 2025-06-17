@@ -4,16 +4,17 @@
 import { TiTick } from "react-icons/ti";
 import { MdOutlineLocalShipping  } from "react-icons/md";
 import { useMutation, useQuery } from "@tanstack/react-query";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 
 
 
 const ManageOrder = () => {
      const {user}=useAuth()
-     const axiosSecure=useAxiosSecure()
+    //  const axiosSecure=useAxiosSecure()
     //  tanstack query for get data
      const {data: orders=[],
          isLoading,
@@ -32,7 +33,7 @@ const ManageOrder = () => {
         // },[user])
 
         const getData = async ()=>{
-            const{data}= await axiosSecure(`/orderAdmin/${user?.email}`,
+            const{data}= await axios(`${import.meta.env.VITE_API_URL}/orderAdmin/${user?.email}`,
                 
             )
             console.log(data);
@@ -42,7 +43,7 @@ const ManageOrder = () => {
         // tanstack query for update or patch
         const {mutateAsync}=useMutation({
             mutationFn: async({id, status})=>{
-                const {data}=await axiosSecure.patch(`/order/${id}`,{status})
+                const {data}=await axios.patch(`${import.meta.env.VITE_API_URL}/order/${id}`,{status})
                 console.log(data);
             },
             onSuccess:()=>{

@@ -6,12 +6,13 @@ import toast from "react-hot-toast";
 // import { AuthContext } from "../../provider/AuthProvider";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import axios from "axios";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const ManageProduct = () => {
     const {user}= useAuth()
-    const axiosSecure = useAxiosSecure()
+    // const axiosSecure = useAxiosSecure()
     
    
 
@@ -31,8 +32,8 @@ const ManageProduct = () => {
         console.table(productData)
 
         try{
-            const {data} = await axiosSecure.post(
-                `/products`, productData
+            const {data} = await axios.post(
+                `${import.meta.env.VITE_API_URL}/products`, productData
             )
             console.log(data)
             toast.success('Product data added successfully')

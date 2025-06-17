@@ -1,8 +1,9 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import {  useEffect, useState } from "react";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 
 
@@ -14,21 +15,21 @@ const PayCheckOutForm = ({total, ids, owners}) => {
   const elements = useElements();
   console.log(owners);
   const {user}=useAuth()
-  const axiosSecure = useAxiosSecure()
+  // const axiosSecure = useAxiosSecure()
   const totalPrice = total
   //  const [order, setOrder]=useState([])
   
 
    useEffect(()=>{
       if(totalPrice>0){
-        axiosSecure.post('/create-payment-intent', { price: totalPrice})
+        axios.post(`${import.meta.env.VITE_API_URL}/create-payment-intent`, { price: totalPrice})
       .then(res=>{
         console.log(res.data.clientSecret);
         setClientSecret(res.data.clientSecret)
       })
       }
            
-       },[axiosSecure,totalPrice])
+       },[axios,totalPrice])
 
     const handleSubmit=async(event)=>{
         event.preventDefault();
@@ -81,7 +82,7 @@ const PayCheckOutForm = ({total, ids, owners}) => {
           productId: ids,
           admin : owners
         }
-        const res = await axiosSecure.post('/payments', payment)
+        const res = await axios.post(`${import.meta.env.VITE_API_URL}/payments`, payment)
         console.log(res);
         if(res.data?.insertedId){
           toast.success('Paid Successfully')

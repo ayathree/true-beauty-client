@@ -3,8 +3,9 @@
 import { FaRegHeart } from "react-icons/fa";
 import { Link, } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+// import useAxiosSecure from "../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
+import axios from "axios";
 
 
 const ProductCards = ({product}) => {
@@ -12,7 +13,7 @@ const ProductCards = ({product}) => {
     console.log(product)
     // const navigate = useNavigate()
         const {user} = useAuth()
-        const axiosSecure = useAxiosSecure()
+        // const axiosSecure = useAxiosSecure()
         const handleWish = async e =>{
             e.preventDefault()
             if (user?.email === adminEmail) return toast.error('Action not permitted!')
@@ -32,7 +33,7 @@ const ProductCards = ({product}) => {
             console.table(listedData)
     
             try{
-                const {data}= await axiosSecure.post(`/wish`, listedData)
+                const {data}= await axios.post(`${import.meta.env.VITE_API_URL}/wish`, listedData)
                 console.log(data)
                 toast.success('added in wishList')
     

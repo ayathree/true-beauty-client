@@ -4,19 +4,20 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 const MyOrder = () => {
     const {user}=useAuth()
-    const axiosSecure=useAxiosSecure()
+    // const axiosSecure=useAxiosSecure()
     const [orders, setOrders]=useState([])
     useEffect(()=>{
         getData()
     },[user])
     const getData = async ()=>{
-        const{data}= await axiosSecure(`/order/${user?.email}`,
+        const{data}= await axios(`${import.meta.env.VITE_API_URL}/order/${user?.email}`,
         )
         console.log(data); 
         setOrders(data)
@@ -34,7 +35,7 @@ const MyOrder = () => {
      }).then(async (result) => {
        if (result.isConfirmed) {
          try {
-           await axiosSecure.delete(`/orderData/${id}`);
+           await axios.delete(`${import.meta.env.VITE_API_URL}/orderData/${id}`);
            
            await Swal.fire({
              title: "Deleted!",

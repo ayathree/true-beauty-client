@@ -4,16 +4,17 @@ import { AuthContext } from '../provider/AuthProvider';
 import { Link, NavLink } from 'react-router-dom';
 import useAdmin from '../hooks/useAdmin';
 import { IoNotifications } from 'react-icons/io5';
-import useAxiosSecure from '../hooks/useAxiosSecure';
+// import useAxiosSecure from '../hooks/useAxiosSecure';
 import { FaShoppingCart } from 'react-icons/fa';
 import useAuth from '../hooks/useAuth';
+import axios from 'axios';
 
 
 const NavBar = () => {
   const{user}=useAuth()
   const [isAdmin]=useAdmin()
   const{ loggedOut}=useContext(AuthContext)
-  const axiosSecure=useAxiosSecure()
+  // const axiosSecure=useAxiosSecure()
   const [order,setOrder]=useState([])
   const [cart, setCart] =useState([])
 
@@ -26,12 +27,12 @@ const NavBar = () => {
       if (!user?.email || isAdmin === undefined) return;
       try {
         if (isAdmin) {
-          const { data } = await axiosSecure(`/orderAdmin/${user.email}`, {
+          const { data } = await axios(`${import.meta.env.VITE_API_URL}/orderAdmin/${user.email}`, {
             signal: controller.signal // Attach abort signal
           });
           setOrder(data);
         } else {
-          const { data } = await axiosSecure(`/cart/${user.email}`, {
+          const { data } = await axios(`${import.meta.env.VITE_API_URL}/cart/${user.email}`, {
             signal: controller.signal // Attach abort signal
           });
           setCart(data);

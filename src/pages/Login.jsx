@@ -1,73 +1,83 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import logo from '../assets/truebeauty_16-removebg-preview.png'
-import { useContext, useEffect } from "react";
+import { useContext, useState } from "react";
 import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
-import useAdmin from "../hooks/useAdmin";
+import { IoEye, IoEyeOff } from "react-icons/io5";
+// import useAdmin from "../hooks/useAdmin";
 // import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const Login = () => {
   const navigate = useNavigate()
+  const[registerError, setRegisterError]= useState('');
    const location = useLocation()
-  const {signIn, google, user, loading}= useContext(AuthContext)
-  const [isAdmin] = useAdmin();
+   const[success, setSuccess] = useState('');
+    const[showPass, setShowPass]=useState(false);
+  const {signIn, google,}= useContext(AuthContext)
+  // const [isAdmin] = useAdmin();
   //  const axiosSecure = useAxiosSecure()
   const from = location.state?.from || '/' 
-  useEffect(() => {
-  if (user) {
-    // Define your actual admin route patterns
-    const adminRoutes = [
-      '/manageProducts',
-      '/allProducts',
-      '/updateProduct/:id',
-      '/manageOrder',
-      '/manageUsers',
-      '/dashboard',
-      '/messages'
+//   useEffect(() => {
+//   if (user) {
+//     // Define your actual admin route patterns
+//     const adminRoutes = [
+//       '/manageProducts',
+//       '/allProducts',
+//       '/updateProduct/:id',
+//       '/manageOrder',
+//       '/manageUsers',
+//       '/dashboard',
+//       '/messages'
      
-    ];
+//     ];
 
-    const isRequestingAdminRoute = adminRoutes.some(route => 
-      from.startsWith(route)
-    );
+//     const isRequestingAdminRoute = adminRoutes.some(route => 
+//       from.startsWith(route)
+//     );
 
-    // Check if trying to access admin route without admin privileges
-    if (isRequestingAdminRoute && !isAdmin) {
-      navigate('/', { replace: true });
-    }
-    // Check if admin is trying to access non-admin routes
-    else if (!isRequestingAdminRoute && isAdmin && from !== '/') {
-      navigate('/', { replace: true }); 
-    }
-    // Otherwise go to requested page
-    else {
-      navigate(from, { replace: true });
-    }
-  }
-}, [user, isAdmin, navigate, from]);
+//     // Check if trying to access admin route without admin privileges
+//     if (isRequestingAdminRoute && !isAdmin) {
+//       navigate('/', { replace: true });
+//     }
+//     // Check if admin is trying to access non-admin routes
+//     else if (!isRequestingAdminRoute && isAdmin && from !== '/') {
+//       navigate('/', { replace: true }); 
+//     }
+//     // Otherwise go to requested page
+//     else {
+//       navigate(from, { replace: true });
+//     }
+//   }
+// }, [user, isAdmin, navigate, from]);
 
-  const handleGoogleLogin= async()=>{
-    try{
+  const handleGoogleLogin = async () => {
+  try {
+    const result = await google();
+    const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/users`, {
+      name: result.user.displayName,
+      email: result.user.email,
+      photoURL: result.user.photoURL,
+      uid: result.user.uid
+    });
     
-      const result = await google()
-      console.log(result.user)
-      const {data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{
-        email :result?.user?.email,
-    }, {withCredentials: true})
-      console.log(data)
-      toast.success('Sign In successfully! Reload ans SignIn Again')
-      navigate(from, {replace: true})
-
+    // await axios.post(
+    //         `${import.meta.env.VITE_API_URL}/jwt`,
+    //         { email: user?.email },
+    //         { withCredentials: true }
+    //     );
+    if (data.message === 'user exists') {
+      toast.success('Welcome back!');
+    } else {
+      toast.success('Account created!');
     }
-    catch (err){
-      console.log(err)
-      toast.error(err?.message)
-    }
-
-
+    
+    navigate(from, { replace: true });
+  } catch (err) {
+    toast.error(err.response?.data?.error || 'Login failed');
   }
+};
 
   const handleSignIn =async e=>{
     e.preventDefault();
@@ -75,27 +85,44 @@ const Login = () => {
     const email=form.email.value
     const password = form.password.value
     const newUser =(email, password)
-    console.log(newUser)
+  
+        console.log(newUser)
+         setRegisterError('');
+        setSuccess('');
     try{
+     
       const result = await signIn(email,password)
       console.log(result.user)
-      const {data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{
-        email :result?.user?.email,
-    }, {withCredentials: true})
-      console.log(data)
+    //   const {data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{
+    //     email :result?.user?.email,
+    // }, {withCredentials: true})
+    //   console.log(data)
+    
       navigate(from, {replace: true})
-      toast.success('Sign In successfully! Reload ans SignIn Again'  )
+      toast.success('Sign In successfully'  )
+      setSuccess('Registered Successfully')
+    
 
 
     }
     catch(err){
       console.log(err)
-      toast.error(err?.message)
+      // toast.error(err?.message)
+      if (err?.message==='Firebase: Error (auth/invalid-credential).') {
+            setRegisterError('Invalid Password Or Email, Check Again')
+            
+            
+        }
+        if (err?.message==='Firebase: Error (auth/invalid-email).') {
+            setRegisterError('Please Fill Up All the Fields')
+            
+            
+        }
 
     }
 
   }
-  if ( user || loading) return
+  // if ( user || loading) return
   
     return (
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl min-h-[calc(100vh-306px)] my-12">
@@ -149,14 +176,22 @@ const Login = () => {
               <input id="LoggingEmailAddress" className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="email" name="email" />
           </div>
   
-          <div className="mt-4">
+          <div className="mt-4 relative">
               <div className="flex justify-between">
                   <label className="block mb-2 text-sm font-medium text-gray-600 dark:text-gray-200" htmlFor="loggingPassword">Password</label>
                  
               </div>
   
-              <input id="loggingPassword" className="block w-full px-4 py-2 text-gray-700 bg-white border rounded-lg dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring focus:ring-blue-300" type="password" name="password" />
+              <input name="password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-500 bg-white border rounded-lg dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring focus:ring-blue-300" type={showPass?"text":'password'} placeholder="Password" aria-label="Password" />
+                <span className="absolute bottom-3 right-10 text-xl" onClick={()=>setShowPass(!showPass)}>{showPass?<IoEye />:<IoEyeOff />}</span>
           </div>
+           {
+            registerError && <p className="text-red-600 font-bold">{registerError}</p>
+        }
+        {
+            success && <p className="text-green-600 font-bold">{success}</p>
+
+        }
   
           <div className="mt-6">
               <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-rose-600 rounded-lg hover:bg-gray-700 focus:outline-none focus:ring focus:ring-gray-300 focus:ring-opacity-50">

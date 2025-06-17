@@ -1,18 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
 import useAuth from "./useAuth";
-import useAxiosSecure from "./useAxiosSecure";
+import axios from "axios";
+// import useAxiosSecure from "./useAxiosSecure";
 
 
 const useAdmin = () => {
     const {user, loading}= useAuth()
-   const axiosSecure = useAxiosSecure();
+//    const axiosSecure = useAxiosSecure();
    const {data: isAdmin, isPending: isAdminLoading}= useQuery({
     queryKey:[user?.email, 'isAdmin'],
-    enabled: !loading,
+    enabled: !!user?.email && !loading,
     queryFn: async()=>{
-        const res = await axiosSecure.get(`/users/admin/${user.email}`);
-        console.log(res.data)
-        return res.data?.admin
+        try {
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/users/admin/${user?.email}`);
+                console.log(res.data);
+                return res.data?.admin || false;
+
+            } catch (error) {
+                console.error("Admin check failed:", error);
+                return false;
+            }
     }
    })
    return [isAdmin, isAdminLoading]

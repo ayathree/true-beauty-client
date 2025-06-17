@@ -1,16 +1,17 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import {  useNavigate } from "react-router-dom";
 import QuantityButton from "../../components/QuantityButton";
 import { FaExternalLinkAlt } from "react-icons/fa";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 const MyCart = () => {
     const { user } = useAuth();
-    const axiosSecure = useAxiosSecure();
+    // const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const [carts, setCarts] = useState([]);
     
@@ -19,7 +20,7 @@ const MyCart = () => {
     }, [user]);
 
     const getData = async () => {
-        const { data } = await axiosSecure(`/cart/${user?.email}`);
+        const { data } = await axios(`${import.meta.env.VITE_API_URL}/cart/${user?.email}`);
         setCarts(data.map(item => ({
             ...item,
             localQuantity: item.quantity || 1 // Initialize with stored quantity or 1
@@ -38,7 +39,7 @@ const MyCart = () => {
          }).then(async (result) => {
            if (result.isConfirmed) {
              try {
-               await axiosSecure.delete(`/cartData/${id}`);
+               await axios.delete(`${import.meta.env.VITE_API_URL}/cartData/${id}`);
                
                await Swal.fire({
                  title: "Deleted!",
@@ -65,7 +66,7 @@ const MyCart = () => {
             ));
             
             // Update in database
-            await axiosSecure.patch(`/cartData/${id}`, {
+            await axios.patch(`${import.meta.env.VITE_API_URL}/cartData/${id}`, {
                 quantity: newQuantity
             });
         } catch (error) {
@@ -80,7 +81,7 @@ const MyCart = () => {
             // First verify all quantities are saved
             await Promise.all(
                 carts.map(cart => 
-                    axiosSecure.patch(`/cartData/${cart._id}`, {
+                    axios.patch(`${import.meta.env.VITE_API_URL}/cartData/${cart._id}`, {
                         quantity: cart.localQuantity
                     })
                 )

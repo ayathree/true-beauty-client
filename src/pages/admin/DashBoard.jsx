@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 const DashBoard = () => {
     const{user}=useAuth()
-    const axiosSecure = useAxiosSecure()
+    // const axiosSecure = useAxiosSecure()
     const[payments, setPayments]=useState([])
         useEffect(()=>{
             getData()
         },[user])
         const getData = async()=>{
-            const {data}= await axiosSecure(`/payData/${user?.email}`)
+            const {data}= await axios(`${import.meta.env.VITE_API_URL}/payData/${user?.email}`)
             setPayments(data)
         }
         console.log(payments);
@@ -29,7 +30,7 @@ const DashBoard = () => {
        }).then(async (result) => {
          if (result.isConfirmed) {
            try {
-             await axiosSecure.delete(`/payData/${id}`);
+             await axios.delete(`${import.meta.env.VITE_API_URL}/payData/${id}`);
              
              await Swal.fire({
                title: "Deleted!",

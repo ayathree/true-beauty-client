@@ -1,6 +1,6 @@
 import {  useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import DatePicker from "react-datepicker";
@@ -10,6 +10,7 @@ import { loadStripe } from "@stripe/stripe-js";
 import { Elements } from "@stripe/react-stripe-js";
 import PayCheckOutForm from "./PayCheckOutForm";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENT_GATEWAY_PK);
 
@@ -17,7 +18,7 @@ const CheckOut = () => {
     
     const navigate = useNavigate();
 const { user } = useAuth();
-const axiosSecure = useAxiosSecure();
+// const axiosSecure = useAxiosSecure();
 const [startDate] = useState(new Date()); // Removed setStartDate if not needed
 const [items, setItems] = useState([]);
 const [subtotal, setSubtotal] = useState(0);
@@ -37,7 +38,7 @@ useEffect(() => {
 
 const getData = async () => {
   try {
-    const { data } = await axiosSecure(`/checkOutData/${user?.email}`);
+    const { data } = await axios(`${import.meta.env.VITE_API_URL}/checkOutData/${user?.email}`);
     setItems(data);
   } catch (error) {
     console.error('Failed to fetch cart data:', error);
@@ -110,7 +111,7 @@ const handleFormSubmission = async (e) => {
   };
 
   try {
-    const { data } = await axiosSecure.post('/order', orderData);
+    const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/order`, orderData);
     console.log(data);
     toast.success('Order placed successfully!');
     navigate('/myOrder');
@@ -132,7 +133,7 @@ const handleFormSubmission = async (e) => {
             }).then(async (result) => {
               if (result.isConfirmed) {
                 try {
-                  await axiosSecure.delete(`/cartData/${id}`);
+                  await axios.delete(`${import.meta.env.VITE_API_URL}/cartData/${id}`);
                   
                   await Swal.fire({
                     title: "Deleted!",

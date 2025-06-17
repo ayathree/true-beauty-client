@@ -8,10 +8,11 @@ import ReactStars from "react-rating-stars-component";
 // import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
-import useAxiosSecure from "../hooks/useAxiosSecure";
+// import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 import { useEffect, useState } from "react";
+import axios from "axios";
 
 
 const ProductDetails = () => {
@@ -24,7 +25,7 @@ const ProductDetails = () => {
     // console.log(productData)
     const navigate = useNavigate()
     const {user} = useAuth()
-    const axiosSecure = useAxiosSecure()
+    // const axiosSecure = useAxiosSecure()
     const[products,setProducts]=useState([])
     const [showText, setShowText] = useState(false);
     const [rating, setRating] = useState(0);
@@ -51,7 +52,7 @@ const ProductDetails = () => {
         console.table(savedData)
 
         try{
-            const {data}= await axiosSecure.post(`/cart`, savedData)
+            const {data}= await axios.post(`${import.meta.env.VITE_API_URL}/cart`, savedData)
             console.log(data)
             toast.success('added in cart')
            
@@ -71,7 +72,7 @@ const ProductDetails = () => {
       
       const getData = async () => {
         try {
-          const { data } = await axiosSecure(`/products`);
+          const { data } = await axios(`${import.meta.env.VITE_API_URL}/products`);
           
           // Assume you already have the current product's brand
           const currentBrand = productData?.brand;
@@ -120,8 +121,8 @@ const ProductDetails = () => {
         console.table(productData)
 
         try{
-            const {data} = await axiosSecure.post(
-                `/review`, productData
+            const {data} = await axios.post(
+                `${import.meta.env.VITE_API_URL}/review`, productData
             )
             console.log(data)
             toast.success('Review Submitted successfully')
@@ -139,7 +140,7 @@ const ProductDetails = () => {
         fetchData()
     },[user])
     const fetchData = async()=>{
-        const {data}= await axiosSecure(`/products/${_id}/reviews`)
+        const {data}= await axios(`${import.meta.env.VITE_API_URL}/products/${_id}/reviews`)
         setReviews(data)
         fetchData()
     }

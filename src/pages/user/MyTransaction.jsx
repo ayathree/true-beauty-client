@@ -1,18 +1,19 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+import axios from "axios";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 
 const MyTransaction = () => {
      const{user}=useAuth()
-    const axiosSecure = useAxiosSecure()
+    // const axiosSecure = useAxiosSecure()
     const[payments, setPayments]=useState([])
             useEffect(()=>{
                 getData()
             },[user])
             const getData = async()=>{
-                const {data}= await axiosSecure(`/paymentData/${user?.email}`)
+                const {data}= await axios(`${import.meta.env.VITE_API_URL}/paymentData/${user?.email}`)
                 setPayments(data)
             }
             console.log(payments);

@@ -1,11 +1,12 @@
+import axios from "axios";
 import toast from "react-hot-toast";
 
-import useAxiosSecure from "../hooks/useAxiosSecure";
+// import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const ContactUs = () => {
     
-    const axiosSecure = useAxiosSecure()
+    // const axiosSecure = useAxiosSecure()
 
     const handleFormSubmission=async e=>{
         e.preventDefault()
@@ -18,8 +19,8 @@ const ContactUs = () => {
         console.table(contactData)
 
         try{
-            const {data} = await axiosSecure.post(
-                `/contacts`, contactData
+            const {data} = await axios.post(
+                `${import.meta.env.VITE_API_URL}/contacts`, contactData
             )
             console.log(data)
             toast.success('Your message has send successfully')

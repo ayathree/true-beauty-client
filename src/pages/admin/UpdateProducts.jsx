@@ -2,15 +2,16 @@
 
 
 
+import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const UpdateProducts = () => {
     const editData= useLoaderData()
-    const axiosSecure = useAxiosSecure()
+    // const axiosSecure = useAxiosSecure()
     const navigate = useNavigate()
 
     const {_id,productName,price,description,category,imageUrl,brand} = editData || {}
@@ -31,7 +32,7 @@ const UpdateProducts = () => {
         console.table(productData)
 
         try{
-            const {data} = await axiosSecure.put(
+            const {data} = await axios.put(
                 `${import.meta.env.VITE_API_URL}/products/${_id}`, productData
             )
             console.log(data)

@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import {  RiDeleteBin7Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 const Messages = () => {
     const { user } = useAuth();
-    const axiosSecure = useAxiosSecure();
+    // const axiosSecure = useAxiosSecure();
     const [contacts, setContacts] = useState([]);
      const [isExpanded, setIsExpanded] = useState(false);
   const maxChars = 200;
@@ -16,7 +17,7 @@ const Messages = () => {
     }, [user]);
 
     const getData = async () => {
-        const { data } = await axiosSecure('/contacts');
+        const { data } = await axios(`${import.meta.env.VITE_API_URL}/contacts`);
         setContacts(data);
     };
 
@@ -51,7 +52,7 @@ const Messages = () => {
                 }).then(async (result) => {
                   if (result.isConfirmed) {
                     try {
-                      await axiosSecure.delete(`/contacts/${id}`);
+                      await axios.delete(`${import.meta.env.VITE_API_URL}/contacts/${id}`);
                       
                       await Swal.fire({
                         title: "Deleted!",

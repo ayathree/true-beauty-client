@@ -1,7 +1,8 @@
 // import axios from "axios";
+import axios from "axios";
 import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router-dom";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 // import useAuth from "../../hooks/useAuth";
 
 
@@ -10,7 +11,7 @@ const UpdateOrder = () => {
      console.log(editData);
     //  const {user}=useAuth()
      const navigate = useNavigate()
-     const axiosSecure =useAxiosSecure()
+    //  const axiosSecure =useAxiosSecure()
      
      const handleFormSubmission=async e=>{
         e.preventDefault()
@@ -25,7 +26,7 @@ const UpdateOrder = () => {
         console.table(orderData)
 
         try{
-            const {data} = await axiosSecure.patch(
+            const {data} = await axios.patch(
                 `${import.meta.env.VITE_API_URL}/orderData/${editData._id}`, orderData
             )
             console.log(data)

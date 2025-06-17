@@ -1,37 +1,46 @@
+import { useEffect } from "react";
 import axios from "axios";
 import useAuth from "./useAuth";
 import { useNavigate } from "react-router-dom";
 
-const axiosSecure =axios.create({
-    baseURL: import.meta.env.VITE_API_URL,
-    withCredentials: true,
-})
+const axiosSecure = axios.create({
+  baseURL: import.meta.env.VITE_API_URL,
+  withCredentials: true,
+});
+
 const useAxiosSecure = () => {
-    const {loggedOut}=useAuth()
-    const navigate = useNavigate()
-    // interceptor
-    
-    // response interceptor
-    axiosSecure.interceptors.response.use(
+  const { loggedOut, user } = useAuth(); // Add user to dependencies
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    const responseInterceptor = axiosSecure.interceptors.response.use(
+      (response) => response,
+      async (error) => {
+        // Skip interception if no response (network error)
+        if (!error.response) return Promise.reject(error);
         
-        res=>{
-            return res
-        },
-        async error=>{
-            // console.log('Error from axios interceptor', error.response)
-            if(error.response.status ===401 || error.response.status === 403){
-                
+        console.log('Interceptor caught error:', error.response.status);
+        
+        // Only logout on 401, not 403
+       
+          try {
+            await loggedOut();
+            // Delay navigation to avoid React warnings
+            setTimeout(() => navigate('/login'), 100);
+          } catch (logoutError) {
+            console.error('Logout failed:', logoutError);
+          }
+       
+        return Promise.reject(error);
+      }
+    );
 
-                navigate('/')
-                await loggedOut()
-            }
-            return Promise.reject(error)
-        }
-    )
+    return () => {
+      axiosSecure.interceptors.response.eject(responseInterceptor);
+    };
+  }, [loggedOut, navigate, user]); // Add user to dependencies
 
-    // request interceptor
-    
-    return axiosSecure
+  return axiosSecure;
 };
 
 export default useAxiosSecure;

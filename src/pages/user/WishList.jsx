@@ -1,15 +1,16 @@
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-import useAxiosSecure from "../../hooks/useAxiosSecure";
+// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
 import { BsCart } from "react-icons/bs";
 import toast from "react-hot-toast";
 import Swal from "sweetalert2";
+import axios from "axios";
 
 
 const WishList = () => {
     const { user } = useAuth();
-    const axiosSecure = useAxiosSecure();
+    // const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const [listed, setListed] = useState([]);
 
@@ -18,7 +19,7 @@ const WishList = () => {
         }, [user]);
     
         const getData = async () => {
-            const { data } = await axiosSecure(`/wish/${user?.email}`);
+            const { data } = await axios(`${import.meta.env.VITE_API_URL}/wish/${user?.email}`);
             setListed(data);
         };
 
@@ -34,7 +35,7 @@ const WishList = () => {
             }).then(async (result) => {
               if (result.isConfirmed) {
                 try {
-                  await axiosSecure.delete(`/wishData/${id}`);
+                  await axios.delete(`${import.meta.env.VITE_API_URL}/wishData/${id}`);
                   
                   await Swal.fire({
                     title: "Deleted!",
@@ -72,7 +73,7 @@ const WishList = () => {
           
             // 3. Send to backend
             try {
-                const { data } = await axiosSecure.post('/wishData', cartData);
+                const { data } = await axios.post(`${import.meta.env.VITE_API_URL}/wishData`, cartData);
                 console.log(data);
                 toast.success('Add in cart successfully!');
                 navigate('/myCart');
