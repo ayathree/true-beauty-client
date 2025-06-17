@@ -90,13 +90,13 @@ const NavBar = () => {
       </svg>
   </summary>
   <ul tabIndex={0} className="dropdown-content menu bg-base-100 rounded-box z-[10] w-52 p-2 shadow-sm">
-    <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/'}><li>Home</li></NavLink>
-          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/shops'}><li>Shop</li></NavLink>
-          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/about'}><li>About Us</li></NavLink>
-          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/contact'}><li>Contact Us</li></NavLink>
+    <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold  ':'dark:text-white'} to={'/'}><li>Home</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/shops'}><li>Shop</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/about'}><li>About Us</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/contact'}><li>Contact Us</li></NavLink>
 
          {
-          !user &&  <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/login'}><li>Login</li></NavLink>
+          !user &&  <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/login'}><li>Login</li></NavLink>
           
          }
   </ul>
@@ -108,13 +108,13 @@ const NavBar = () => {
   
       <div className="mr-4 hidden md:block">
         <ul className="flex md:flex-row gap-5 text-black font-semibold ">
-          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/'}><li>Home</li></NavLink>
-          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/shops'}><li>Shop</li></NavLink>
-          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/about'}><li>About Us</li></NavLink>
-          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/contact'}><li>Contact Us</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/'}><li>Home</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/shops'}><li>Shop</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/about'}><li>About Us</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/contact'}><li>Contact Us</li></NavLink>
 
          {
-          !user &&  <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':''} to={'/login'}><li>Login</li></NavLink>
+          !user &&  <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/login'}><li>Login</li></NavLink>
           
          }
         </ul>
