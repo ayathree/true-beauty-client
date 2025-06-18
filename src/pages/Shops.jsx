@@ -22,11 +22,14 @@ const Shops = () => {
      const[searchText,setSearchText]=useState('')
      const[count,setCount]=useState(0)
      const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+     const [isLoading, setIsLoading]= useState([]);
     //  for pagination
       useEffect(()=>{
+        
         const getData = async ()=>{
           const {data}= await axios (`${import.meta.env.VITE_API_URL}/allData?page=${currentPage}&size=${itemsPerPage}&filter=${filter}&sort=${sort}&sortPrice=${sortPrice}&filterBrand=${filterBrand}&search=${search}`)
           setProducts(data)
+          
           
         }
         getData()
@@ -100,9 +103,11 @@ const Shops = () => {
     // }
 
     useEffect(()=>{
+      setIsLoading(true)
         const getData = async ()=>{
           const {data}= await axios (`${import.meta.env.VITE_API_URL}/products`)
           setWishes(data)
+          setIsLoading(false)
         }
         getData()
       },[])
@@ -250,8 +255,9 @@ const Shops = () => {
     
     
     <div>
-        {
-            products.length===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">There are no Items and products in shop store</p>):(
+        {isLoading?(<div className="flex justify-center item-center mt-20">
+      <span className="loading loading-spinner text-rose-600  loading-lg"></span>
+    </div>): products.length===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">There are no Items and products in shop store</p>):(
                 <div>
                 {/* card  */}
     <div className="grid md:grid-cols-2 lg:grid-cols-3 grid-cols-1  justify-center items-center gap-3 mt-10 ">

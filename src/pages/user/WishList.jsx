@@ -13,14 +13,17 @@ const WishList = () => {
     // const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const [listed, setListed] = useState([]);
+    const[isLoading,setIsLoading]=useState([])
 
     useEffect(() => {
             getData();
         }, [user]);
     
         const getData = async () => {
+            setIsLoading(true)
             const { data } = await axios(`${import.meta.env.VITE_API_URL}/wish/${user?.email}`);
             setListed(data);
+            setIsLoading(false)
         };
 
        const handleDelete = (id) => {
@@ -84,7 +87,11 @@ const WishList = () => {
           };
     return (
         <div>
-          {
+          {isLoading?(
+            <div className="flex justify-center item-center mt-20">
+      <span className="loading loading-spinner text-rose-600  loading-lg"></span>
+    </div>
+          ):
             listed.length===0?(<p className="text-rose-600 text-center text-2xl capitalize font-bold mt-20">You have not added any item in wishlist yet</p>):(
                 
                 <section className="container px-4 mx-auto">

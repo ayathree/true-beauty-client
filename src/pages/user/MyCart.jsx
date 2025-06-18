@@ -14,17 +14,21 @@ const MyCart = () => {
     // const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const [carts, setCarts] = useState([]);
+     const[isLoading,setIsLoading]=useState([])
+
     
     useEffect(() => {
         getData();
     }, [user]);
 
     const getData = async () => {
+        setIsLoading(true)
         const { data } = await axios(`${import.meta.env.VITE_API_URL}/cart/${user?.email}`);
         setCarts(data.map(item => ({
             ...item,
             localQuantity: item.quantity || 1 // Initialize with stored quantity or 1
         })));
+        setIsLoading(false)
     };
 
     const handleDelete = (id) => {
@@ -100,7 +104,11 @@ const MyCart = () => {
    
     return (
          <div>
-                {
+                {isLoading?(
+                    <div className="flex justify-center item-center mt-20">
+      <span className="loading loading-spinner text-rose-600  loading-lg"></span>
+    </div>
+                ):
                     carts.length ===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">You have not added any item in cart yet</p>):(
                         <section className="container px-4 mx-auto">
         <p className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">Cart Items</p>

@@ -6,6 +6,7 @@ import useAuth from "../hooks/useAuth";
 // import useAxiosSecure from "../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import axios from "axios";
+// import { useState } from "react";
 
 
 const ProductCards = ({product}) => {

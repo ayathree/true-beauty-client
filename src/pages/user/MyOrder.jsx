@@ -13,14 +13,17 @@ const MyOrder = () => {
     const {user}=useAuth()
     // const axiosSecure=useAxiosSecure()
     const [orders, setOrders]=useState([])
+    const[isLoading,setIsLoading]=useState([])
     useEffect(()=>{
         getData()
     },[user])
     const getData = async ()=>{
+        setIsLoading(true)
         const{data}= await axios(`${import.meta.env.VITE_API_URL}/order/${user?.email}`,
         )
         console.log(data); 
         setOrders(data)
+        setIsLoading(false)
     }
 
     const handleDelete = (id) => {
@@ -56,7 +59,12 @@ const MyOrder = () => {
    };
     return (
         <div>
-        {orders.length===0?(<p className="text-rose-600 text-center capitalize text-2xl font-bold mt-20">You have not order any product yet</p>) :(<section className="container px-4 mx-auto">
+        {isLoading?(
+            <div className="flex justify-center item-center mt-20">
+      <span className="loading loading-spinner text-rose-600  loading-lg"></span>
+    </div>
+        ):
+        orders.length===0?(<p className="text-rose-600 text-center capitalize text-2xl font-bold mt-20">You have not order any product yet</p>) :(<section className="container px-4 mx-auto">
 <p className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">Order List</p>
 <div className="flex flex-col mt-6">
     <div className="-mx-4 -my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">

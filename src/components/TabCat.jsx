@@ -10,10 +10,13 @@ import axios from 'axios';
 const TabCat = () => {
   // const axiosSecure=useAxiosSecure()
   const [products, setProducts]= useState([]);
+   const[loader,setLoader]=useState([])
   useEffect(()=>{
+     setLoader(true)
     const getData = async ()=>{
       const {data}= await axios(`${import.meta.env.VITE_API_URL}/products`)
       setProducts(data)
+       setLoader(false)
     }
     getData()
   },[])
@@ -35,7 +38,13 @@ const TabCat = () => {
       </TabList>
   
       </div>
-      <TabPanel>
+      {loader?(
+        <div className="flex justify-center item-center mt-20">
+      <span className="loading loading-spinner text-rose-600 loading-lg"></span>
+    </div>
+      ):(
+        <div>
+          <TabPanel>
        <div className='grid grid-cols-1 gap-8 mt-8 xl:mt-16 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4'>
        {
           products.filter(p=>p.brand === 'x beauty').slice(0, 4).map(product=>(
@@ -76,6 +85,10 @@ const TabCat = () => {
         </div>
         
       </TabPanel>
+
+        </div>
+      )}
+      
       </div>
     </Tabs>
     );

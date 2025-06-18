@@ -9,18 +9,25 @@ const MyTransaction = () => {
      const{user}=useAuth()
     // const axiosSecure = useAxiosSecure()
     const[payments, setPayments]=useState([])
+    const[isLoading,setIsLoading]=useState([])
             useEffect(()=>{
                 getData()
             },[user])
             const getData = async()=>{
+                setIsLoading(true)
                 const {data}= await axios(`${import.meta.env.VITE_API_URL}/paymentData/${user?.email}`)
                 setPayments(data)
+                setIsLoading(false)
             }
             console.log(payments);
              
     return (
         <div>
-          {
+          {isLoading?(
+            <div className="flex justify-center item-center mt-20">
+      <span className="loading loading-spinner text-rose-600  loading-lg"></span>
+    </div>
+          ):
             payments.length===0?(<p className="text-rose-600 text-center text-2xl capitalize font-bold mt-20">You have no transaction histories yet</p>):(
                  <div>
                      <p className="text-rose-600 text-center capitalize text-2xl font-bold my-10 underline">Transaction Histories</p>

@@ -13,12 +13,16 @@ const AllProducts = () => {
     // const axiosSecure = useAxiosSecure()
     const {user}=useAuth()
     const[products, setProducts]=useState([])
+    const[isLoading,setIsLoading]=useState([])
     useEffect(()=>{
+        
         getData()
     },[user])
     const getData = async()=>{
+        setIsLoading(true)
         const {data}= await axios(`${import.meta.env.VITE_API_URL}/productsData/${user?.email}`)
         setProducts(data)
+        setIsLoading(false)
     }
     
    const handleDelete = (id) => {
@@ -54,7 +58,11 @@ const AllProducts = () => {
 };
     return (
         <div>
-           {
+           {isLoading?(
+            <div className="flex justify-center item-center mt-20">
+      <span className="loading loading-spinner text-rose-600  loading-lg"></span>
+    </div>
+           ):
             products.length ===0?(<p className="text-rose-600 capitalize text-center text-2xl font-bold mt-20">You have not added any item yet</p>):(
                   <div>
                     <p className="text-rose-600 text-center capitalize text-2xl font-bold mt-10 underline">All products</p>

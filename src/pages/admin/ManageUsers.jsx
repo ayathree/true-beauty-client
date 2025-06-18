@@ -5,6 +5,7 @@ import toast from "react-hot-toast";
 // import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+// import { useState } from "react";
 // import axios from "axios";
 
 
@@ -12,11 +13,12 @@ const ManageUsers = () => {
     // const { user } = useAuth();
     // const axiosSecure = useAxiosSecure();
     // const [customers, setCustomers] = useState([]);
-    // const [isLoading, setIsLoading] = useState(false);
+    
     
     const {data : users=[], refetch, isError, error,isLoading,}= useQuery({
         queryKey: ['users'],
         queryFn: async()=>{
+            
             const res = await axios.get(`${import.meta.env.VITE_API_URL}/users`)
             return res.data
 
@@ -34,6 +36,7 @@ const ManageUsers = () => {
             }
         })
     }
+     if(isLoading) return <p>Data is still loading....</p>
     if(isError || error) {
         console.log(isError,error);
     }

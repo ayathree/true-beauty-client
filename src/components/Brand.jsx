@@ -8,10 +8,13 @@ import { Link } from "react-router-dom";
 const Brand = () => {
     // const axiosSecure=useAxiosSecure()
      const [products, setProducts]= useState([]);
+     const[isLoading, setIsLoading]=useState([]);
       useEffect(()=>{
+        setIsLoading(true)
         const getData = async ()=>{
           const {data}= await axios(`${import.meta.env.VITE_API_URL}/products`)
           setProducts(data)
+          setIsLoading(false)
         }
         getData()
       },[])
@@ -22,7 +25,13 @@ const Brand = () => {
          </div>
         <h1 className='text-2xl font-semibold text-center capitalize font-lato my-6 text-rose-600'>Shop by category</h1>
         <p className=' text-center capitalize font-lato mb-6'>Our products are designed for everyone.</p>
-        <div className="flex md:flex-row flex-col justify-center items-center gap-5 ">
+        {
+            isLoading?(
+                <div className="flex justify-center item-center mt-20">
+      <span className="loading loading-spinner text-rose-600  loading-lg"></span>
+    </div>
+            ):(
+                 <div className="flex md:flex-row flex-col justify-center items-center gap-5 ">
             {/* div 1 */}
             <div>
                 <div className="relative">
@@ -71,6 +80,10 @@ const Brand = () => {
             </div>
 
         </div>
+
+            )
+        }
+       
         </div>
     );
 };
