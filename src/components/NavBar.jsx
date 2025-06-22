@@ -112,6 +112,7 @@ const NavBar = () => {
           <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/shops'}><li>Shop</li></NavLink>
           <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/about'}><li>About Us</li></NavLink>
           <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/contact'}><li>Contact Us</li></NavLink>
+          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/skinTone'}><li>Skin Tone Checker</li></NavLink>
 
          {
           !user &&  <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/login'}><li>Login</li></NavLink>

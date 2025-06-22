@@ -71,22 +71,44 @@ const ProductDetails = () => {
       }, [user]);
       
       const getData = async () => {
-        try {
-          const { data } = await axios(`${import.meta.env.VITE_API_URL}/products`);
-          
-          // Assume you already have the current product's brand
-          const currentBrand = productData?.brand;
-      
-          // Filter products of the same brand, excluding the current product
-          const similarProducts = data
-            .filter(p => p.brand === currentBrand && p._id !== productData._id)
-            .slice(0, 3); // Take only 3 similar products
-      
-          setProducts(similarProducts);
-        } catch (err) {
-          console.error("Failed to fetch similar products:", err);
-        }
-      };
+  try {
+    const { data } = await axios(`${import.meta.env.VITE_API_URL}/products`);
+    const currentProduct = productData;
+
+    // If no product data yet, return
+    if (!currentProduct) return;
+
+    // Calculate similarity score for each product
+    const productsWithScore = data.map((product) => {
+      // Skip the current product
+      if (product._id === currentProduct._id) return { ...product, score: -1 };
+
+      let score = 0;
+
+      // 1. Same Brand (+3 points)
+      if (product.brand === currentProduct.brand) score += 3;
+
+      // 2. Same Category (+2 points)
+      if (product.category === currentProduct.category) score += 2;
+
+      // 3. Similar Price (+1 point if within 20% price range)
+      const priceDiff = Math.abs(product.price - currentProduct.price);
+      if (priceDiff <= currentProduct.price * 0.2) score += 1;
+
+      return { ...product, score };
+    });
+
+    // Sort by score (highest first) and take top 4
+    const recommended = productsWithScore
+      .filter((p) => p.score > 0) // Remove non-matches
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 4);
+
+    setProducts(recommended);
+  } catch (err) {
+    console.error("Failed to fetch similar products:", err);
+  }
+};
 
       // review
       

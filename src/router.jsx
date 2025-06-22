@@ -26,6 +26,7 @@ import BrandProducts from "./pages/BrandProducts";
 import About from "./pages/About";
 import ContactUs from "./pages/ContactUs";
 import Messages from "./pages/admin/Messages";
+import FoundationFinder from "./pages/FoundationFinder";
 
 
 
@@ -131,6 +132,10 @@ const router = createBrowserRouter([
                 path:'/messages',
                 element:<AdminRoute><Messages></Messages></AdminRoute>
             },
+            {
+                path:'/skinTone',
+                element:<FoundationFinder></FoundationFinder>
+            }
             
             
             
