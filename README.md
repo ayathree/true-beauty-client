@@ -142,8 +142,8 @@ npm run format      # Format code with Prettier
 ```
 
 - This app uses
-   # cors and cookie-parser on the server
-   # dotenv for secure environment configuration
+   -- cors and cookie-parser on the server
+   -- dotenv for secure environment configuration
 
 
 
