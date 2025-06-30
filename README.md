@@ -10,6 +10,15 @@ This website is a e-commerce site for cosmetics, where a customer can find many 
 
 ---
 
+## 🛠️ Tech Stack
+
+- **Frontend:** React.js / HTML / CSS / Tailwind 
+- **Backend:** Node.js / Express / Firebase /  etc.
+- **Database:** MongoDB
+- **Other:**  React Router / Stripe API / Axios / tanstack / date-fns / react-datepicker / react-hot-toast / react-icons / react-rating-stars-component / react-slick / react-tabs / sweetalert2 / swiper / cors / cookie-parser / dotenv / lodash
+
+---
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
