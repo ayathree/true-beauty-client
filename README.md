@@ -146,6 +146,9 @@ npm run format      # Format code with Prettier
    -- dotenv for secure environment configuration
 
 
+---
+
+
 ## 📄 Environment Variables Template (.env.example)
 
 ```env
@@ -164,4 +167,6 @@ REACT_APP_FIREBASE_APP_ID=your_app_id
 STRIPE_SECRET_KEY=your_stripe_secret_key
 
 ```
+
+
 
