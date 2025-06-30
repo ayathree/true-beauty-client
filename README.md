@@ -62,7 +62,6 @@ This website is a e-commerce site for cosmetics, where a customer can find many 
 git clone https://github.com/ayathree/true-beauty-client.git
 
 ```
-
 ### 2. Install dependencies
 
 ```bash
@@ -104,5 +103,47 @@ REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage
 REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
 REACT_APP_FIREBASE_APP_ID=your_app_id
 ```
+### 6.Stripe Setup
+
+- Create a Stripe account: https://dashboard.stripe.com
+
+- Add this to your .env file:
+
+```env
+STRIPE_SECRET_KEY=your_stripe_secret_key
+```
+### 7.Run the App
+
+- If the frontend and backend are in the same folder:
+
+ ```bash
+ npm run dev
+ ```
+- If they are in separate folders (e.g., /client and /server):
+
+```bash
+# Frontend
+cd client
+npm start
+
+# Backend
+cd ../server
+nodemon index.js
+```
+
+### 8.Additional Notes
+
+- Some useful scripts:
+
+```bash
+npm run build       # Production build
+npm run lint        # Check lint issues
+npm run format      # Format code with Prettier
+```
+
+- This app uses
+   1.cors and cookie-parser on the server
+   2.dotenv for secure environment configuration
+
 
 
