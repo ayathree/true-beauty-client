@@ -167,6 +167,18 @@ REACT_APP_FIREBASE_APP_ID=your_app_id
 STRIPE_SECRET_KEY=your_stripe_secret_key
 
 ```
+---
+
+## 👨‍💻 Author
+
+### My Profile
+
+🔗 [LinkedIn](www.linkedin.com/in/nobanitaayathree)
+
+🐱 [GitHub](https://github.com/ayathree)
+
+🌐 [Portfolio](https://nobanitaayathree.netlify.app)
+
 
 
 
