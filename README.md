@@ -16,7 +16,7 @@ This website is a e-commerce site for cosmetics, where a customer can find many 
 - **Backend:** Node.js / Express / Firebase
 - **Database:** MongoDB
 - **Hosting:** Firebase / Vercel 
-- **Other Tools:**  React Router / Stripe API / Axios / tanstack / date-fns / react-datepicker / react-hot-toast / react-icons / react-rating-stars-component / react-slick / react-tabs / sweetalert2 / swiper / cors / cookie-parser / dotenv / lodash
+- **Other Tools:**  React Router / Stripe / Axios / tanstack query / date-fns / react-datepicker / react-hot-toast / react-icons / react-rating-stars-component / react-slick / react-tabs / sweetalert2 / swiper / cors / cookie-parser / dotenv / lodash
 
 ---
 
