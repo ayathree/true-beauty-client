@@ -155,7 +155,7 @@ npm run format      # Format code with Prettier
 # MongoDB
 MONGODB_URI=your_mongodb_connection_uri
 
-# Firebase
+# Firebase(frontend .env)
 REACT_APP_FIREBASE_API_KEY=your_key
 REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
 REACT_APP_FIREBASE_PROJECT_ID=your_project_id
