@@ -173,7 +173,7 @@ STRIPE_SECRET_KEY=your_stripe_secret_key
 
 ### My Profile
 
-🔗 [LinkedIn](www.linkedin.com/in/nobanitaayathree)
+🔗 [LinkedIn](https://www.linkedin.com/in/nobanitaayathree)
 
 🐱 [GitHub](https://github.com/ayathree)
 
