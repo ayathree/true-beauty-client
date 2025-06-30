@@ -1,5 +1,4 @@
 
-// import { useLoaderData } from "react-router-dom";
 import Brand from "../components/Brand";
 import Carousel from "../components/Carousel";
 import NameSlider from "../components/NameSlider";

@@ -4,12 +4,10 @@ import toast from "react-hot-toast";
 import { FaRegHeart } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-// import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const Shops = () => {
     const {user} = useAuth()
-        // const axiosSecure = useAxiosSecure()
         const [wishes, setWishes] =useState([])
      const [products, setProducts]= useState([]);
      const[itemsPerPage]=useState(6)
@@ -69,38 +67,6 @@ const Shops = () => {
         setSearchText('')
      
     }
-    // handle wish
-    // const handleWish = async e =>{
-    //     e.preventDefault()
-    //     if (user?.email === adminEmail) return toast.error('Action not permitted!')
-    //     // const form = e.target
-    //     const listedProductId = _id; 
-    //     const listerEmail = user?.email;
-    //     const owner = adminEmail;
-    //     const listedProduct = productName;
-    //     const listedBrand = brand;
-    //     const listedPrice = price;
-    //     const productImage = imageUrl;
-    //     const listedData = {
-    //         listedProductId,listerEmail,owner, listedProduct, listedBrand,listedPrice,productImage
-    //     }
-
-    //     console.table(listedData)
-
-    //     try{
-    //         const {data}= await axiosSecure.post(`/wish`, listedData)
-    //         console.log(data)
-    //         toast.success('added in wishList')
-
-    //         // navigate('/wishList')
-
-    //     }catch(err){
-    //         console.log(err)
-    //         toast.error(err.response.data)
-            
-    //     }
-
-    // }
 
     useEffect(()=>{
       setIsLoading(true)
@@ -275,10 +241,7 @@ const Shops = () => {
            </div>
             </div>
              <Link to={`/product/${product._id}`}><h1 title={product.productName} className="font-bold text-center capitalize hover:underline text-xl">{product.productName.length > 20 ? `${product.productName.substring(0, 20)}...` : product.productName}</h1></Link>
-            <p className="font-bold text-center capitalize">{product.brand}</p>
-            {/* <p><span className="font-bold">Category :{category}</span> </p> */}
-           
-           
+            <p className="font-bold text-center capitalize">{product.brand}</p>     
             
         </div>
             ))
@@ -328,8 +291,6 @@ const Shops = () => {
         }
     </div>
 </div>
-
-
        </div>
     );
 };

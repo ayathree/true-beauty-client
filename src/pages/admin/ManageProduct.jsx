@@ -1,20 +1,14 @@
-// import axios from "axios";
-
 
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
-// import { AuthContext } from "../../provider/AuthProvider";
 import { Link } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const ManageProduct = () => {
     const {user}= useAuth()
-    // const axiosSecure = useAxiosSecure()
     
-   
 
     const handleFormSubmission=async e=>{
         e.preventDefault()

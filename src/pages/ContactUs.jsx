@@ -1,12 +1,7 @@
 import axios from "axios";
 import toast from "react-hot-toast";
 
-// import useAxiosSecure from "../hooks/useAxiosSecure";
-
-
 const ContactUs = () => {
-    
-    // const axiosSecure = useAxiosSecure()
 
     const handleFormSubmission=async e=>{
         e.preventDefault()

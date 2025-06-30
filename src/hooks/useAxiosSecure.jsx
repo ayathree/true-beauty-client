@@ -16,13 +16,9 @@ const useAxiosSecure = () => {
     const responseInterceptor = axiosSecure.interceptors.response.use(
       (response) => response,
       async (error) => {
-        // Skip interception if no response (network error)
         if (!error.response) return Promise.reject(error);
         
         console.log('Interceptor caught error:', error.response.status);
-        
-        // Only logout on 401, not 403
-       
           try {
             await loggedOut();
             // Delay navigation to avoid React warnings

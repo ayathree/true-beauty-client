@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
 import { BsCart } from "react-icons/bs";
 import toast from "react-hot-toast";
@@ -10,7 +9,6 @@ import axios from "axios";
 
 const WishList = () => {
     const { user } = useAuth();
-    // const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const [listed, setListed] = useState([]);
     const[isLoading,setIsLoading]=useState([])
@@ -59,9 +57,10 @@ const WishList = () => {
           };
 
         const handleAddToCart = async (productId) => {
+            
             // 1. Get the product directly (no validation)
             const product = listed.find(item => item._id === productId);
-          
+
             // 2. Prepare cart data
             const cartData = {
               savedProductId: product._id,
@@ -110,17 +109,10 @@ const WishList = () => {
                                             <span>Product Name</span>
                                         </div>
                                     </th>
-        
-                                    
-        
                                     
                                     <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Product Image</th>
                                     <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Brand</th>
                                     <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Price</th>
-        
-        
-                                    
-                                    
         
                                     <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">
                                         Action
@@ -144,8 +136,7 @@ const WishList = () => {
                                     </td>
                                     <td className="px-4 py-4 text-sm font-medium text-gray-700 whitespace-nowrap">
                                         <div className="inline-flex items-center gap-x-3">
-                                            
-        
+                                          
                                             <div className="flex items-center gap-x-2">
                                                 <img className="object-cover w-10 h-10 rounded-full" src={list.productImage} alt=""/>
                                                 
@@ -156,10 +147,7 @@ const WishList = () => {
                                     <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{list.listedBrand}</td>
                                   
                                     <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">${list.listedPrice}</td>
-                                    
-        
-                                    
-                                    
+                                 
                                     <td className="px-4 py-4 text-sm whitespace-nowrap flex items-center gap-4">
                                         <div className="flex items-center gap-x-6">
                                             <button onClick={() => handleDelete(list._id)}   className="text-gray-500 transition-colors disabled:bg-slate-400 duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none">
@@ -167,15 +155,13 @@ const WishList = () => {
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                                 </svg>
                                             </button>
-        
-                                            
+          
                                         </div>
                                         <div className="flex items-center gap-x-6">
                                             <button onClick={() => handleAddToCart(list._id)}   className="text-gray-500 transition-colors disabled:bg-slate-400 duration-200 dark:hover:text-red-500 dark:text-gray-300 hover:text-red-500 focus:outline-none text-lg">
                                             <BsCart />
                                             </button>
-        
-                                            
+         
                                         </div>
                                     </td>
                                    
@@ -183,16 +169,13 @@ const WishList = () => {
                                     ))
                                 }
         
-                               
                             </tbody>
                         </table>
                     </div>
                 </div>
             </div>
         </div>
-       
-        
-       
+
         </section>
             )
           }

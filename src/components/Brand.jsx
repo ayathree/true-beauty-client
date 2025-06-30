@@ -2,11 +2,11 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-// import useAxiosSecure from "../hooks/useAxiosSecure";
+
 
 
 const Brand = () => {
-    // const axiosSecure=useAxiosSecure()
+
      const [products, setProducts]= useState([]);
      const[isLoading, setIsLoading]=useState([]);
       useEffect(()=>{

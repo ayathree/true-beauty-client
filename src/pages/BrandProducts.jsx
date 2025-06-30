@@ -1,7 +1,6 @@
 
 import { Link, useLoaderData } from "react-router-dom";
 
-
 const BrandProducts = () => {
     const products= useLoaderData([])
     console.log(products)
@@ -25,7 +24,7 @@ const BrandProducts = () => {
                     </div>
                      <Link to={`/product/${product._id}`}><h1 title={product.productName} className="mt-3 font-bold text-center capitalize hover:underline text-xl">{product.productName.length > 20 ? `${product.productName.substring(0, 20)}...` : product.productName}</h1></Link>
                     <p className="font-bold text-center capitalize">{product.brand}</p>
-                    {/* <p><span className="font-bold">Category :{category}</span> </p> */}
+                    
                    
                    
                     

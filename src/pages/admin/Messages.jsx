@@ -1,13 +1,11 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import {  RiDeleteBin7Fill } from "react-icons/ri";
 import Swal from "sweetalert2";
 import axios from "axios";
 
 const Messages = () => {
     const { user } = useAuth();
-    // const axiosSecure = useAxiosSecure();
     const [contacts, setContacts] = useState([]);
      const [isExpanded, setIsExpanded] = useState(false);
      const[isLoading,setIsLoading]=useState([])

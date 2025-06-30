@@ -4,11 +4,9 @@ import ProductCards from './ProductCards';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-// import useAxiosSecure from '../hooks/useAxiosSecure';
 
 
 const TabCat = () => {
-  // const axiosSecure=useAxiosSecure()
   const [products, setProducts]= useState([]);
    const[loader,setLoader]=useState([])
   useEffect(()=>{

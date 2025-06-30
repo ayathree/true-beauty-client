@@ -32,13 +32,6 @@ const NameSlider = () => {
       <div className="bg-rose-500 p-5 slider-container mt-5">
             
             <Slider {...settings}>
-                {/* <div className="p-2">
-                    <img
-                        src="https://i.ibb.co/RbwJtLS/162044866-494105921752427-2053151397308435679-n.jpg"
-                        alt=""
-                        className="w-full h-auto max-h-[400px] object-cover mx-auto"
-                    />
-                </div> */}
                  <div className="p-2 mt-40">
                     <p className="text-6xl text-center text-white font-bold capitalize">
                         

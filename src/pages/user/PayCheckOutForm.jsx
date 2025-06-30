@@ -15,9 +15,7 @@ const PayCheckOutForm = ({total, ids, owners}) => {
   const elements = useElements();
   console.log(owners);
   const {user}=useAuth()
-  // const axiosSecure = useAxiosSecure()
   const totalPrice = total
-  //  const [order, setOrder]=useState([])
   
 
    useEffect(()=>{
@@ -41,7 +39,7 @@ const PayCheckOutForm = ({total, ids, owners}) => {
     if (card == null) {
       return;
     }
-     // Use your card Element with other Stripe.js APIs
+    
     const {error, paymentMethod} = await stripe.createPaymentMethod({
       type: 'card',
       card,

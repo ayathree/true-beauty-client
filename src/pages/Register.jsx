@@ -5,9 +5,6 @@ import { AuthContext } from "../provider/AuthProvider";
 import toast from "react-hot-toast";
 import axios from "axios";
 import { IoEye, IoEyeOff } from "react-icons/io5";
-// import useAdmin from "../hooks/useAdmin";
-
-
 
 const Register = () => {
     const navigate = useNavigate()
@@ -37,7 +34,6 @@ const Register = () => {
     try {
         // 1. Create user in Firebase
         const userCredential = await createUser(email, password);
-        // const user = userCredential.user;
         console.log('Firebase user created:', userCredential);
 form.reset();
              
@@ -57,16 +53,9 @@ form.reset();
             photoURL: photo, 
             displayName: name 
         });
-        // 4. Create JWT (only if MongoDB save succeeds)
-        // await axios.post(
-        //     `${import.meta.env.VITE_API_URL}/jwt`,
-        //     { email: user?.email },
-        //     { withCredentials: true }
-        // );
+        
 
-        // 5. Update local state
-
-        // 6. Reset form and redirect
+        // 4. Reset form and redirect
         navigate(from,{replace:true})
                 toast.success('Sign In successfully')
                 setSuccess('Registered Successfully')
@@ -78,19 +67,14 @@ form.reset();
                 }
             }
 };
-    //   if (user || loading) return
+    
     return (
         <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl  min-h-[calc(100vh-306px)] my-12">
       <div className="hidden bg-cover lg:block lg:w-1/2"
        style={{
 
         backgroundImage: `url('https://media.istockphoto.com/id/1211053097/photo/natural-make-up-flat-lay-on-wooden-background.jpg?s=612x612&w=0&k=20&c=mCPDyw48w4RCsW8P0iTikfo5-Yuc09H7LB69f8_cRns=')`
-
-
-
        }
-
-
        }></div>
   
       <div className="w-full px-6 py-8 md:px-8 lg:w-1/2">
@@ -102,8 +86,6 @@ form.reset();
           <p className="mt-3 text-xl text-center text-gray-600 dark:text-gray-200">
               Welcome back!
           </p>
-  
-         
   
           <div className="flex items-center justify-between mt-4">
               <span className="w-1/5 border-b dark:border-gray-600 lg:w-1/4"></span>

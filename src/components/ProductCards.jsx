@@ -1,25 +1,19 @@
-// import { BsCart } from "react-icons/bs";
-// import { FaArrowRight } from "react-icons/fa";
+
 import { FaRegHeart } from "react-icons/fa";
 import { Link, } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
-// import useAxiosSecure from "../hooks/useAxiosSecure";
 import toast from "react-hot-toast";
 import axios from "axios";
-// import { useState } from "react";
 
 
 const ProductCards = ({product}) => {
     const {_id, productName, brand, price, imageUrl,totalOrder, adminEmail}=product || {}
     console.log(product)
-    // const navigate = useNavigate()
         const {user} = useAuth()
-        // const axiosSecure = useAxiosSecure()
         const handleWish = async e =>{
             e.preventDefault()
             if (user?.email === adminEmail) return toast.error('Action not permitted!')
              if (!user) return toast.error('Please Sign In')   
-            // const form = e.target
             const listedProductId = _id; 
             const listerEmail = user?.email;
             const owner = adminEmail;
@@ -38,7 +32,6 @@ const ProductCards = ({product}) => {
                 console.log(data)
                 toast.success('added in wishList')
     
-                // navigate('/wishList')
     
             }catch(err){
                 console.log(err)
@@ -63,7 +56,7 @@ const ProductCards = ({product}) => {
             </div>
              <Link to={`/product/${_id}`}><h1 title={productName} className="font-bold text-center capitalize hover:underline text-xl">{productName.length > 20 ? `${productName.substring(0, 20)}...` : productName}</h1></Link>
             <p className="font-bold text-center capitalize">{brand}</p>
-            {/* <p><span className="font-bold">Category :{category}</span> </p> */}
+            
            
            
             

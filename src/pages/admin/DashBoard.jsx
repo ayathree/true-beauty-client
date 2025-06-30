@@ -1,14 +1,11 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
-
 import Swal from "sweetalert2";
 import axios from "axios";
 
 
 const DashBoard = () => {
     const{user}=useAuth()
-    // const axiosSecure = useAxiosSecure()
     const[payments, setPayments]=useState([])
     const[isLoading,setIsLoading]=useState([])
         useEffect(()=>{
@@ -89,7 +86,6 @@ const DashBoard = () => {
                                             
                                         </th>
             
-                                        {/* <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Product Image</th> */}
                                         <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Transaction Id</th>
             
                                         <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Paid Amount</th>
@@ -118,8 +114,7 @@ const DashBoard = () => {
                                             </div>
                                         </td>
                                         
-                                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{payment.productId.map(p=>(<li key={p.id}>{p}</li>))}</td>
-                                       
+                                        <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{payment.productId.map(p=>(<li key={p.id}>{p}</li>))}</td> 
                                         
                                         <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">{payment.transactionId}</td>
                                         <td className="px-4 py-4 text-sm text-gray-500 dark:text-gray-300 whitespace-nowrap">${payment.price}</td>

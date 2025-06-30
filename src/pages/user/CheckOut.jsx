@@ -1,6 +1,5 @@
 import {  useNavigate } from "react-router-dom";
 import useAuth from "../../hooks/useAuth";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import DatePicker from "react-datepicker";
@@ -18,11 +17,10 @@ const CheckOut = () => {
     
     const navigate = useNavigate();
 const { user } = useAuth();
-// const axiosSecure = useAxiosSecure();
-const [startDate] = useState(new Date()); // Removed setStartDate if not needed
+const [startDate] = useState(new Date());
 const [items, setItems] = useState([]);
 const [subtotal, setSubtotal] = useState(0);
-const [shippingFee] = useState(1.23); // Made constant if not changing
+const [shippingFee] = useState(1.23);
 const [total, setTotal] = useState(0);
 const [showText, setShowText] = useState(false);
 const [useStripePayment, setUseStripePayment] = useState(false);

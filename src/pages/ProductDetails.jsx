@@ -1,16 +1,8 @@
-// import { useState } from "react";
 
 import {   Link, useLoaderData, useNavigate } from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
-
-// import { AuthContext } from "../provider/AuthProvider";
-
-// import axios from "axios";
 import toast from "react-hot-toast";
 import useAuth from "../hooks/useAuth";
-// import useAxiosSecure from "../hooks/useAxiosSecure";
-
-
 import { useEffect, useState } from "react";
 import axios from "axios";
 
@@ -22,10 +14,8 @@ const ProductDetails = () => {
 
     }=productData || {}
 
-    // console.log(productData)
     const navigate = useNavigate()
     const {user} = useAuth()
-    // const axiosSecure = useAxiosSecure()
     const[products,setProducts]=useState([])
     const [showText, setShowText] = useState(false);
     const [rating, setRating] = useState(0);
@@ -37,7 +27,6 @@ const ProductDetails = () => {
         e.preventDefault()
         if (user?.email === adminEmail) return toast.error('Action not permitted!')
            if (!user) return toast.error('Please Sign In')
-        // const form = e.target
         const savedProductId = _id; 
         const saverEmail = user?.email;
         const owner = adminEmail;
@@ -121,7 +110,6 @@ const ProductDetails = () => {
  const ratingChanged = (newRating) => {
     setRating(newRating);
     console.log("Selected Rating:", newRating);
-    // You can also send this to your backend here if needed
   };
 
 // post review
@@ -167,18 +155,10 @@ const ProductDetails = () => {
         fetchData()
     }
 
-      
-
-          
-          
-    
-
-   
     return (
        <div className="mt-5">
         {/* product detail */}
-         
-           
+          
             <div className="flex md:flex-row flex-col justify-around items-center gap-4">
               {/* div 1 */}
                <div >
@@ -229,9 +209,6 @@ const ProductDetails = () => {
                     </div>
                      <Link to={`/product/${item._id}`}><h1 title={item.productName} className="mt-3 font-bold text-center capitalize hover:underline text-xl">{item.productName.length > 20 ? `${item.productName.substring(0, 20)}...` : item.productName}</h1></Link>
                     <p className="font-bold text-center capitalize">{item.brand}</p>
-                    {/* <p><span className="font-bold">Category :{category}</span> </p> */}
-                   
-                   
                     
                 </div></Link>)
           }
@@ -274,10 +251,7 @@ const ProductDetails = () => {
   />
       <p className="font-semibold">Your rating: <span className="text-rose-600">{rating}</span> <span className="text-rose-600">{rating === 1 ? 'star' : 'stars'}</span></p>
              </div>
-     
-  
           </div>
-
             <div>
                 <label className="text-rose-600 text-lg font-semibold dark:text-gray-200">Review Title</label>
                 <input name="title" type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-400 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
@@ -285,12 +259,7 @@ const ProductDetails = () => {
             <div>
                 <label className="text-rose-600 text-lg font-semibold dark:text-gray-200" >Review</label>
                 <textarea name="review"  type="text" className="block w-full px-4 py-2 mt-2 text-gray-700 bg-white border border-gray-400 rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 focus:ring-blue-300 focus:ring-opacity-40 dark:focus:border-blue-300 focus:outline-none focus:ring"/>
-            </div>
-           
-
-
-
-           
+            </div>   
         </div>
 
         <div className="flex justify-end mt-6">
@@ -300,7 +269,6 @@ const ProductDetails = () => {
 </section>
       )}
         </div>
-       
         {/* show the review */}
         <div>
            <p className={reviews.length === 0 ? 'hidden' : 'text-4xl font-bold m-10 text-center mt-20 underline underline-2 text-rose-600'}>Customers Review</p>
@@ -309,13 +277,8 @@ const ProductDetails = () => {
                <div key={review._id}>
             <section className="bg-white dark:bg-gray-900">
     <div className="container px-6 py-10 mx-auto">
-        
-
         <section className="grid grid-cols-1 gap-5 mt-8 xl:mt-5 lg:grid-cols-2 xl:grid-cols-3">
             
-         
-                
-
                 <div className="flex items-center mt-3 -mx-2">
                     <img className="object-cover mx-2 rounded-full w-14 shrink-0 h-14 ring-4 ring-gray-300 dark:ring-gray-700" src={review.reviewerImg} alt=""/>
 

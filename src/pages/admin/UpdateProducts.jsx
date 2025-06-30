@@ -1,17 +1,12 @@
-// import axios from "axios";
-
-
 
 import axios from "axios";
 import "react-datepicker/dist/react-datepicker.css";
 import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router-dom";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
 
 
 const UpdateProducts = () => {
     const editData= useLoaderData()
-    // const axiosSecure = useAxiosSecure()
     const navigate = useNavigate()
 
     const {_id,productName,price,description,category,imageUrl,brand} = editData || {}
@@ -27,7 +22,6 @@ const UpdateProducts = () => {
         const imageUrl = form.imageUrl.value 
         const brand = form.brand.value
        
-        // const adminEmail = user?.email
         const productData = {productName,price,description,category,imageUrl,brand}
         console.table(productData)
 

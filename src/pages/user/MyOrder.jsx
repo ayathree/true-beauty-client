@@ -1,17 +1,12 @@
 import { useEffect, useState } from "react";
-// import { AuthContext } from "../../provider/AuthProvider";
-// import axios from "axios";
 import { Link } from "react-router-dom";
-
 import useAuth from "../../hooks/useAuth";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import Swal from "sweetalert2";
 import axios from "axios";
 
 
 const MyOrder = () => {
     const {user}=useAuth()
-    // const axiosSecure=useAxiosSecure()
     const [orders, setOrders]=useState([])
     const[isLoading,setIsLoading]=useState([])
     useEffect(()=>{
@@ -78,11 +73,7 @@ const MyOrder = () => {
                                     
                                     <span>Product Name</span>
                                 </div>
-                            </th>
-
-                            
-
-                            
+                            </th> 
                             
                             <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Brand</th>
                             <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Method</th>

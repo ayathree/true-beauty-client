@@ -1,13 +1,9 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
 import axios from "axios";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
-
-
 
 const MyTransaction = () => {
      const{user}=useAuth()
-    // const axiosSecure = useAxiosSecure()
     const[payments, setPayments]=useState([])
     const[isLoading,setIsLoading]=useState([])
             useEffect(()=>{
@@ -53,7 +49,6 @@ const MyTransaction = () => {
                                             
                                         </th>
             
-                                        {/* <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Product Image</th> */}
                                         <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Transaction Id</th>
             
                                         <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Paid Amount</th>

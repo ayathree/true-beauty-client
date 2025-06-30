@@ -1,16 +1,11 @@
 import { useEffect, useState } from "react";
-// import { AuthContext } from "../../provider/AuthProvider";
-// import axios from "axios";
-
 import { Link } from "react-router-dom";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import Swal from "sweetalert2";
 import axios from "axios";
 
 
 const AllProducts = () => {
-    // const axiosSecure = useAxiosSecure()
     const {user}=useAuth()
     const[products, setProducts]=useState([])
     const[isLoading,setIsLoading]=useState([])

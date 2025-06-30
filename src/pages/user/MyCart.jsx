@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import useAuth from "../../hooks/useAuth";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import {  useNavigate } from "react-router-dom";
 import QuantityButton from "../../components/QuantityButton";
 import { FaExternalLinkAlt } from "react-icons/fa";
@@ -11,7 +10,6 @@ import axios from "axios";
 
 const MyCart = () => {
     const { user } = useAuth();
-    // const axiosSecure = useAxiosSecure();
     const navigate = useNavigate();
     const [carts, setCarts] = useState([]);
      const[isLoading,setIsLoading]=useState([])
@@ -208,7 +206,7 @@ const MyCart = () => {
             </div>
         </div>
         <div className="flex justify-center items-center mt-20">
-        <button onClick={handleCheckoutAll}  className="text-gray-500 transition-colors bg-red-300 dark:text-black rounded-lg px-4 py-2 disabled:bg-slate-400 duration-200 dark:hover:text-white dark:text-gray-300 hover:text-white focus:outline-none flex gap-2">
+        <button onClick={handleCheckoutAll}  className="text-gray-500 transition-colors bg-red-300 dark:text-black rounded-lg px-4 py-2 disabled:bg-slate-400 duration-200 dark:hover:text-white  hover:text-white focus:outline-none flex gap-2">
                                             Checkout<FaExternalLinkAlt />
                                             </button>
         </div>

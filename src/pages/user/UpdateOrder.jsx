@@ -1,17 +1,12 @@
-// import axios from "axios";
+
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useLoaderData, useNavigate } from "react-router-dom";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
-// import useAuth from "../../hooks/useAuth";
 
 
 const UpdateOrder = () => {
      const editData= useLoaderData()
-     console.log(editData);
-    //  const {user}=useAuth()
      const navigate = useNavigate()
-    //  const axiosSecure =useAxiosSecure()
      
      const handleFormSubmission=async e=>{
         e.preventDefault()

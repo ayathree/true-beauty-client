@@ -26,7 +26,7 @@ import BrandProducts from "./pages/BrandProducts";
 import About from "./pages/About";
 import ContactUs from "./pages/ContactUs";
 import Messages from "./pages/admin/Messages";
-import FoundationFinder from "./pages/FoundationFinder";
+
 
 
 
@@ -80,7 +80,6 @@ const router = createBrowserRouter([
             {
                 path:'/checkOut/:email',
                 element:<PrivateRoute><CheckOut></CheckOut></PrivateRoute>,
-                // loader:({params})=>fetch(`${import.meta.env.VITE_API_URL}/checkOutData/${params.email}`)
             },
             {
                 path:'/manageOrder',
@@ -132,10 +131,7 @@ const router = createBrowserRouter([
                 path:'/messages',
                 element:<AdminRoute><Messages></Messages></AdminRoute>
             },
-            {
-                path:'/skinTone',
-                element:<FoundationFinder></FoundationFinder>
-            }
+            
             
             
             

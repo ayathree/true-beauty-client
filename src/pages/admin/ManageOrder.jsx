@@ -1,23 +1,14 @@
-// import {  useEffect, useState } from "react";
-// import { AuthContext } from "../../provider/AuthProvider";
-// import axios from "axios";
+
 import { TiTick } from "react-icons/ti";
 import { MdOutlineLocalShipping  } from "react-icons/md";
 import { useMutation, useQuery } from "@tanstack/react-query";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
 import useAuth from "../../hooks/useAuth";
 import toast from "react-hot-toast";
 import axios from "axios";
-// import { useState } from "react";
-
-
 
 
 const ManageOrder = () => {
      const {user}=useAuth()
-    //  const[loading,setLoading]=useState([])
-    //  const axiosSecure=useAxiosSecure()
-    //  tanstack query for get data
      const {data: orders=[],
          isLoading,
          refetch,
@@ -29,11 +20,6 @@ const ManageOrder = () => {
      console.log(orders)
      console.log(isLoading);
     
-        // const [orders, setOrders]=useState([])
-        // useEffect(()=>{
-        //     getData()
-        // },[user])
-
         const getData = async ()=>{
             const{data}= await axios(`${import.meta.env.VITE_API_URL}/orderAdmin/${user?.email}`,
                 
@@ -101,8 +87,7 @@ const ManageOrder = () => {
                                    
                                 
                             </th>
-
-                            {/* <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Product Image</th> */}
+                            
                             <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Brand</th>
 
                             <th scope="col" className="px-4 py-3.5 text-sm font-normal text-left rtl:text-right text-gray-500 dark:text-gray-400">Phone Number</th>

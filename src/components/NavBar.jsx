@@ -4,7 +4,6 @@ import { AuthContext } from '../provider/AuthProvider';
 import { Link, NavLink } from 'react-router-dom';
 import useAdmin from '../hooks/useAdmin';
 import { IoNotifications } from 'react-icons/io5';
-// import useAxiosSecure from '../hooks/useAxiosSecure';
 import { FaShoppingCart } from 'react-icons/fa';
 import useAuth from '../hooks/useAuth';
 import axios from 'axios';
@@ -14,7 +13,6 @@ const NavBar = () => {
   const{user}=useAuth()
   const [isAdmin]=useAdmin()
   const{ loggedOut}=useContext(AuthContext)
-  // const axiosSecure=useAxiosSecure()
   const [order,setOrder]=useState([])
   const [cart, setCart] =useState([])
 
@@ -62,7 +60,7 @@ const NavBar = () => {
 
     return (
       <div>
-        {/* 1ct nav */}
+        {/* 1st nav */}
         <div className="navbar bg-base-100">
       <div className="flex-1">
         <img src={logo} className='h-16 w-24 md:h-[100px] md:w-[150px]' alt="" />
@@ -112,7 +110,7 @@ const NavBar = () => {
           <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/shops'}><li>Shop</li></NavLink>
           <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/about'}><li>About Us</li></NavLink>
           <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/contact'}><li>Contact Us</li></NavLink>
-          <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/skinTone'}><li>Skin Tone Checker</li></NavLink>
+          
 
          {
           !user &&  <NavLink className={({isActive})=>isActive?'text-rose-600 font-bold ':'dark:text-white'} to={'/login'}><li>Login</li></NavLink>

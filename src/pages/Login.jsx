@@ -7,8 +7,6 @@ import axios from "axios";
 import { IoEye, IoEyeOff } from "react-icons/io5";
 import { sendPasswordResetEmail } from "firebase/auth";
 import auth from "../firebase/firebase.config";
-// import useAdmin from "../hooks/useAdmin";
-// import useAxiosSecure from "../hooks/useAxiosSecure";
 
 
 const Login = () => {
@@ -19,41 +17,8 @@ const Login = () => {
    const[success, setSuccess] = useState('');
     const[showPass, setShowPass]=useState(false);
   const {signIn, google,}= useContext(AuthContext)
-  // const [isAdmin] = useAdmin();
-  //  const axiosSecure = useAxiosSecure()
   const from = location.state?.from || '/' 
-//   useEffect(() => {
-//   if (user) {
-//     // Define your actual admin route patterns
-//     const adminRoutes = [
-//       '/manageProducts',
-//       '/allProducts',
-//       '/updateProduct/:id',
-//       '/manageOrder',
-//       '/manageUsers',
-//       '/dashboard',
-//       '/messages'
-     
-//     ];
 
-//     const isRequestingAdminRoute = adminRoutes.some(route => 
-//       from.startsWith(route)
-//     );
-
-//     // Check if trying to access admin route without admin privileges
-//     if (isRequestingAdminRoute && !isAdmin) {
-//       navigate('/', { replace: true });
-//     }
-//     // Check if admin is trying to access non-admin routes
-//     else if (!isRequestingAdminRoute && isAdmin && from !== '/') {
-//       navigate('/', { replace: true }); 
-//     }
-//     // Otherwise go to requested page
-//     else {
-//       navigate(from, { replace: true });
-//     }
-//   }
-// }, [user, isAdmin, navigate, from]);
 
   const handleGoogleLogin = async () => {
   try {
@@ -65,11 +30,6 @@ const Login = () => {
       uid: result.user.uid
     });
     
-    // await axios.post(
-    //         `${import.meta.env.VITE_API_URL}/jwt`,
-    //         { email: user?.email },
-    //         { withCredentials: true }
-    //     );
     if (data.message === 'user exists') {
       toast.success('Welcome back!');
     } else {
@@ -96,10 +56,6 @@ const Login = () => {
      
       const result = await signIn(email,password)
       console.log(result.user)
-    //   const {data}=await axios.post(`${import.meta.env.VITE_API_URL}/jwt`,{
-    //     email :result?.user?.email,
-    // }, {withCredentials: true})
-    //   console.log(data)
     
       navigate(from, {replace: true})
       toast.success('Sign In successfully'  )
@@ -110,7 +66,7 @@ const Login = () => {
     }
     catch(err){
       console.log(err)
-      // toast.error(err?.message)
+     
       if (err?.message==='Firebase: Error (auth/invalid-credential).') {
             setRegisterError('Invalid Password Or Email, Check Again')
             
@@ -147,7 +103,6 @@ const Login = () => {
       
   
       }
-  // if ( user || loading) return
   
     return (
       <div className="flex w-full max-w-sm mx-auto overflow-hidden bg-white rounded-lg shadow-lg dark:bg-gray-800 lg:max-w-4xl min-h-[calc(100vh-306px)] my-12">

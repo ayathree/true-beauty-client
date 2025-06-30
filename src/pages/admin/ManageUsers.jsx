@@ -1,18 +1,9 @@
-// import { useEffect, useState } from "react";
-// import { BsCart } from "react-icons/bs";
-// import useAxiosSecure from "../../hooks/useAxiosSecure";
+
 import toast from "react-hot-toast";
-// import useAuth from "../../hooks/useAuth";
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
-// import { useState } from "react";
-// import axios from "axios";
-
 
 const ManageUsers = () => {
-    // const { user } = useAuth();
-    // const axiosSecure = useAxiosSecure();
-    // const [customers, setCustomers] = useState([]);
     
     
     const {data : users=[], refetch, isError, error,isLoading,}= useQuery({
