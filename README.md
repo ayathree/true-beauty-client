@@ -146,4 +146,22 @@ npm run format      # Format code with Prettier
    -- dotenv for secure environment configuration
 
 
+## 📄 Environment Variables Template (.env.example)
+
+```env
+# MongoDB
+MONGODB_URI=your_mongodb_connection_uri
+
+# Firebase
+REACT_APP_FIREBASE_API_KEY=your_key
+REACT_APP_FIREBASE_AUTH_DOMAIN=your_auth_domain
+REACT_APP_FIREBASE_PROJECT_ID=your_project_id
+REACT_APP_FIREBASE_STORAGE_BUCKET=your_storage
+REACT_APP_FIREBASE_MESSAGING_SENDER_ID=your_sender_id
+REACT_APP_FIREBASE_APP_ID=your_app_id
+
+# Stripe
+STRIPE_SECRET_KEY=your_stripe_secret_key
+
+```
 
