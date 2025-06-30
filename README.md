@@ -47,6 +47,7 @@ This website is a e-commerce site for cosmetics, where a customer can find many 
 ### ⚙️ System Features
 - 🌐 **Protected Routes** – Role-based route protection for User and Admin  
 - 📤 **Image Uploading** – For product listings and user profiles  
+- 💬 **Review System** - Customer can rate and give review for a product
 - 🧩 **Reusable Components** – Clean architecture and modular React components    
 - 🚀 **Performance Optimizations** – Lazy loading, efficient state management, and smooth UI  
 - 🧪 **User-Friendly Interface** – Intuitive layout for seamless interaction
@@ -59,5 +60,35 @@ This website is a e-commerce site for cosmetics, where a customer can find many 
 
 ```bash
 git clone https://github.com/ayathree/true-beauty-client.git
+
+```
+
+### 2. Install dependencies
+
+```bash
+cd project-name
+npm install
+
+```
+### 3. Run the development server
+
+```bash
+npm start
+
+```
+### 4.Set Up MongoDB
+
+- Install MongoDB locally
+  👉 Download MongoDB
+
+- Or use MongoDB Atlas for cloud database
+  👉 https://www.mongodb.com/cloud/atlas
+
+- Add your MongoDB URI to a .env file:
+
+```env
+MONGODB_URI=mongodb+srv://<username>:<password>@cluster.mongodb.net/your-db-name
+
+```
 
 
