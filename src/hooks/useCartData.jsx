@@ -12,7 +12,7 @@ const useCartData = () => {
 
   useEffect(() => {
     const getCart = async () => {
-      if (!user?.email || isAdminLoading || isAdmin) return; // Don't fetch if still loading or is admin
+      if (!user?.email || isAdminLoading || isAdmin) return;
 
       try {
         const { data } = await axiosSecure(`/cart/${user.email}`);

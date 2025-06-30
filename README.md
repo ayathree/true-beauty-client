@@ -1,6 +1,6 @@
-# React + Vite
+# True Beauty 
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This website is a e-commerce site for cosmetics, where a customer can find many cosmetics from different kinds and categories.
 
 Currently, two official plugins are available:
 
