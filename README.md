@@ -67,7 +67,7 @@ An interactive AI-powered voice command assistant is integrated into the site, p
 - **Available Commands:**
 - "Shop", "Collection", "Store", "Open Shop Page", "Open Cart Page"
 - **Technology** 
-- This feature is built using the modern Web Speech API, including [ Audio ], [SpeechSynthesisUtterance], [window.speechSynthesis], and cross-browser compatible [SpeechRecognition].
+- This feature is built using the modern Web Speech API, including **Audio**, [SpeechSynthesisUtterance], [window.speechSynthesis], and cross-browser compatible [SpeechRecognition].
 
 
 
